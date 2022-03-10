@@ -21,15 +21,13 @@ const count = ref(0);
       href="https://code.visualstudio.com/"
       class="text-emerald-500 underline transition-all hover:text-emerald-400"
       target="_blank"
-      >VSCode</a
-    >
+    >VSCode</a>
     +
     <a
       href="https://github.com/johnsoncodehk/volar"
       class="text-emerald-500 underline transition-all hover:text-emerald-400"
       target="_blank"
-      >Volar</a
-    >
+    >Volar</a>
   </p>
 
   <p class="mt-4 space-x-4">
@@ -45,8 +43,7 @@ const count = ref(0);
       href="https://v3.vuejs.org/"
       class="text-emerald-500 underline transition-all hover:text-emerald-400"
       target="_blank"
-      >Vue 3 Documentation</a
-    >
+    >Vue 3 Documentation</a>
   </p>
 
   <button
