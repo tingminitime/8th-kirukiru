@@ -14,8 +14,11 @@
     <!-- <HelloWorld msg="Vite + Vue 3 + Tailwindcss v3" /> -->
     <router-view></router-view>
 
+    <div class="py-2 px-4 text-white bg-sky-700 hover:bg-sky-800 sm:py-3 sm:px-8">
+      123
+    </div>
     <img
-      class="mx-auto my-8"
+      class="my-8 mx-auto"
       alt="powered-by"
       src="./assets/powered-by-vitawind-bright.png"
     >

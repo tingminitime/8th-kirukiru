@@ -1,15 +1,12 @@
 {
   // "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // "editor.formatOnPaste": true,
-  // "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
   "editor.formatOnSaveMode": "file",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    "javascript",
-    "vue"
-  ],
+  "eslint.validate": ["javascript", "vue"],
   "tailwindCSS.includeLanguages": {
     "plaintext": "html"
   },
@@ -17,4 +14,5 @@
     "strings": true
   },
   "vetur.validation.template": false,
+  "vetur.validation.script": false
 }
