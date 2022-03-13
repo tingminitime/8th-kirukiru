@@ -2,6 +2,17 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouterView } from 'vue-router'
 import store from '@/store/index.js'
 
+const scrollBehavior = (to, from, savedPosition) => {
+  if (to.hash) {
+    return {
+      el: to.hash,
+      behavior: 'smooth',
+    }
+  } else {
+    return { top: 0 }
+  }
+}
+
 const childrenLayer = [
   {
     path: '',
@@ -9,18 +20,21 @@ const childrenLayer = [
     components: {
       default: () => import('@/views/IndexContent.vue'),
     },
+    meta: { requiresAuth: false }
   },
   {
     path: 'page1',
     components: {
       default: () => import('@/views/Page1.vue'),
-    }
+    },
+    meta: { requiresAuth: false }
   },
   {
     path: 'user',
     components: {
       default: () => import('@/views/User.vue'),
     },
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',
@@ -41,16 +55,25 @@ const childrenLayer = [
             }
           }
         },
+        meta: { requiresAuth: true }
       },
       {
         path: 'profile',
         name: 'profile',
-        component: () => import('@/views/Profile.vue')
+        components: {
+          default: () => import('@/views/Profile.vue'),
+        },
+        meta: { requiresAuth: true },
+        beforeEnter(to, from, next) {
+          console.log('to: ', to, 'from: ', from)
+          next()
+        },
       },
       {
         path: 'posts',
         name: 'posts',
-        component: () => import('@/views/Posts.vue')
+        component: () => import('@/views/Posts.vue'),
+        meta: { requiresAuth: false }
       },
     ]
   },
@@ -80,9 +103,16 @@ const routes = [
 ]
 
 const Router = createRouter({
-  // history: createWebHashHistory(),
-  history: createWebHistory(),
+  history: createWebHashHistory(),
+  // history: createWebHistory(),
   routes,
+  scrollBehavior,
+})
+
+Router.beforeEach((to, from, next) => {
+  console.log('trigger beforeEach!')
+  console.log(to, from)
+  next()
 })
 
 export default Router

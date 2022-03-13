@@ -24,6 +24,11 @@ export default {
   components: {
     UserInfo,
   },
+  beforeRouteUpdate(to, from, next) {
+    console.log('trigger beforeRouteUpdate!')
+    console.log(to, from)
+    next()
+  },
   props: {
     uid: {
       type: [String, Number],
