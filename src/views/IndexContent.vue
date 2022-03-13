@@ -4,19 +4,10 @@
       Index
     </p>
   </div>
-  <p class="text-center">
-    {{ $route.query.page }}
-  </p>
 </template>
 
 <script>
 export default {
   name: 'IndexContent',
-  // props: {
-  //   page: {
-  //     type: Boolean,
-  //     default: false,
-  //   }
-  // }
 }
 </script>

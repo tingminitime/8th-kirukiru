@@ -1,35 +1,31 @@
 <template>
-  <Nav></Nav>
   <router-view></router-view>
-  <div class="flex justify-center">
-    <button
-      type="button"
-      class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-700 rounded"
-      @click="clickHandler"
-    >
-      Go to USER page
-    </button>
-  </div>
+  <p>{{ $store.state.count }}</p>
+  <p>{{ count }}</p>
 </template>
 
 <script>
-  import Nav from '@/components/Nav.vue'
+import { mapState } from 'vuex'
+import { apiTest } from '@/http/api'
 
   export default {
     name: 'App',
-    components: {
-      Nav,
-    },
     data() {
       return {
-        show: 1
+        // count: 0,
       }
     },
-    methods: {
-      clickHandler() {
-        this.$router.push('/user')
-      },
-    }
+    computed: {
+      ...mapState({
+        // count: state => state.count,
+        count: 'count',
+      })
+    },
+    mounted() {
+      // apiTest().then((res) => {
+      //   console.log(res)
+      // })
+    },
   }
 </script>
 
