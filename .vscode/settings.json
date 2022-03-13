@@ -6,7 +6,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": ["javascript", "vue"],
+  "eslint.validate": [
+    "javascript",
+    "vue"
+  ],
   "tailwindCSS.includeLanguages": {
     "plaintext": "html"
   },
@@ -14,5 +17,6 @@
     "strings": true
   },
   "vetur.validation.template": false,
-  "vetur.validation.script": false
+  "vetur.validation.script": false,
+  "liveServer.settings.port": 3005,
 }
