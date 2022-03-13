@@ -21,8 +21,9 @@ const routes = [
     // component: { render: () => h(RouterView) },
     name: 'HomePage',
     components: {
-      default: () => import('@/views/Index.vue'),
+      default: () => import('@/views/HomePage.vue'),
     },
+    meta: { requiresAuth: false },
     children: [
       {
         path: '',
@@ -32,13 +33,19 @@ const routes = [
         meta: { requiresAuth: false }
       },
       {
-        path: '/:pathMatch(.*)',
-        redirect: { name: 'NotFound' }
+        path: 'login',
+        component: {
+          default: () => import('@/views/LoginPage.vue')
+        }
       },
       {
-        path: '404',
+        path: '/:pathMatch(.*)',
+        redirect: { name: 'NotFound', query: { status: 404 } }
+      },
+      {
+        path: 'error',
         name: 'NotFound',
-        component: () => import('@/views/Error.vue')
+        component: () => import('@/views/NotFound.vue')
       },
     ],
   },

@@ -8,7 +8,10 @@
   },
   "dependencies": {
     "@headlessui/vue": "^1.5.0",
+    "@vee-validate/i18n": "^4.5.10",
+    "@vee-validate/rules": "^4.5.10",
     "axios": "^0.26.1",
+    "vee-validate": "^4.5.10",
     "vue": "^3.2.25",
     "vue-loading-overlay": "5.0",
     "vue-router": "^4.0.13",

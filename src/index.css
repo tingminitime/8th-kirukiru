@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .navLogo {
+    @apply bg-[url('src/assets/images/Logo-Simple-white.svg')] bg-no-repeat bg-contain bg-center bg-transparent
+  }
+}

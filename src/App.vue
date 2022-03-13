@@ -1,11 +1,9 @@
 <template>
   <router-view></router-view>
-  <p>{{ $store.state.count }}</p>
-  <p>{{ count }}</p>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { apiTest } from '@/http/api'
 
   export default {
@@ -19,12 +17,17 @@ import { apiTest } from '@/http/api'
       ...mapState({
         // count: state => state.count,
         count: 'count',
-      })
+      }),
+      ...mapGetters([
+        'filterTodos'
+      ])
     },
     mounted() {
       // apiTest().then((res) => {
       //   console.log(res)
       // })
+      console.log(this.filterTodos(1).content)
+      console.log(this.$store.getters.filterTodos(2).content)
     },
   }
 </script>
