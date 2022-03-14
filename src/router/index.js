@@ -35,8 +35,9 @@ const routes = [
       {
         path: 'login',
         name: 'LoginPage',
-        component: {
-          default: () => import('@/views/LoginPage.vue')
+        components: {
+          default: () => import('@/views/HomePage.vue'),
+          login: () => import('@/views/LoginPage.vue'),
         },
         meta: { requiresAuth: false },
       },

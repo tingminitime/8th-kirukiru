@@ -1,7 +1,7 @@
 <template>
   <TopNavbar></TopNavbar>
-  <div class="container">
-    <router-view></router-view>
+  <div class="container pt-[72px]">
+    <router-view name="login"></router-view>
   </div>
 </template>
 
@@ -12,6 +12,6 @@ export default {
   name: 'HomePage',
   components: {
     TopNavbar,
-  }
+  },
 }
 </script>

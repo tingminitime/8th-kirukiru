@@ -5,6 +5,11 @@ const store = createStore({
   state() {
     return {
       loginInfo: {},
+      maskBlackState: {
+        allowDrop: false,
+        isShow: false,
+      },
+      maskWhiteState: false,
       count: 0,
       numbers: [0, 1, 2, 3, 4, 5, 6],
       todos: [
@@ -30,6 +35,15 @@ const store = createStore({
       return (uid) => {
         return state.todos.find(todo => todo.uid === uid)
       }
+    }
+  },
+  mutations: {
+    SET_MASK_BLACK(state, payload) {
+      state.maskBlackState.allowDrop = payload.allowDrop
+      state.maskBlackState.isShow = payload.isShow
+    },
+    SET_COUNT(state, num) {
+      state.count += num
     }
   },
 })
