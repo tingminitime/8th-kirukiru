@@ -4,6 +4,7 @@ const store = createStore({
   strict: process.env.NODE_ENV !== 'production',
   state() {
     return {
+      loginInfo: {},
       count: 0,
       numbers: [0, 1, 2, 3, 4, 5, 6],
       todos: [

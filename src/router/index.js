@@ -25,13 +25,13 @@ const routes = [
     },
     meta: { requiresAuth: false },
     children: [
-      {
-        path: '',
-        components: {
-          default: () => import('@/views/IndexContent.vue'),
-        },
-        meta: { requiresAuth: false }
-      },
+      // {
+      //   path: '',
+      //   components: {
+      //     default: () => import('@/views/IndexContent.vue'),
+      //   },
+      //   meta: { requiresAuth: false }
+      // },
       {
         path: 'login',
         component: {

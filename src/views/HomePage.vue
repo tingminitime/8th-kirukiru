@@ -1,15 +1,17 @@
 <template>
-  <LayoutNavbar></LayoutNavbar>
-  <router-view></router-view>
+  <TopNavbar></TopNavbar>
+  <div class="container">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import LayoutNavbar from '@/components/LayoutNavbar.vue'
+import TopNavbar from '@/components/TopNavbar.vue'
 
 export default {
-  name: 'PageHome',
+  name: 'HomePage',
   components: {
-    LayoutNavbar,
+    TopNavbar,
   }
 }
 </script>

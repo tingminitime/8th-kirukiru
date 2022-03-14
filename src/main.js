@@ -3,6 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import '@/index.css'
+import 'flowbite'
 
 // --- vee-validate v4 ---
 import { defineRule, configure } from 'vee-validate';
