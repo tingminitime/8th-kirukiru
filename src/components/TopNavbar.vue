@@ -20,7 +20,7 @@
       <div
         class="hidden w-full md:block md:w-auto"
       >
-        <ul class="flex flex-col mt-4 md:flex-row md:mt-0 md:space-x-8 md:text-sm md:font-medium">
+        <ul class="flex flex-col mt-4 md:flex-row md:gap-4 md:mt-0 md:text-sm md:font-medium lg:gap-8">
           <li>
             <a
               href="#"
@@ -40,7 +40,7 @@
       <div
         class="hidden w-full md:block md:w-auto"
       >
-        <ul class="flex flex-col mt-4 md:flex-row md:items-center md:mt-0 md:space-x-8 md:text-sm md:font-medium">
+        <ul class="flex flex-col mt-4 md:flex-row md:gap-4 md:items-center md:mt-0 md:text-sm md:font-medium lg:gap-8">
           <li>
             <a
               href="#"
@@ -60,11 +60,13 @@
             >撰寫切切</a>
           </li>
           <li>
-            <a
-              href="#"
+            <router-link
+              :to="{ name: 'LoginPage' }"
               class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
               aria-current="page"
-            >註冊 / 登入</a>
+            >
+              註冊 / 登入
+            </router-link>
           </li>
         </ul>
       </div>
@@ -74,5 +76,6 @@
 
 <script>
 export default {
+  
 }
 </script>

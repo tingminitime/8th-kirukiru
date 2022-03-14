@@ -30,13 +30,15 @@ const routes = [
       //   components: {
       //     default: () => import('@/views/IndexContent.vue'),
       //   },
-      //   meta: { requiresAuth: false }
+      //   meta: { requiresAuth: false },
       // },
       {
         path: 'login',
+        name: 'LoginPage',
         component: {
           default: () => import('@/views/LoginPage.vue')
-        }
+        },
+        meta: { requiresAuth: false },
       },
       {
         path: '/:pathMatch(.*)',
