@@ -16,7 +16,8 @@
     "vue": "^3.2.25",
     "vue-loading-overlay": "5.0",
     "vue-router": "^4.0.13",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

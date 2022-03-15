@@ -111,6 +111,10 @@ export default {
       }
     },
     showLoginModal() {
+      this.$store.commit('SET_MASK', {
+        allowDrop: false,
+        isShow: true,
+      })
       this.$store.commit('OPEN_LOGIN_MODAL', false)
     }
   }
