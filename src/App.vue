@@ -1,16 +1,19 @@
 <template>
   <router-view></router-view>
   <MaskBlack></MaskBlack>
+  <LoginModal :is-open="openLoginModal"></LoginModal>
 </template>
 
 <script>
 import MaskBlack from '@/components/MaskBlack.vue'
+import LoginModal from '@/components/LoginModal.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'App',
     components: {
       MaskBlack,
+      LoginModal,
     },
     data() {
       return {
@@ -18,25 +21,21 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
       }
     },
     computed: {
-      ...mapState({
-        // count: state => state.count,
-        count: 'count',
-      }),
-      ...mapGetters([
-        'filterTodos'
-      ])
-    },
-    mounted() {
-      console.log(this.filterTodos(1).content)
-      console.log(this.$store.getters.filterTodos(2).content)
-    },
-    methods: {
-      ...mapMutations([
-        'SET_COUNT',
+      ...mapState([
+        'openLoginModal'
       ])
     }
   }
 </script>
 
 <style lang="sass">
+*
+  &::-webkit-scrollbar
+    width: 8px
+  &::-webkit-scrollbar-track
+    opacity: 0
+    border-radius: 8px
+  &::-webkit-scrollbar-thumb
+    background-color: #553529
+    border-radius: 6px
 </style>

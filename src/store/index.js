@@ -10,41 +10,25 @@ const store = createStore({
         isShow: false,
       },
       maskWhiteState: false,
-      count: 0,
-      numbers: [0, 1, 2, 3, 4, 5, 6],
-      todos: [
-        {
-          uid: 1,
-          content: '我是1啦',
-        },
-        {
-          uid: 2,
-          content: '我是2啦',
-        },
-      ]
+      openLoginModal: false,
     }
   },
-  getters: {
-    oddNumbers(state) {
-      return state.numbers.filter(num => num % 2 === 1)
-    },
-    evenNumbers(state) {
-      return state.numbers.filter(num => num % 2 === 0)
-    },
-    filterTodos(state) {
-      return (uid) => {
-        return state.todos.find(todo => todo.uid === uid)
-      }
-    }
-  },
+  getters: {},
   mutations: {
     SET_MASK_BLACK(state, payload) {
       state.maskBlackState.allowDrop = payload.allowDrop
       state.maskBlackState.isShow = payload.isShow
     },
-    SET_COUNT(state, num) {
-      state.count += num
-    }
+    OPEN_LOGIN_MODAL(state, payload) {
+      state.maskBlackState.allowDrop = payload
+      state.maskBlackState.isShow = true
+      state.openLoginModal = true
+    },
+    CLOSE_LOGIN_MODAL(state) {
+      state.maskBlackState.allowDrop = false
+      state.maskBlackState.isShow = false
+      state.openLoginModal = false
+    },
   },
 })
 

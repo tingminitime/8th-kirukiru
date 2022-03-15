@@ -9,7 +9,7 @@
   >
     <div
       v-if="maskBlackState.isShow"
-      class="fixed inset-0 z-30 bg-black/30 backdrop-blur-sm transition-all duration-300"
+      class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-all duration-300"
       @click="dropToggle"
     ></div>
   </transition>

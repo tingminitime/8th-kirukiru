@@ -25,22 +25,6 @@ const routes = [
     },
     meta: { requiresAuth: false },
     children: [
-      // {
-      //   path: '',
-      //   components: {
-      //     default: () => import('@/views/IndexContent.vue'),
-      //   },
-      //   meta: { requiresAuth: false },
-      // },
-      {
-        path: 'login',
-        name: 'LoginPage',
-        components: {
-          default: () => import('@/views/HomePage.vue'),
-          login: () => import('@/views/LoginPage.vue'),
-        },
-        meta: { requiresAuth: false },
-      },
       {
         path: '/:pathMatch(.*)',
         redirect: { name: 'NotFound', query: { status: 404 } }
@@ -63,7 +47,7 @@ const Router = createRouter({
 
 Router.beforeEach((to, from, next) => {
   console.log('trigger beforeEach!')
-  console.log(to, from)
+  // console.log(to, from)
   next()
 })
 

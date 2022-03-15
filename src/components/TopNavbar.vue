@@ -1,5 +1,5 @@
 <template> 
-  <div class="fixed top-0 left-0 z-50 w-full">
+  <div class="fixed top-0 left-0 z-40 w-full">
     <nav class="relative px-8 h-[72px] bg-myYellow">
       <router-link
         :to="{ name: 'HomePage' }"
@@ -30,14 +30,12 @@
               <a
                 href="#"
                 class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
-                aria-current="page"
               >關於切切</a>
             </li>
             <li>
               <a
                 href="#"
                 class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
-                aria-current="page"
               >切切分類</a>
             </li>
           </ul>
@@ -50,7 +48,6 @@
               <a
                 href="#"
                 class="flex justify-center items-center text-lg font-bold text-myGray rounded md:px-4 md:bg-transparent"
-                aria-current="page"
               >
                 <span class="text-3xl material-icons">
                   search
@@ -61,18 +58,16 @@
               <a
                 href="#"
                 class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
-                aria-current="page"
               >撰寫切切</a>
             </li>
             <li>
-              <router-link
+              <button
                 v-if="1"
-                :to="{ name: 'LoginPage' }"
                 class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
-                aria-current="page"
+                @click="showLoginModal"
               >
                 註冊 / 登入
-              </router-link>
+              </button>
               <UserAvatar
                 v-else
                 class="hidden md:block"
@@ -86,13 +81,15 @@
       </div>
     </nav>
   </div>
-  <MobileNavbar></MobileNavbar>
+  <MobileNavbar
+    :show-navbar="showNavbar"
+    @drop-close="toggleMobileNav"
+  ></MobileNavbar>
 </template>
 
 <script>
 import MobileNavbar from '@/components/MobileNavbar.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
-import { mapState } from 'vuex'
 
 export default {
   name: 'TopNavbar',
@@ -100,18 +97,22 @@ export default {
     MobileNavbar,
     UserAvatar,
   },
-  computed: {
-    ...mapState([
-      'maskBlackState',
-    ])
+  data() {
+    return {
+      showNavbar: false,
+    }
   },
   methods: {
-    toggleMobileNav() {
-      this.$store.commit('SET_MASK_BLACK', {
-        allowDrop: true,
-        isShow: !this.maskBlackState.isShow,
-      })
+    toggleMobileNav(val) {
+      if (val !== undefined) {
+        this.showNavbar = !this.showNavbar
+      } else {
+        this.showNavbar = val
+      }
     },
+    showLoginModal() {
+      this.$store.commit('OPEN_LOGIN_MODAL', false)
+    }
   }
 }
 </script>

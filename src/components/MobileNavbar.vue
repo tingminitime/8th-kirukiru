@@ -1,8 +1,23 @@
 <template>
+  <!-- Mask -->
+  <transition
+    enter-active-class="transition duration-300 ease-out"
+    enter-from-class="transform opacity-0"
+    enter-to-class="transform opacity-100"
+    leave-active-class="transition duration-300 ease-in"
+    leave-from-class="transform opacity-100"
+    leave-to-class="transform opacity-0"
+  >
+    <div
+      v-if="showNavbar"
+      class="fixed inset-0 z-20 bg-black/30 backdrop-blur-sm transition-all duration-300"
+      @click="dropToggle"
+    ></div>
+  </transition>
   <!-- Mobile Nav -->
   <div
-    class="overflow-x-hidden overflow-y-auto fixed z-40 pt-[72px] transition-all duration-200 md:hidden"
-    :class="[ maskBlackState.isShow ? 'translate-x-0' : '-translate-x-full' ]"
+    class="overflow-x-hidden overflow-y-auto fixed z-30 pt-[72px] shadow-xl transition-all duration-200 md:hidden"
+    :class="[ showNavbar ? 'translate-x-0' : '-translate-x-full' ]"
   >
     <div class="flex flex-col justify-between max-w-xs h-[calc(100vh-72px)] bg-gray-200">
       <ul class="flex flex-col">
@@ -53,10 +68,17 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  computed: {
-    ...mapState([
-      'maskBlackState',
-    ])
+  props: {
+    showNavbar: {
+      type: Boolean,
+      default: false,
+    }
+  },
+  emits: ['drop-close'],
+  methods: {
+    dropToggle() {
+      this.$emit('drop-close', false)
+    }
   },
 }
 </script>
