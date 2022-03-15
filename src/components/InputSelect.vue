@@ -4,7 +4,9 @@
     :model-value="value || modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
   >
-    <ListboxLabel>請選擇興趣:</ListboxLabel>
+    <ListboxLabel class="sr-only">
+      請選擇興趣:
+    </ListboxLabel>
     <div class="relative mt-1">
       <ListboxButton
         class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg focus-visible:border-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 shadow-md cursor-default sm:text-sm"
