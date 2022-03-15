@@ -8,13 +8,12 @@
     leave-to-class="transform opacity-0 -translate-x-48"
   >
     <div
-      v-if="isOpen"
       class="flex fixed top-0 left-0 z-50 justify-center items-center w-screen h-full"
     >
       <div
         class="flex justify-center items-center drop-shadow-2xl"
       >
-        <div class="overflow-hidden pb-8 mx-auto w-96 bg-white rounded-3xl shadow-xl">
+        <div class="overflow-hidden pb-8 mx-auto w-80 bg-white rounded-3xl shadow-xl md:w-96">
           <div class="relative py-4 bg-myYellow">
             <h1 class="text-2xl font-bold text-center text-myBrown select-none">
               會員登入
@@ -36,19 +35,27 @@
             >
           </div>
           <div class="px-10 bg-white">
-            <form method="POST">
+            <v-form
+              :validation-schema="schema"
+              @submit="onSubmit"
+              @invalid-submit="onInvalidSubmit"
+            >
               <InputText
-                id="login-account"
                 name="login-account"
+                type="text"
+                label="帳號"
                 placeholder="帳號"
-                class="mb-8"
+                class="mb-10"
+                success-message=""
               ></InputText>
 
               <InputText
-                id="login-password"
                 name="login-password"
+                type="text"
+                label="密碼"
                 placeholder="密碼"
-                class="mb-4"
+                class="mb-10"
+                success-message=""
               ></InputText>
 
               <div class="flex justify-between items-center">
@@ -73,22 +80,22 @@
                 </div>
               </div>
 
-              <div>
-                <input
-                  type="button"
-                  value="登入"
-                  class="block py-2 px-4 mt-12 w-full text-xl font-bold text-center text-white hover:text-myYellow bg-myYellow hover:bg-transparent rounded focus:outline-none hover:ring-4 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 cursor-pointer"
+              <div class="flex flex-col justify-center items-center">
+                <button
+                  type="submit"
+                  class="block py-2 px-4 mt-12 w-48 text-xl font-bold text-center text-white hover:text-myYellow bg-myYellow hover:bg-transparent rounded focus:outline-none hover:ring-4 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 cursor-pointer"
                 >
-                <p class="mt-4 text-lg font-bold text-center text-myBrown">
-                  <button
-                    type="button"
-                    class="py-1 px-4 hover:underline underline-offset-4"
-                  >
-                    立即註冊 !
-                  </button>
-                </p>
+                  登入
+                </button>
+                <button
+                  type="button"
+                  class="py-1 px-4 mt-4 text-lg font-bold text-center text-myBrown hover:underline underline-offset-4"
+                  @click="goRegister"
+                >
+                  立即註冊 !
+                </button>
               </div>
-            </form>
+            </v-form>
           </div>
         </div>
       </div>
@@ -99,6 +106,18 @@
 <script>
 import InputText from '@/components/InputText.vue'
 import * as Yup from 'yup'
+import { setLocale } from 'yup'
+import { mapMutations } from 'vuex'
+
+setLocale({
+  mixed: {
+    default: '無效的輸入',
+    required: '必填欄位'
+  },
+  string: {
+    min: '長度不可小於 ${min}'
+  }
+})
 
 export default {
   name: 'LoginModal',
@@ -112,12 +131,38 @@ export default {
     }
   },
   data() {
+    const schema = Yup.object().shape({
+      'login-account': Yup.string().required(),
+      'login-password': Yup.string().min(6).required(),
+    })
+
     return {
+      schema,
     }
   },
   methods: {
+    onSubmit(values) {
+      console.log(JSON.stringify(values, null, 2))
+    },
+    onInvalidSubmit(val) {
+      console.log(val)
+    },
+    ...mapMutations([
+      'OPEN_LOGIN_MODAL',
+      'OPEN_REGISTER_MODAL',
+      'CLOSE_MASK',
+      'CLOSE_LOGIN_MODAL',
+    ]),
     closeModal() {
-      this.$store.commit('CLOSE_LOGIN_MODAL')
+      this.CLOSE_MASK()
+      this.CLOSE_LOGIN_MODAL()
+    },
+    showRegisterModal() {
+      this.OPEN_LOGIN_MODAL()
+    },
+    goRegister() {
+      this.CLOSE_LOGIN_MODAL()
+      this.OPEN_REGISTER_MODAL()
     },
   }
 }

@@ -1,12 +1,24 @@
 <template>
   <router-view></router-view>
   <MaskBlack></MaskBlack>
-  <LoginModal :is-open="openLoginModal"></LoginModal>
+  <transition
+    mode="out-in"
+    enter-active-class="transition duration-300 ease-out"
+    enter-from-class="transform opacity-0 translate-x-48"
+    enter-to-class="transform opacity-100 translate-x-0"
+    leave-active-class="transition duration-300 ease-in"
+    leave-from-class="transform opacity-100 translate-x-0"
+    leave-to-class="transform opacity-0 -translate-x-48"
+  >
+    <LoginModal v-if="openLoginModal"></LoginModal>
+    <RegisterModal v-else-if="openRegisterModal"></RegisterModal>
+  </transition>
 </template>
 
 <script>
 import MaskBlack from '@/components/MaskBlack.vue'
 import LoginModal from '@/components/LoginModal.vue'
+import RegisterModal from '@/components/RegisterModal.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
   export default {
@@ -14,6 +26,7 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
     components: {
       MaskBlack,
       LoginModal,
+      RegisterModal,
     },
     data() {
       return {
@@ -22,7 +35,8 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
     },
     computed: {
       ...mapState([
-        'openLoginModal'
+        'openLoginModal',
+        'openRegisterModal',
       ])
     }
   }
@@ -37,5 +51,5 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
     border-radius: 8px
   &::-webkit-scrollbar-thumb
     background-color: #553529
-    border-radius: 6px
+    border-radius: 8px
 </style>

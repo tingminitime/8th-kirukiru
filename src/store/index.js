@@ -11,23 +11,30 @@ const store = createStore({
       },
       maskWhiteState: false,
       openLoginModal: false,
+      openRegisterModal: false,
     }
   },
   getters: {},
   mutations: {
-    SET_MASK_BLACK(state, payload) {
+    SET_MASK(state, payload) {
       state.maskBlackState.allowDrop = payload.allowDrop
       state.maskBlackState.isShow = payload.isShow
     },
-    OPEN_LOGIN_MODAL(state, payload) {
-      state.maskBlackState.allowDrop = payload
-      state.maskBlackState.isShow = true
+    CLOSE_MASK(state) {
+      state.maskBlackState.allowDrop = false
+      state.maskBlackState.isShow = false
+    },
+    OPEN_LOGIN_MODAL(state) {
       state.openLoginModal = true
     },
     CLOSE_LOGIN_MODAL(state) {
-      state.maskBlackState.allowDrop = false
-      state.maskBlackState.isShow = false
       state.openLoginModal = false
+    },
+    OPEN_REGISTER_MODAL(state) {
+      state.openRegisterModal = true
+    },
+    CLOSE_REGISTER_MODAL(state) {
+      state.openRegisterModal = false
     },
   },
 })

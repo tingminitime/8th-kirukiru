@@ -25,13 +25,25 @@ export default {
       'maskBlackState',
     ])
   },
+  watch: {
+    'maskBlackState.isShow': {
+      handler(newVal) {
+        if (newVal === true) {
+          document.querySelector('body').classList.add('hideScrollbar')
+        } else {
+          document.querySelector('body').classList.remove('hideScrollbar')
+        }
+      },
+      immediate: true,
+    }
+  },
   methods: {
     ...mapMutations([
-      'SET_MASK_BLACK',
+      'SET_MASK',
     ]),
     dropToggle() {
       if (this.maskBlackState.allowDrop) {
-        this.SET_MASK_BLACK({
+        this.SET_MASK({
           allowDrop: true,
           isShow: !this.maskBlackState.isShow
         })
@@ -40,3 +52,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.hideScrollbar
+  overflow: hidden
+</style>
