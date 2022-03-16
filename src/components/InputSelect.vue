@@ -12,7 +12,7 @@
         class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg focus-visible:border-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 shadow-md cursor-default sm:text-sm"
       >
         <span class="block truncate">{{
-          (value || modelValue)?.[labelProp] || "Please select an option"
+          (value || modelValue)?.[labelProp] || "請選擇一項興趣主題"
         }}</span>
         <span
           class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none"

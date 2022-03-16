@@ -86,8 +86,8 @@
                   class="mb-10"
                   success-message=""
                 ></InputText>
-
-                <div>
+                <!-- 選擇興趣 -->
+                <div class="mb-8">
                   <v-field
                     v-slot="{ field, errorMessage }"
                     v-model="interest"
@@ -103,11 +103,53 @@
                     <span class="text-red-500">{{ errorMessage }}</span>
                   </v-field>
                 </div>
-
-                <div class="flex flex-col justify-center items-center">
+                <!-- 同意選項 -->
+                <div class="my-4">
+                  <SwitchGroup>
+                    <div class="flex justify-between items-center">
+                      <SwitchLabel class="select-none">
+                        您是否同意切切規範
+                      </SwitchLabel>
+                      <Switch
+                        v-model="agreeTerms"
+                        :class="agreeTerms ? 'bg-myYellow' : 'bg-gray-200'"
+                        class="inline-flex relative items-center w-10 h-5 rounded-full transition"
+                      >
+                        <span class="sr-only">您是否同意切切規範</span>
+                        <span
+                          :class="agreeTerms ? 'translate-x-8' : 'translate-x-0'"
+                          class="inline-block w-2 h-5 bg-white rounded-full ring-4 ring-myYellow transition"
+                        ></span>
+                      </Switch>
+                    </div>
+                  </SwitchGroup>
+                </div>
+                <!-- 電子信 -->
+                <div class="my-4">
+                  <SwitchGroup>
+                    <div class="flex justify-between items-center">
+                      <SwitchLabel class="select-none">
+                        您是否願意收到電子信 ?
+                      </SwitchLabel>
+                      <Switch
+                        v-model="receiveMail"
+                        :class="receiveMail ? 'bg-myYellow' : 'bg-gray-200'"
+                        class="inline-flex relative items-center w-10 h-5 rounded-full transition"
+                      >
+                        <span class="sr-only">您是否願意收到電子信 ?</span>
+                        <span
+                          :class="receiveMail ? 'translate-x-8' : 'translate-x-0'"
+                          class="inline-block w-2 h-5 bg-white rounded-full ring-4 ring-myYellow transition"
+                        ></span>
+                      </Switch>
+                    </div>
+                  </SwitchGroup>
+                </div>
+                <!-- 註冊按鈕 -->
+                <div class="flex flex-col justify-center items-center mt-8">
                   <button
                     type="submit"
-                    class="block py-2 px-4 mt-12 w-48 text-xl font-bold text-center text-white hover:text-myYellow bg-myYellow hover:bg-transparent rounded focus:outline-none hover:ring-4 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 cursor-pointer"
+                    class="block py-2 px-4 w-48 text-xl font-bold text-center text-white hover:text-myYellow bg-myYellow hover:bg-transparent rounded focus:outline-none hover:ring-4 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 cursor-pointer"
                   >
                     註冊
                   </button>
@@ -124,8 +166,10 @@
 <script>
 import InputText from '@/components/InputText.vue'
 import InputSelect from '@/components/InputSelect.vue'
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
+import { ref } from 'vue'
 
 setLocale({
   mixed: {
@@ -143,6 +187,7 @@ export default {
   components: {
     InputText,
     InputSelect,
+    Switch,
   },
   props: {
     isOpen: {
@@ -169,7 +214,9 @@ export default {
         {
           name: '456',
         },
-      ]
+      ],
+      agreeTerms: false,
+      receiveMail: false,
     }
   },
   methods: {
