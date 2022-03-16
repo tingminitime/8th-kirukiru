@@ -26,6 +26,13 @@ const routes = [
     meta: { requiresAuth: false },
     children: [
       {
+        path: '/login',
+        name: 'UserLogin',
+        components: {
+          default: () => import('@/views/LoginPage.vue'),
+        },
+      },
+      {
         path: '/:pathMatch(.*)',
         redirect: { name: 'NotFound', query: { status: 404 } }
       },

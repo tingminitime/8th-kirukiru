@@ -61,13 +61,20 @@
               >撰寫切切</a>
             </li>
             <li>
-              <button
+              <!-- <button
                 v-if="1"
                 class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
                 @click="showLoginModal"
               >
                 註冊 / 登入
-              </button>
+              </button> -->
+              <router-link
+                v-if="1"
+                class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
+                :to="{ name: 'UserLogin' }"
+              >
+                註冊 / 登入
+              </router-link>
               <UserAvatar
                 v-else
                 class="hidden md:block"

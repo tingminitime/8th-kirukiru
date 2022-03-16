@@ -1,18 +1,14 @@
 <template>
   <Listbox
-    as="div"
     :model-value="value || modelValue"
     @update:modelValue="$emit('update:modelValue', $event)"
   >
-    <ListboxLabel class="sr-only">
-      請選擇興趣:
-    </ListboxLabel>
     <div class="relative mt-1">
       <ListboxButton
-        class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg focus-visible:border-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 shadow-md cursor-default sm:text-sm"
+        class="myListboxButton"
       >
         <span class="block truncate">{{
-          (value || modelValue)?.[labelProp] || "請選擇一項興趣主題"
+          (value || modelValue)?.[labelProp] || defaultText
         }}</span>
         <span
           class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none"
@@ -26,7 +22,7 @@
         leave-to-class="opacity-0"
       >
         <ListboxOptions
-          class="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black/5 shadow-lg sm:text-sm"
+          class="overflow-auto sticky z-50 py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black/5 shadow-lg sm:text-sm"
         >
           <ListboxOption
             v-for="option in options"
@@ -63,7 +59,6 @@
 <script>
 import {
   Listbox,
-  ListboxLabel,
   ListboxButton,
   ListboxOptions,
   ListboxOption,
@@ -72,7 +67,6 @@ import {
 export default {
   components: {
     Listbox,
-    ListboxLabel,
     ListboxButton,
     ListboxOptions,
     ListboxOption,
@@ -96,6 +90,10 @@ export default {
       type: String,
       required: true,
     },
+    defaultText: {
+      type: String,
+      default: '請選擇'
+    }
   },
   emits: ["update:modelValue"],
 };

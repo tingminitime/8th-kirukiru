@@ -1,7 +1,7 @@
 <template>
   <router-view></router-view>
   <MaskBlack></MaskBlack>
-  <transition
+  <!-- <transition
     mode="out-in"
     enter-active-class="transition duration-300 ease-out"
     enter-from-class="transform opacity-0 translate-x-48"
@@ -12,21 +12,21 @@
   >
     <LoginModal v-if="openLoginModal"></LoginModal>
     <RegisterModal v-else-if="openRegisterModal"></RegisterModal>
-  </transition>
+  </transition> -->
 </template>
 
 <script>
 import MaskBlack from '@/components/MaskBlack.vue'
-import LoginModal from '@/components/LoginModal.vue'
-import RegisterModal from '@/components/RegisterModal.vue'
+// import LoginModal from '@/components/LoginModal.vue'
+// import RegisterModal from '@/components/RegisterModal.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'App',
     components: {
       MaskBlack,
-      LoginModal,
-      RegisterModal,
+      // LoginModal,
+      // RegisterModal,
     },
     data() {
       return {
