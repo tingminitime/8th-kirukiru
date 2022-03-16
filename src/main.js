@@ -3,7 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import '@/index.css'
-import 'flowbite'
+import 'animate.css'
 
 // --- vee-validate v4 ---
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate';

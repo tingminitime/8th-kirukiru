@@ -10,13 +10,13 @@
       :placeholder="placeholder"
       :value="inputValue"
       :class="{ 'text-red-500': !!errorMessage }"
-      class="peer w-full h-10 text-lg tracking-wide placeholder:text-transparent border-b-2 border-myBrown focus:border-myYellow focus:outline-none placeholder:select-none"
+      class="peer placeholder-shown:py-4 px-2 pt-8 focus:pt-8 pb-4 focus:pb-4 w-full h-10 text-base tracking-wide placeholder:text-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:outline-none transition-all placeholder:select-none"
       @input="handleChange"
       @blur="handleBlur"
     >
     <label
       :for="name"
-      class="absolute -top-3.5 peer-placeholder-shown:top-2 peer-focus:-top-3.5 left-0 text-sm peer-placeholder-shown:text-base peer-focus:text-sm font-bold text-myBrown peer-placeholder-shown:text-myBrown/50 peer-focus:text-myBrown transition-all"
+      class="absolute top-1 peer-placeholder-shown:top-2 peer-focus:top-1 left-2 text-sm peer-placeholder-shown:text-base peer-focus:text-sm font-bold text-myBrown peer-placeholder-shown:text-myBrown/50 peer-focus:text-myBrown transition-all"
     >{{ placeholder }}</label>
 
     <p

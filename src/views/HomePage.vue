@@ -1,7 +1,8 @@
 <template>
   <TopNavbar></TopNavbar>
-  <div class="px-4 mx-auto max-w-[816px] md:px-8">
-    <p>HOME PAGE</p>
+  <!-- <div class="max-w-[816px]"></div> -->
+  <div class="px-4 pt-[72px] mx-auto md:px-8">
+    <router-view></router-view>
   </div>
 </template>
 

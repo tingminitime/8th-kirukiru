@@ -26,10 +26,17 @@ const routes = [
     meta: { requiresAuth: false },
     children: [
       {
-        path: '/login',
-        name: 'UserLogin',
+        path: 'login',
+        name: 'SignIn',
         components: {
-          default: () => import('@/views/LoginPage.vue'),
+          default: () => import('@/views/SignIn.vue'),
+        },
+      },
+      {
+        path: 'signup',
+        name: 'SignUp',
+        components: {
+          default: () => import('@/views/SignUp.vue')
         },
       },
       {
@@ -39,7 +46,8 @@ const routes = [
       {
         path: 'error',
         name: 'NotFound',
-        component: () => import('@/views/NotFound.vue')
+        component: () => import('@/views/NotFound.vue'),
+        meta: { error: 404 }
       },
     ],
   },
