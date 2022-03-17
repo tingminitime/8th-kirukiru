@@ -114,33 +114,6 @@
               </SwitchGroup>
               <span class="absolute top-1/2 -right-4 m-0 text-sm text-red-500 -translate-x-full -translate-y-1/2">{{ errorMessage }}</span>
             </v-field>
-            <!-- <SwitchGroup>
-              <div class="flex items-center">
-                <SwitchLabel class="w-48 select-none">
-                  <span class="font-bold text-myBrown">
-                    您是否同意 
-                    <a
-                      href="javascript:;"
-                      class="text-xl hover:text-myYellow underline underline-offset-4"
-                    >
-                      切切規範
-                    </a> ?
-                  </span>
-                </SwitchLabel>
-                <Switch
-                  v-model="agreeTerms"
-                  name="register-agree"
-                  :class="agreeTerms ? 'bg-myYellow' : 'bg-gray-200'"
-                  class="mySwitchBar"
-                >
-                  <span class="sr-only">您是否同意切切規範</span>
-                  <span
-                    :class="agreeTerms ? 'translate-x-8' : 'translate-x-0'"
-                    class="mySwitchButton"
-                  ></span>
-                </Switch>
-              </div>
-            </SwitchGroup> -->
           </div>
           <!-- 電子信 -->
           <div class="my-4">
@@ -167,11 +140,12 @@
           <div class="flex flex-col justify-center items-center mt-8">
             <button
               type="submit"
-              class="button-lg"
+              class="relative button-lg"
               :class="[ agreeTerms ? 'myButtonValid' : 'myButtonInvalid' ]"
               :disabled="!agreeTerms"
             >
-              註冊
+              <ButtonLoadingSpin :show="signUpProcess"></ButtonLoadingSpin>
+              <span>{{ signInProcess ? '請稍後...' : '註冊' }}</span>
             </button>
           </div>
         </v-form>
@@ -187,7 +161,7 @@ import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 import { mapMutations } from 'vuex'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
-import { getInterestList } from '@/http/api'
+import { getInterestList } from '@api'
 
 setLocale({
   mixed: {
@@ -241,6 +215,7 @@ export default {
       receiveMail: false,
       isFormValid: false,
       isInvalidAniProcess: null,
+      signUpProcess: false,
     }
   },
   mounted() {
@@ -262,7 +237,7 @@ export default {
     },
     animationEndHandler() {
       this.isInvalidAniProcess = false
-    }
+    },
   }
 }
 </script>

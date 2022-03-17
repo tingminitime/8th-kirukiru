@@ -17,6 +17,7 @@ export default ({ mode }) => {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         '@img': fileURLToPath(new URL('./src/assets/images', import.meta.url)),
+        '@api': fileURLToPath(new URL('./src/http/api.js', import.meta.url)),
       }
     },
     server: {

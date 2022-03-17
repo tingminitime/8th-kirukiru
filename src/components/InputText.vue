@@ -11,7 +11,7 @@
       :value="inputValue"
       :class="{ 'text-red-500': !!errorMessage }"
       class="peer placeholder-shown:py-4 px-2 pt-8 focus:pt-8 pb-4 focus:pb-4 w-full h-10 text-base tracking-wide placeholder:text-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:outline-none transition-all placeholder:select-none"
-      @input="handleChange"
+      @input="handleInput"
       @blur="handleBlur"
     >
     <label
@@ -31,6 +31,7 @@
 <script>
 import { useField } from 'vee-validate'
 import { setLocale } from 'yup';
+import { nextTick, watch } from '@vue/runtime-core';
 
 export default {
   name: 'InputText',
@@ -59,7 +60,16 @@ export default {
       type: String,
       default: '',
     },
+    defaultValue: {
+      type: String,
+      default: '',
+    },
+    initValue: {
+      type: Boolean,
+      default: false,
+    }
   },
+  emits: ['update:model-value'],
   setup(props) {
     const {
       value: inputValue,
@@ -71,12 +81,32 @@ export default {
       initialValue: props.value,
     })
 
+    watch(
+      inputValue,
+      (newVal) => {
+        if (props.initValue) {
+          nextTick(() => {
+            inputValue.value = props.defaultValue
+          })
+        }
+      },
+      {
+        immediate: true,
+      }
+    )
+
     return {
       handleChange,
       handleBlur,
       errorMessage,
       inputValue,
       meta,
+    }
+  },
+  methods: {
+    handleInput(e) {
+      this.handleChange(e)
+      this.$emit('update:model-value', e.target.value)
     }
   }
 }

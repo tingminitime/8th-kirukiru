@@ -22,7 +22,7 @@
         leave-to-class="opacity-0"
       >
         <ListboxOptions
-          class="overflow-auto sticky z-50 py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black/5 shadow-lg sm:text-sm"
+          class="overflow-auto sticky z-50 py-1 mt-2 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-2 ring-myYellow shadow-lg sm:text-sm"
         >
           <ListboxOption
             v-for="option in options"

@@ -1,11 +1,13 @@
 import http from './index'
 
-export const userLogin = (data) => {
-  return http.post('api/login', data)
+// 會員登入
+export const userSignIn = (data) => {
+  return http.post('Login', data)
 }
 
-export const loginTest = (query) => {
-  return http.get(`api/Member/Login?${query}`)
+//會員註冊
+export const userSignUp = (data) => {
+  return http.post('api/Member/CreatMember', data)
 }
 
 // 會員註冊 - 取得興趣清單

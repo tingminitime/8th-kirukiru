@@ -25,7 +25,7 @@
             src="@img/register-sayhi.svg"
             alt="hi"
           >
-          <div class="absolute top-0 left-0 text-sm text-myYellow -translate-y-full">
+          <div class="absolute right-0 -bottom-12 text-sm text-myYellow -translate-y-full">
             哩戈共幾百
           </div>
         </div>
@@ -51,6 +51,6 @@ export default {
   name: 'SignUp',
   components: {
     SignUpModal,
-  }
+  },
 }
 </script>

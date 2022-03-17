@@ -11,28 +11,44 @@
         @submit="onSubmit"
         @invalid-submit="onInvalidSubmit"
       >
+        <!-- 帳號欄位 -->
         <InputText
-          name="login-account"
+          name="username"
           type="text"
           label="帳號"
           placeholder="帳號"
-          class="mb-10"
+          class="mb-8"
+          :default-value="username"
+          :init-value="true"
           success-message=""
+          @update:model-value="usernameChange"
         ></InputText>
-
+        <!-- 密碼欄位 -->
         <InputText
-          name="login-password"
-          type="text"
+          name="password"
+          :type="showPassword ? 'text' : 'password'"
           label="密碼"
           placeholder="密碼"
-          class="mb-10"
+          class="mb-2"
           success-message=""
         ></InputText>
-
+        <div class="flex justify-end mb-6">
+          <button
+            type="button"
+            class="flex gap-2 items-center text-sm text-myBrown"
+            @click="showPassword = !showPassword"
+          >
+            <span class="text-sm material-icons">
+              visibility
+            </span>
+            <span>{{ showPassword ? '隱藏' : '顯示' }}密碼</span>
+          </button>
+        </div>
         <div class="flex justify-between items-center">
           <div class="flex items-center">
             <input
               id="remember-me"
+              v-model="rememberMe"
               name="remember-me"
               type="checkbox"
               class="w-4 h-4 text-myBrown rounded border-gray-300 focus:ring-myYellow form-checkbox"
@@ -54,9 +70,10 @@
         <div class="flex flex-col justify-center items-center mt-12">
           <button
             type="submit"
-            class="text-white hover:text-myYellow bg-myYellow hover:bg-transparent focus:outline-none hover:ring-2 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 button-lg"
+            class="relative text-white hover:text-myYellow bg-myYellow hover:bg-transparent focus:outline-none hover:ring-2 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 button-lg"
           >
-            登入
+            <ButtonLoadingSpin :show="signInProcess"></ButtonLoadingSpin>
+            <span>{{ signInProcess ? '登入中...' : '登入' }}</span>
           </button>
           <router-link
             class="py-1 px-4 mt-4 text-lg font-bold text-center text-myBrown underline underline-offset-4 md:hover:underline"
@@ -72,9 +89,11 @@
 
 <script>
 import InputText from '@/components/InputText.vue'
+import ButtonLoadingSpin from '@/components/ButtonLoadingSpin.vue'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
 import { mapMutations } from 'vuex'
+import { userSignIn } from '@api'
 
 setLocale({
   mixed: {
@@ -90,6 +109,7 @@ export default {
   name: 'SignInModal',
   components: {
     InputText,
+    ButtonLoadingSpin,
   },
   props: {
     isOpen: {
@@ -99,20 +119,52 @@ export default {
   },
   data() {
     const schema = Yup.object().shape({
-      'login-account': Yup.string().required(),
-      'login-password': Yup.string().min(6).required(),
+      'username': Yup.string().required(),
+      'password': Yup.string().min(6).required(),
     })
 
     return {
       schema,
+      showPassword: false,
+      username: '',
+      rememberMe: false,
+      signInProcess: false,
+    }
+  },
+  created() {
+    const rememberAccount = localStorage.getItem('userAccount')
+    console.log(rememberAccount)
+    if (rememberAccount) {
+      this.username = rememberAccount
+      this.rememberMe = true
     }
   },
   methods: {
-    onSubmit(values) {
-      console.log(JSON.stringify(values, null, 2))
+    onSubmit(data) {
+      this.signInProcess = true
+
+      console.log(JSON.stringify(data, null, 2))
+      if (this.rememberMe) {
+        localStorage.setItem('userAccount', this.username)
+      } else {
+        localStorage.removeItem('userAccount')
+      }
+
+      userSignIn(data)
+        .then(res => {
+          console.log(res)
+          this.signInProcess = false
+        })
+        .catch(error => {
+          console.log(error)
+          this.signInProcess = false
+        })
     },
     onInvalidSubmit(val) {
       console.log(val)
+    },
+    usernameChange(val) {
+      this.username = val
     },
     goRegister() {
       this.CLOSE_LOGIN_MODAL()
