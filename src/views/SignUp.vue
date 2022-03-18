@@ -1,5 +1,5 @@
 <template>
-  <div class="grid overflow-hidden grid-cols-2 gap-11 h-[calc(100vh-72px)]">
+  <div class="overflow-hidden h-[calc(100vh-72px)] md:grid md:grid-cols-2 md:gap-11">
     <div class="my-auto ml-auto">
       <Transition
         appear

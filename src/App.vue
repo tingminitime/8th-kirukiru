@@ -1,16 +1,22 @@
 <template>
+  <TopNavbar v-if="$route.meta.navbar"></TopNavbar>
   <router-view></router-view>
   <MaskBlack></MaskBlack>
+  <NotiWind></NotiWind>
 </template>
 
 <script>
+import TopNavbar from '@/components/TopNavbar.vue'
 import MaskBlack from '@/components/MaskBlack.vue'
+import NotiWind from '@/components/utils/NotiWind.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'App',
     components: {
+      TopNavbar,
       MaskBlack,
+      NotiWind,
     },
     data() {
       return {
@@ -22,7 +28,7 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
         'openLoginModal',
         'openRegisterModal',
       ])
-    }
+    },
   }
 </script>
 

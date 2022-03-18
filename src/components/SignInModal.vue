@@ -1,18 +1,22 @@
 <template>
-  <div class="overflow-hidden w-screen h-screen bg-white ring-myBrown md:w-96 md:h-fit md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl">
+  <div
+    v-invalid="isInvalidAniProcess"
+    class="overflow-hidden h-screen bg-white ring-myBrown md:w-96 md:h-fit md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl"
+    @animationend.stop="animationEndHandler"
+  >
     <div class="py-8 border-b-myBrown md:py-4 md:bg-myYellow md:border-b-2">
       <h1 class="text-2xl font-bold text-center text-myBrown select-none md:text-3xl">
         切切會員登入
       </h1>
     </div>
-    <div class="px-10 pt-10 pb-6 bg-white">
+    <div class="px-10 pb-6 bg-white md:pt-10">
       <v-form
         :validation-schema="schema"
         @submit="onSubmit"
         @invalid-submit="onInvalidSubmit"
       >
         <!-- 帳號欄位 -->
-        <InputText
+        <FormInputText
           name="username"
           type="text"
           label="帳號"
@@ -22,16 +26,16 @@
           :init-value="true"
           success-message=""
           @update:model-value="usernameChange"
-        ></InputText>
+        ></FormInputText>
         <!-- 密碼欄位 -->
-        <InputText
+        <FormInputText
           name="password"
           :type="showPassword ? 'text' : 'password'"
           label="密碼"
           placeholder="密碼"
           class="mb-2"
           success-message=""
-        ></InputText>
+        ></FormInputText>
         <div class="flex justify-end mb-6">
           <button
             type="button"
@@ -66,11 +70,13 @@
             > 忘記密碼 ? </a>
           </div>
         </div>
-
+        <!-- 登入按鈕 -->
         <div class="flex flex-col justify-center items-center mt-12">
           <button
             type="submit"
-            class="relative text-white hover:text-myYellow bg-myYellow hover:bg-transparent focus:outline-none hover:ring-2 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2 button-lg"
+            class="relative myButtonValid button-lg"
+            :class="[ signInProcess ? '' : 'myButtonValidHover' ]"
+            :disabled="signInProcess"
           >
             <ButtonLoadingSpin :show="signInProcess"></ButtonLoadingSpin>
             <span>{{ signInProcess ? '登入中...' : '登入' }}</span>
@@ -88,8 +94,8 @@
 </template>
 
 <script>
-import InputText from '@/components/InputText.vue'
-import ButtonLoadingSpin from '@/components/ButtonLoadingSpin.vue'
+import FormInputText from '@/components/utils/FormInputText.vue'
+import ButtonLoadingSpin from '@/components/utils/ButtonLoadingSpin.vue'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
 import { mapMutations } from 'vuex'
@@ -108,7 +114,7 @@ setLocale({
 export default {
   name: 'SignInModal',
   components: {
-    InputText,
+    FormInputText,
     ButtonLoadingSpin,
   },
   props: {
@@ -129,6 +135,7 @@ export default {
       username: '',
       rememberMe: false,
       signInProcess: false,
+      isInvalidAniProcess: null,
     }
   },
   created() {
@@ -154,14 +161,33 @@ export default {
         .then(res => {
           console.log(res)
           this.signInProcess = false
+          if (res.data.success) {
+            this.$notify({
+              group: "success",
+              title: "登入成功 !",
+              text: `${res.data.message}`
+            }, 2500)
+          } else {
+            this.$notify({
+              group: "error",
+              title: "登入失敗 !",
+              text: `${res.data.message}`
+            }, 2500)
+          }
         })
         .catch(error => {
           console.log(error)
           this.signInProcess = false
+          this.$notify({
+            group: "error",
+            title: "Error",
+            text: `error`
+          }, 2500) 
         })
     },
     onInvalidSubmit(val) {
       console.log(val)
+      this.isInvalidAniProcess = true
     },
     usernameChange(val) {
       this.username = val
@@ -169,6 +195,9 @@ export default {
     goRegister() {
       this.CLOSE_LOGIN_MODAL()
       this.OPEN_REGISTER_MODAL()
+    },
+    animationEndHandler() {
+      this.isInvalidAniProcess = false
     },
   }
 }

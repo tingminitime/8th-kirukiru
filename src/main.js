@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
+import Notifications from 'notiwind'
 import '@/index.css'
 import 'animate.css'
 
@@ -10,6 +11,7 @@ import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate';
 import AllRules from '@vee-validate/rules';
 import { localize, setLocale } from '@vee-validate/i18n';
 import tw from '@vee-validate/i18n/dist/locale/zh_TW.json';
+import { invalidAni } from '@/utils/directive'
 
 // Globally add all vee-validate rules
 Object.keys(AllRules).forEach(rule => {
@@ -21,14 +23,17 @@ configure({
   generateMessage: localize({ zh_TW: tw }),
   validateOnInput: true,
 })
-
 setLocale('zh_TW')
 
-
+// --- app ---
 const app = createApp(App)
+
 app.use(router)
 app.use(store)
+app.use(Notifications)
 app.component('VForm', Form)
 app.component('VField', Field)
 app.component('ErrorMessage', ErrorMessage)
+app.directive('invalid', invalidAni)
+
 app.mount('#app')

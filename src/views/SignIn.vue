@@ -1,5 +1,5 @@
 <template>
-  <div class="grid overflow-hidden grid-cols-2 gap-11 h-[calc(100vh-72px)]">
+  <div class="overflow-hidden h-[calc(100vh-72px)] max-h-[calc(100vh-72px)] md:grid md:grid-cols-2 md:gap-11">
     <div class="my-auto ml-auto">
       <Transition
         appear
@@ -14,9 +14,9 @@
         <component :is="'SignInModal'"></component>
       </Transition>
     </div>
-    <div class="md:grid md:grid-rows-2 md:grid-flow-col md:gap-32">
+    <div class="hidden md:grid md:grid-rows-2 md:grid-flow-col md:gap-32">
       <div class="flex items-end">
-        <div class="hidden relative md:block">
+        <div class="relative">
           <div class="absolute top-0 right-0 text-4xl font-bold text-myBrown select-none">
             嗨 !
           </div>
@@ -30,11 +30,9 @@
           </div>
         </div>
       </div>
-      <div class="hidden md:block">
-        <p class="px-8 text-4xl font-bold leading-tight text-myBrown">
-          你的步驟生活<br>寫作平台。
-        </p>
-      </div>
+      <p class="px-8 text-4xl font-bold leading-tight text-myBrown">
+        你的步驟生活<br>寫作平台。
+      </p>
     </div>
   </div>
   <div class="hidden absolute top-1/2 left-1/2 -z-10 w-[60vw] max-w-screen-md h-[70vh] rounded-tl-[240px] rounded-tr-[80px] rounded-br-[240px] rounded-bl-[80px] border-2 border-myBrown -translate-x-1/2 -translate-y-1/2 md:block md:bg-myYellow"></div>

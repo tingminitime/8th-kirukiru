@@ -28,7 +28,11 @@
   }
 
   .myButtonValid {
-    @apply text-white hover:text-myYellow bg-myYellow hover:bg-transparent focus:outline-none hover:ring-2 focus:ring hover:ring-myYellow focus:ring-myYellow/80 focus:ring-offset-2
+    @apply text-white bg-myYellow focus:outline-none focus:ring focus:ring-myYellow/80 focus:ring-offset-2
+  }
+
+  .myButtonValidHover {
+    @apply hover:text-myYellow hover:ring-2 hover:ring-myYellow hover:bg-transparent
   }
 
   .myButtonInvalid {

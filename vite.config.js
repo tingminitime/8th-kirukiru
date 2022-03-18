@@ -1,7 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'url'
-import { triggerAsyncId } from 'async_hooks'
 
 export default ({ mode }) => {
   process.env = {
@@ -22,6 +21,7 @@ export default ({ mode }) => {
     },
     server: {
       port: process.env.VITE_PORT || 3005,
+      // 小明
       proxy: {
         '/api': {
           target: 'https://kirukiru.rocket-coding.com',

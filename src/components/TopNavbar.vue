@@ -1,5 +1,5 @@
 <template> 
-  <div class="fixed top-0 left-0 z-40 w-full">
+  <div class="sticky top-0 z-20 w-full">
     <nav class="relative px-8 h-[72px] bg-myYellow">
       <router-link
         :to="{ name: 'HomePage' }"
@@ -55,10 +55,12 @@
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <router-link
+                :to="{ name: 'Editor' }"
                 class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
-              >撰寫切切</a>
+              >
+                撰寫切切
+              </router-link>
             </li>
             <li>
               <router-link

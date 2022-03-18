@@ -1,8 +1,7 @@
 <template>
   <div
-    ref="signUpModal"
-    class="overflow-hidden w-screen h-screen bg-white ring-myBrown drop-shadow-2xl md:w-96 md:h-auto md:rounded-xl md:ring-2 md:shadow-xl"
-    :class="[ isInvalidAniProcess ? 'animate__animated animate__headShake' : '' ]"
+    v-invalid="isInvalidAniProcess"
+    class="overflow-hidden h-screen bg-white ring-myBrown drop-shadow-2xl md:w-96 md:h-auto md:rounded-xl md:ring-2 md:shadow-xl"
     @animationend.stop="animationEndHandler"
   >
     <div class="py-6 border-b-myBrown md:py-4 md:bg-myYellow md:border-b-2">
@@ -18,50 +17,50 @@
           @invalid-submit="onInvalidSubmit"
         >
           <!-- Email -->
-          <InputText
+          <FormInputText
             name="register-email"
             type="email"
             label="Email"
             placeholder="Email"
             class="mb-10"
             success-message=""
-          ></InputText>
+          ></FormInputText>
           <!-- 暱稱 -->
-          <InputText
+          <FormInputText
             name="register-name"
             type="text"
             label="暱稱"
             placeholder="暱稱"
             class="mb-10"
             success-message=""
-          ></InputText>
+          ></FormInputText>
           <!-- 帳號 -->
-          <InputText
+          <FormInputText
             name="register-account"
             type="text"
             label="帳號"
             placeholder="帳號"
             class="mb-10"
             success-message=""
-          ></InputText>
+          ></FormInputText>
           <!-- 密碼 -->
-          <InputText
+          <FormInputText
             name="register-password"
             type="password"
             label="密碼"
             placeholder="密碼"
             class="mb-10"
             success-message=""
-          ></InputText>
+          ></FormInputText>
           <!-- 再次輸入密碼 -->
-          <InputText
+          <FormInputText
             name="register-confirm_password"
             type="password"
             label="再次輸入密碼"
             placeholder="再次輸入密碼"
             class="mb-10"
             success-message=""
-          ></InputText>
+          ></FormInputText>
           <!-- 選擇興趣 -->
           <div class="relative mb-12">
             <v-field
@@ -145,9 +144,18 @@
               :disabled="!agreeTerms"
             >
               <ButtonLoadingSpin :show="signUpProcess"></ButtonLoadingSpin>
-              <span>{{ signInProcess ? '請稍後...' : '註冊' }}</span>
+              <span>{{ signUpProcess ? '請稍後...' : '註冊' }}</span>
             </button>
           </div>
+          <p class="block mt-8 font-bold text-center text-myBrown md:hidden">
+            已經有帳號了 ? 
+            <router-link
+              class="text-xl hover:text-black"
+              :to="{ name: 'SignIn' }"
+            >
+              <span class="inline-block underline underline-offset-4">點我登入</span><span class="align-sub material-icons">arrow_forward</span>
+            </router-link>
+          </p>
         </v-form>
       </div>
     </div>
@@ -155,8 +163,9 @@
 </template>
 
 <script>
-import InputText from '@/components/InputText.vue'
+import FormInputText from '@/components/utils/FormInputText.vue'
 import InputSelect from '@/components/InputSelect.vue'
+import ButtonLoadingSpin from '@/components/utils/ButtonLoadingSpin.vue'
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 import { mapMutations } from 'vuex'
 import * as Yup from 'yup'
@@ -177,11 +186,12 @@ setLocale({
 export default {
   name: 'SignUpModal',
   components: {
-    InputText,
+    FormInputText,
     InputSelect,
+    ButtonLoadingSpin,
     Switch,
     SwitchGroup,
-    SwitchLabel
+    SwitchLabel,
   },
   props: {
     isOpen: {
