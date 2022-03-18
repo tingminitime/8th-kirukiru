@@ -10,7 +10,7 @@
       </h1>
     </div>
     <div class="overflow-x-hidden h-[75vh] md:h-[60vh]">
-      <div class="px-10 pb-6 bg-white md:pt-10 md:pb-8">
+      <div class="px-10 pb-6 bg-myGray md:pt-10 md:pb-8">
         <v-form
           :validation-schema="schema"
           @submit="onSubmit"
@@ -100,7 +100,7 @@
                   </SwitchLabel>
                   <Switch
                     v-model="agreeTerms"
-                    :class="agreeTerms ? 'bg-myYellow' : 'bg-gray-200'"
+                    :class="agreeTerms ? 'bg-myYellow' : 'bg-white'"
                     class="mySwitchBar"
                   >
                     <span class="sr-only">您是否同意切切規範</span>
@@ -123,7 +123,7 @@
                 </SwitchLabel>
                 <Switch
                   v-model="receiveMail"
-                  :class="receiveMail ? 'bg-myYellow' : 'bg-gray-200'"
+                  :class="receiveMail ? 'bg-myYellow' : 'bg-white'"
                   class="mySwitchBar"
                 >
                   <span class="sr-only">您是否願意收到電子信</span>
@@ -140,7 +140,7 @@
             <button
               type="submit"
               class="relative button-lg"
-              :class="[ agreeTerms ? 'myButtonValid' : 'myButtonInvalid' ]"
+              :class="[ agreeTerms ? 'myButtonValid myButtonValidHover' : 'myButtonInvalid' ]"
               :disabled="!agreeTerms"
             >
               <ButtonLoadingSpin :show="signUpProcess"></ButtonLoadingSpin>

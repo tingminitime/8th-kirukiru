@@ -9,9 +9,7 @@ const store = createStore({
         allowDrop: false,
         isShow: false,
       },
-      maskWhiteState: false,
-      openLoginModal: false,
-      openRegisterModal: false,
+      openEditModal: false,
     }
   },
   getters: {},
@@ -24,17 +22,11 @@ const store = createStore({
       state.maskBlackState.allowDrop = false
       state.maskBlackState.isShow = false
     },
-    OPEN_LOGIN_MODAL(state) {
-      state.openLoginModal = true
+    OPEN_EDIT_MODAL(state) {
+      state.openEditModal = true
     },
-    CLOSE_LOGIN_MODAL(state) {
-      state.openLoginModal = false
-    },
-    OPEN_REGISTER_MODAL(state) {
-      state.openRegisterModal = true
-    },
-    CLOSE_REGISTER_MODAL(state) {
-      state.openRegisterModal = false
+    CLOSE_EDIT_MODAL(state) {
+      state.openEditModal = false
     },
   },
 })

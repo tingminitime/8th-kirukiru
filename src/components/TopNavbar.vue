@@ -55,12 +55,13 @@
               </a>
             </li>
             <li>
-              <router-link
-                :to="{ name: 'Editor' }"
+              <button
+                type="button"
                 class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
+                @click="openEditModal"
               >
                 撰寫切切
-              </router-link>
+              </button>
             </li>
             <li>
               <router-link
@@ -112,12 +113,12 @@ export default {
         this.showNavbar = val
       }
     },
-    showLoginModal() {
+    openEditModal() {
       this.$store.commit('SET_MASK', {
         allowDrop: false,
         isShow: true,
       })
-      this.$store.commit('OPEN_LOGIN_MODAL', false)
+      this.$store.commit('OPEN_EDIT_MODAL', true)
     }
   }
 }

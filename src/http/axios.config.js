@@ -1,4 +1,5 @@
 // const baseURL = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_APP_API
+// const baseURL = 'https://kirukiru.rocket-coding.com/'
 const baseURL = '/api'
 const timeout = 15000
 const headers = {

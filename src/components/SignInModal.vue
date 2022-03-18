@@ -1,7 +1,7 @@
 <template>
   <div
     v-invalid="isInvalidAniProcess"
-    class="overflow-hidden h-screen bg-white ring-myBrown md:w-96 md:h-fit md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl"
+    class="overflow-hidden h-screen ring-myBrown md:w-96 md:h-fit md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl"
     @animationend.stop="animationEndHandler"
   >
     <div class="py-8 border-b-myBrown md:py-4 md:bg-myYellow md:border-b-2">
@@ -9,7 +9,7 @@
         切切會員登入
       </h1>
     </div>
-    <div class="px-10 pb-6 bg-white md:pt-10">
+    <div class="px-10 pb-6 bg-myGray md:pt-10">
       <v-form
         :validation-schema="schema"
         @submit="onSubmit"
@@ -140,7 +140,6 @@ export default {
   },
   created() {
     const rememberAccount = localStorage.getItem('userAccount')
-    console.log(rememberAccount)
     if (rememberAccount) {
       this.username = rememberAccount
       this.rememberMe = true
