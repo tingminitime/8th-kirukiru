@@ -1,18 +1,19 @@
 <template>
   <Listbox
     :model-value="value || modelValue"
-    @update:modelValue="$emit('update:modelValue', $event)"
+    @update:model-value="$emit('update:modelValue', $event)"
   >
     <div class="relative mt-1">
       <ListboxButton
         class="myListboxButton"
       >
-        <span class="block truncate">{{
+        <span class="block text-base truncate">{{
           (value || modelValue)?.[labelProp] || defaultText
         }}</span>
         <span
           class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none"
         >
+          <span class="text-myBrown material-icons">expand_more</span>
         </span>
       </ListboxButton>
 
@@ -22,7 +23,8 @@
         leave-to-class="opacity-0"
       >
         <ListboxOptions
-          class="overflow-auto sticky z-50 py-1 mt-2 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-2 ring-myYellow shadow-lg sm:text-sm"
+          class="overflow-auto z-50 py-1 mt-2 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-2 ring-myYellow shadow-lg sm:text-sm"
+          :class="optionsPosition"
         >
           <ListboxOption
             v-for="option in options"
@@ -34,7 +36,7 @@
             <li
               :class="[
                 active ? 'text-amber-900 bg-amber-100' : 'text-gray-900',
-                'cursor-default select-none relative py-2 pl-10 pr-4',
+                'cursor-default select-none relative py-2 pl-6 pr-4',
               ]"
             >
               <span
@@ -93,7 +95,11 @@ export default {
     defaultText: {
       type: String,
       default: '請選擇'
-    }
+    },
+    optionsPosition: {
+      type: String,
+      default: 'sticky'
+    },
   },
   emits: ["update:modelValue"],
 };

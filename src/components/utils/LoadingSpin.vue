@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="absolute top-3 left-5 w-5 h-5 text-white align-middle animate-spin"
+    class="animate-spin"
     :class="[ show ? 'block' : 'hidden' ]"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -30,6 +30,6 @@ export default {
       type: Boolean,
       default: false,
     }
-  }
+  },
 }
 </script>

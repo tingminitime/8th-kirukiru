@@ -42,6 +42,14 @@
   .myButtonInvalid {
     @apply bg-gray-300 cursor-default
   }
+
+  .editorBubble {
+    @apply bg-gray-700 p-2 rounded-md flex justify-evenly gap-1
+  }
+
+  .editorBubbleBtn {
+    @apply rounded hover:bg-gray-500 inline-block p-0.5 w-8
+  }
 }
 
 @layer base {

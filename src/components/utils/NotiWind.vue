@@ -2,7 +2,7 @@
   <!-- 成功通知 -->
   <NotificationGroup group="success">
     <div
-      class="flex fixed inset-0 z-50 justify-end items-start py-16 px-4 pointer-events-none"
+      class="flex fixed inset-0 z-50 justify-center items-end py-16 px-4 pointer-events-none md:justify-end md:items-start"
     >
       <div class="w-full max-w-sm">
         <Notification
@@ -43,7 +43,7 @@
   <!-- 錯誤通知 -->
   <NotificationGroup group="error">
     <div
-      class="flex fixed inset-0 z-50 justify-end items-start py-16 px-4 pointer-events-none"
+      class="flex fixed inset-0 z-50 justify-center items-end py-16 px-4 pointer-events-none md:justify-end md:items-start"
     >
       <div class="w-full max-w-sm">
         <Notification

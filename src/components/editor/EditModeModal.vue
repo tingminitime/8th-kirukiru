@@ -56,6 +56,7 @@
                   <button
                     type="button"
                     class="group button-xl myButtonValid myButtonValidHover"
+                    @click="goEdit('EditKiru')"
                   >
                     <span>切切模式</span>
                   </button>
@@ -73,6 +74,7 @@
                   <button
                     type="button"
                     class="button-xl myButtonValid myButtonValidHover"
+                    @click="goEdit('EditNormal')"
                   >
                     <span>一般模式</span>
                   </button>
@@ -110,6 +112,10 @@ export default {
     closeModal() {
       this.$store.commit('CLOSE_MASK')
       this.$store.commit('CLOSE_EDIT_MODAL')
+    },
+    goEdit(pageName) {
+      this.closeModal()
+      this.$router.push({ name: pageName })
     },
   }
 }

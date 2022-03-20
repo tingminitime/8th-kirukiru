@@ -4,7 +4,6 @@ export const invalidAni = {
       'animate__animated',
       'animate__headShake',
     ]
-    console.log(binding)
     if (binding.value) {
       el.classList.add(...aniClassName)
     } else {

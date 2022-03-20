@@ -70,15 +70,25 @@
             > 忘記密碼 ? </a>
           </div>
         </div>
-        <!-- 登入按鈕 -->
-        <div class="flex flex-col justify-center items-center mt-12">
+        <!-- 錯誤訊息 -->
+        <div class="flex justify-center py-6">
+          <span
+            v-if="signInErrorMsg"
+            class="text-red-500"
+          >{{ signInErrorMsg }}</span>
+        </div>
+        <!-- 登入 / 註冊 按鈕 -->
+        <div class="flex flex-col justify-center items-center">
           <button
             type="submit"
             class="relative myButtonValid button-lg"
             :class="[ signInProcess ? '' : 'myButtonValidHover' ]"
             :disabled="signInProcess"
           >
-            <ButtonLoadingSpin :show="signInProcess"></ButtonLoadingSpin>
+            <LoadingSpin
+              class="absolute top-3 left-5 w-5 h-5 text-white align-middle"
+              :show="signInProcess"
+            ></LoadingSpin>
             <span>{{ signInProcess ? '登入中...' : '登入' }}</span>
           </button>
           <router-link
@@ -95,7 +105,7 @@
 
 <script>
 import FormInputText from '@/components/utils/FormInputText.vue'
-import ButtonLoadingSpin from '@/components/utils/ButtonLoadingSpin.vue'
+import LoadingSpin from '@/components/utils/LoadingSpin.vue'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
 import { mapMutations } from 'vuex'
@@ -115,7 +125,7 @@ export default {
   name: 'SignInModal',
   components: {
     FormInputText,
-    ButtonLoadingSpin,
+    LoadingSpin,
   },
   props: {
     isOpen: {
@@ -136,6 +146,7 @@ export default {
       rememberMe: false,
       signInProcess: false,
       isInvalidAniProcess: null,
+      signInErrorMsg: '',
     }
   },
   created() {
@@ -146,43 +157,52 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'SET_TOKEN',
+      'SET_USER_INFO',
+    ]),
+    // 驗證通過，登入
     onSubmit(data) {
       this.signInProcess = true
 
-      console.log(JSON.stringify(data, null, 2))
       if (this.rememberMe) {
         localStorage.setItem('userAccount', this.username)
       } else {
         localStorage.removeItem('userAccount')
       }
 
-      userSignIn(data)
-        .then(res => {
-          console.log(res)
-          this.signInProcess = false
-          if (res.data.success) {
-            this.$notify({
-              group: "success",
-              title: "登入成功 !",
-              text: `${res.data.message}`
-            }, 2500)
-          } else {
-            this.$notify({
-              group: "error",
-              title: "登入失敗 !",
-              text: `${res.data.message}`
-            }, 2500)
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          this.signInProcess = false
+      userSignIn(data).then(res => {
+        console.log('登入API(200): ', res)
+        this.signInProcess = false
+        if (res.data.success) {
+          this.$notify({
+            group: "success",
+            title: "登入成功 !",
+            text: `歡迎回來，${res.data.data.Name}`
+          }, 2500)
+          
+          localStorage.setItem('kirukiruToken', res.data.token)
+          this.SET_TOKEN(res.data.token)
+          this.SET_USER_INFO(res.data.data)
+          this.$router.replace({ name: this.$store.state.recordPath })
+        } else {
+          this.signInErrorMsg = res.data.message
           this.$notify({
             group: "error",
-            title: "Error",
-            text: `error`
-          }, 2500) 
-        })
+            title: "登入失敗 !",
+            text: `${res.data.message}`
+          }, 2500)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        this.signInProcess = false
+        this.$notify({
+          group: "error",
+          title: "Error",
+          text: `${error}`
+        }, 2500) 
+      })
     },
     onInvalidSubmit(val) {
       console.log(val)

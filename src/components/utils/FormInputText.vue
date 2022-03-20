@@ -83,6 +83,7 @@ export default {
 
     watch(
       inputValue,
+      // 若有 defaultValue 則自動帶入
       (newVal) => {
         if (props.initValue) {
           nextTick(() => {

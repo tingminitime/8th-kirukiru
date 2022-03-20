@@ -3,6 +3,8 @@ import { createRouter, createWebHashHistory, createWebHistory, RouterView } from
 import store from '@/store/index.js'
 import NProgress from 'nprogress'
 import '@/assets/css/nprogress.css'
+import { notify } from 'notiwind'
+import { getUserInfo } from '@api'
 
 // --- NProgress ---
 NProgress.configure({
@@ -11,17 +13,6 @@ NProgress.configure({
   showSpinner: false,
   trickle: false,
 })
-
-const scrollBehavior = (to, from, savedPosition) => {
-  if (to.hash) {
-    return {
-      el: to.hash,
-      behavior: 'smooth',
-    }
-  } else {
-    return { top: 0 }
-  }
-}
 
 const routes = [
   {
@@ -32,37 +23,39 @@ const routes = [
     components: {
       default: () => import('@/views/HomePage.vue'),
     },
-    meta: { requiresAuth: false, navbar: true },
+    meta: { requiresAuth: false, navbar: true, recordPath: true },
     children: [
+      // 登入頁面
       {
-        path: 'login',
+        path: 'signin',
         name: 'SignIn',
         components: {
           default: () => import('@/views/SignIn.vue'),
         },
-        meta: { requiresAuth: false, navbar: true },
+        meta: { requiresAuth: false, navbar: true, recordPath: true },
+        beforeEnter(to, from, next) {
+          console.log(to, from)
+          store.commit(
+            'SET_RECORD_PATH',
+            from.meta.recordPath ? from.name : 'HomePage'
+          )
+          next()
+        }
       },
+      // 註冊頁面
       {
         path: 'signup',
         name: 'SignUp',
         components: {
           default: () => import('@/views/SignUp.vue')
         },
-        meta: { requiresAuth: false, navbar: true },
-      },
-      {
-        path: 'editor-mode',
-        name: 'EditorMode',
-        components: {
-          default: () => import('@/views/EditModel/EditorMode.vue')
-        },
-        meta: { requiresAuth: false, navbar: true },
+        meta: { requiresAuth: false, navbar: true, recordPath: false },
       },
       {
         path: 'editor',
-        name: 'Editor',
+        name: 'EditPage',
         components: {
-          default: () => import('@/views/EditModel/EditorPage.vue')
+          default: () => import('@/views/EditModel/EditPage.vue')
         },
         meta: { requiresAuth: true, navbar: false },
         children: [
@@ -84,6 +77,7 @@ const routes = [
           },
         ]
       },
+      // 404 Not Found
       {
         path: '/:pathMatch(.*)',
         redirect: { name: 'NotFound', query: { status: 404 } }
@@ -98,6 +92,17 @@ const routes = [
   },
 ]
 
+const scrollBehavior = (to, from, savedPosition) => {
+  if (to.hash) {
+    return {
+      el: to.hash,
+      behavior: 'smooth',
+    }
+  } else {
+    return { top: 0 }
+  }
+}
+
 const Router = createRouter({
   history: createWebHashHistory(),
   // history: createWebHistory(),
@@ -106,10 +111,34 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from, next) => {
+  console.log('trigger beforeEach!', to, from)
   NProgress.start()
-  console.log('trigger beforeEach!')
-  // console.log(to, from)
-  next()
+
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem('kirukiruToken')
+    if (token) {
+      getUserInfo(token).then(res => {
+        console.log('編輯模式驗證登入狀態: ', res)
+        if (res.data) {
+          next()
+        } else {
+          next({ name: 'SignIn' })
+        }
+      })
+      .catch(error => {
+        this.$notify({
+          group: "error",
+          title: "Error",
+          text: `${error}`
+        }, 2500) 
+        next({ name: 'HomePage' })
+      })
+    } else {
+      next({ name: 'SignIn' })
+    }
+  } else {
+    next()
+  }
 })
 
 Router.afterEach((to, from) => {

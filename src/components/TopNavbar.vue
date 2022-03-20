@@ -1,6 +1,6 @@
 <template> 
   <div class="sticky top-0 z-20 w-full">
-    <nav class="relative px-8 h-[72px] bg-myYellow">
+    <nav class="relative px-8 h-[72px] bg-myYellow/[0.85] border-b border-slate-50/50 backdrop-blur">
       <router-link
         :to="{ name: 'HomePage' }"
         class="block absolute top-1/2 left-1/2 w-[140px] -translate-x-1/2 -translate-y-1/2"
@@ -29,13 +29,13 @@
             <li>
               <a
                 href="#"
-                class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
+                class="block text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
               >關於切切</a>
             </li>
             <li>
               <a
                 href="#"
-                class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
+                class="block text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
               >切切分類</a>
             </li>
           </ul>
@@ -47,7 +47,7 @@
             <li>
               <a
                 href="#"
-                class="flex justify-center items-center text-lg font-bold text-myGray rounded md:px-4 md:bg-transparent"
+                class="flex justify-center items-center text-lg font-bold text-myBrown rounded md:px-4 md:bg-transparent"
               >
                 <span class="text-3xl material-icons">
                   search
@@ -57,16 +57,17 @@
             <li>
               <button
                 type="button"
-                class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
+                class="flex items-center text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
                 @click="openEditModal"
               >
-                撰寫切切
+                <span class="text-2xl material-icons">edit</span>
+                <span class="px-1">撰寫切切</span>
               </button>
             </li>
             <li>
               <router-link
-                v-if="1"
-                class="block text-lg font-bold text-myGray rounded md:py-2 md:px-4 md:bg-transparent"
+                v-if="userInfo === null"
+                class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
                 :to="{ name: 'SignIn' }"
               >
                 註冊 / 登入
@@ -74,12 +75,23 @@
               <UserAvatar
                 v-else
                 class="hidden md:block"
+                v-bind="userInfo"
               ></UserAvatar>
             </li>
           </ul>
         </div>
         <div class="block md:hidden">
-          <UserAvatar></UserAvatar>
+          <UserAvatar
+            v-if="userInfo !== null"
+            v-bind="userInfo"
+          ></UserAvatar>
+          <router-link
+            v-else
+            class="font-bold text-myBrown"
+            :to="{ name: 'SignIn' }"
+          >
+            點我登入
+          </router-link>
         </div>
       </div>
     </nav>
@@ -93,6 +105,7 @@
 <script>
 import MobileNavbar from '@/components/MobileNavbar.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'TopNavbar',
@@ -104,6 +117,11 @@ export default {
     return {
       showNavbar: false,
     }
+  },
+  computed: {
+    ...mapState([
+      'userInfo',
+    ])
   },
   methods: {
     toggleMobileNav(val) {
