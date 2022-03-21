@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4 max-w-[640px]">
+  <div>
     <!-- 圖片 Input -->
     <div class="hidden">
       <FileUpload
@@ -7,45 +7,45 @@
         v-model="files"
         extensions="gif,jpg,jpeg,png,webp"
         accept="image/png,image/gif,image/jpeg,image/webp"
-        name="cover"
+        :name="name"
         :drop="true"
-        @input-filter="coverFilter"
-        @input-file="coverFile"
+        @input-filter="inputFilter"
+        @input-file="inputFile"
       >
       </FileUpload>
     </div>
     <!-- 上傳後顯示圖片 -->
     <div
       v-show="!edit"
-      class="mb-4 w-full sm:w-2/3"
+      class="w-full"
     >
       <div
-        v-show="files.length !== 0"
-        class="group relative border-2 aspect-w-16 aspect-h-9 border-myBrown"
+        v-show="files.length !== 0 || (origImage !== '' && editMode)"
+        class="group relative border-2 border-myBrown aspect-w-16 aspect-h-9"
       >
         <img
-          :src="files[0]?.url"
-          alt=""
+          :src="editMode && !userUploadStatus ? `https://kirukiru.rocket-coding.com/Pic/${origImage}` : files[0]?.url"
+          alt="show image"
         >
         <button
           type="button"
           class="block absolute w-full h-full font-bold text-white bg-black/20 opacity-0 group-hover:opacity-100 transition-all"
           @click="toggleUploadCover"
         >
-          修改封面照片
+          {{ fixText }}
         </button>
       </div>
     </div>
-    <!-- 上傳後顯示操作 -->
-
     <!-- 編輯圖片 -->
+    <!-- class="mb-4 w-full sm:w-2/3" -->
     <div
       v-show="files.length && edit"
-      class="mb-4 w-full sm:w-2/3"
+      class="flex fixed top-0 left-0 z-50 flex-col gap-4 justify-center items-center mb-4 w-full h-full"
     >
+      <!-- w-full h-full sm:w-[480px] sm:h-[270px] md:w-[640px] md:h-[360px] -->
       <div
         v-if="files.length"
-        class="w-full h-full sm:w-[480px] sm:h-[270px] md:w-[640px] md:h-[360px]"
+        class="w-[75vw] h-auto sm:w-[480px] sm:h-[270px] md:w-[640px] md:h-[360px]"
       >
         <img
           ref="editImage"
@@ -53,35 +53,37 @@
           alt="edit cover image"
         >
       </div>
-    </div>
-    <!-- 編輯圖片操作按鈕 -->
-    <div
-      v-show="edit"
-      class="flex gap-4"
-    >
-      <button
-        type="button"
-        class="button-md myButtonValid myButtonValidHover"
-        @click.prevent="$refs.upload.clear"
+      <!-- 編輯圖片操作按鈕 -->
+      <div
+        v-show="edit"
+        class="flex gap-4"
       >
-        取消
-      </button>
-      <button
-        type="button"
-        class="button-md myButtonValid myButtonValidHover"
-        @click.prevent="editSave"
-      >
-        確定
-      </button>
+        <button
+          type="button"
+          class="hover:text-myBrown button-md myButtonValid"
+          @click.prevent="$refs.upload.clear"
+        >
+          取消
+        </button>
+        <button
+          type="button"
+          class="hover:text-myBrown button-md myButtonValid"
+          @click.prevent="editSave"
+        >
+          確定
+        </button>
+      </div>
     </div>
+    <!-- 尚未上傳圖片顯示 -->
     <div
-      v-show="!edit && files.length === 0"
-      class="mb-4 w-full sm:w-2/3"
+      v-show="!edit && files.length === 0 && origImage === ''"
+      :class="uploadContainer"
     >
       <div class="aspect-w-16 aspect-h-9">
         <button
           type="button"
-          class="block w-full h-full bg-center bg-no-repeat rounded-lg border-2 bg-myLightBrown bg-upload-cover border-myBrown"
+          :class="uploadBg"
+          class="block w-full h-full bg-myLightBrown bg-center bg-no-repeat rounded-lg border-2 border-myBrown"
           @click="toggleUploadCover"
         >
           <span class="sr-only">上傳圖片</span>
@@ -96,6 +98,34 @@ import Cropper from 'cropperjs'
 
 export default {
   name: 'CoverUpload',
+  props: {
+    name: {
+      type: String,
+      default: 'name',
+    },
+    fixText: {
+      type: String,
+      default: '修改圖片'
+    },
+    // 第一次上傳圖片的背景圖
+    uploadBg: {
+      type: String,
+      default: 'bg-upload-image',
+    },
+    // 上傳圖片的容器 Class
+    uploadContainer: {
+      type: String,
+      default: 'w-full',
+    },
+    origImage: {
+      type: String,
+      default: '',
+    },
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
   emits: ['file-change'],
   data() {
     return {
@@ -103,11 +133,16 @@ export default {
       fileName: '',
       edit: false,
       cropper: false,
+      userUploadStatus: false,
     }
   },
   watch: {
     edit(status) {
       if (status) {
+        this.$store.commit('SET_MASK', {
+          allowDrop: false,
+          isShow: true,
+        })
         this.$nextTick(function () {
           if (!this.$refs.editImage) return
           let cropper = new Cropper(this.$refs.editImage, {
@@ -118,6 +153,7 @@ export default {
           this.cropper = cropper
         })
       } else {
+        this.$store.commit('CLOSE_MASK')
         if (this.cropper) {
           this.cropper.destroy()
           this.cropper = false
@@ -145,7 +181,7 @@ export default {
         active: true,
       })
     },
-    coverFile(newFile, oldFile, prevent) {
+    inputFile(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         this.$nextTick(function () {
           this.edit = true
@@ -155,7 +191,7 @@ export default {
         this.edit = false
       }
     },
-    coverFilter(newFile, oldFile, prevent) {
+    inputFilter(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
           this.$notify({
@@ -180,6 +216,7 @@ export default {
         if (URL && URL.createObjectURL) {
           newFile.url = URL.createObjectURL(newFile.file)
         }
+        this.userUploadStatus = true
         this.$emit('file-change', this.files[0])
       }
     },
