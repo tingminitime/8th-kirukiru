@@ -3,14 +3,14 @@
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
     <!-- 上傳圖片 -->
     <div>
-      <input
+      <!-- <input
         ref="coverImg"
         type="file"
         name="coverImg"
         accept="image/png, image/jpg, image/jpeg"
         class="hidden"
         @change="coverImgChange($event)"
-      >
+      > -->
       <div class="mb-4 w-full sm:w-2/3">
         <div class="aspect-w-16 aspect-h-9">
           <button
@@ -199,16 +199,13 @@ export default {
         isFree: true,
         articlecategory: null,
         artInfo: '',
+        coverImage: '',
       },
       categoryVm: null,
       artInfoCount: 0,
       errors: [],
       tools: [],
       coverUpload: false,
-      headers: {
-        'Authorization': this.$store.state.token,
-        'Content-Type': 'multipart/form-data',
-      },
       imgDataUrl: '',
     }
   },

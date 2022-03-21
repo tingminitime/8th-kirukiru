@@ -80,9 +80,11 @@ export default {
     },
     modelValue: {
       type: null,
+      default: '',
     },
     value: {
       type: null,
+      default: '',
     },
     keyProp: {
       type: String,
