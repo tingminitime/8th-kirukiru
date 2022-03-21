@@ -5,6 +5,7 @@ import store from '@/store'
 import Notifications from 'notiwind'
 import '@/index.css'
 import 'animate.css'
+import 'cropperjs/dist/cropper.css'
 
 // --- vee-validate v4 ---
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate';

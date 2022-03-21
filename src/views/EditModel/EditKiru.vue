@@ -3,6 +3,7 @@
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
     <!-- 上傳圖片 -->
     <div>
+      <CoverUpload @file-change="coverHandler"></CoverUpload>
       <!-- <input
         ref="coverImg"
         type="file"
@@ -11,21 +12,21 @@
         class="hidden"
         @change="coverImgChange($event)"
       > -->
-      <div class="mb-4 w-full sm:w-2/3">
+      <!-- <div class="mb-4 w-full sm:w-2/3">
         <div class="aspect-w-16 aspect-h-9">
           <button
             type="button"
-            class="block w-full h-full bg-myLightBrown bg-center bg-no-repeat bg-upload-cover rounded-lg border-2 border-myBrown"
+            class="block w-full h-full bg-center bg-no-repeat rounded-lg border-2 bg-myLightBrown bg-upload-cover border-myBrown"
             @click="$refs.coverImg.click()"
           >
             <span class="sr-only">上傳圖片</span>
           </button>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- 切切標題 -->
     <div class="mb-8">
-      <h2 class="mb-1 text-lg font-bold text-myBrown md:mb-2 md:text-xl">
+      <h2 class="mb-1 text-lg font-bold md:mb-2 md:text-xl text-myBrown">
         切切標題
       </h2>
       <Input
@@ -38,7 +39,7 @@
         @update="titleHandler"
       ></Input>
     </div>
-    <div class="mb-6 bg-myBrown md:mb-8">
+    <div class="mb-6 md:mb-8 bg-myBrown">
       <h2 class="py-1 text-xl font-bold text-center text-white">
         編輯資訊
       </h2>
@@ -89,18 +90,18 @@
         <h3 class="font-bold text-myBrown">
           切切敘述
         </h3>
-        <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
+        <span class="py-0.5 px-2 text-sm text-white rounded bg-myBrown">字數 : {{ artInfoCount }}</span>
       </div>
       <TipTap
         v-model="articleVm.artInfo"
         placeholder="簡述一下這篇切切的內容吧 _"
         custom-class="min-h-[6rem]"
-        word-limit="1000"
+        word-limit="100"
         @word-count="artInfoCountHandler"
       ></TipTap>
     </div>
     <!-- 預備工具 -->
-    <div class="mb-2 bg-myBrown md:mb-8">
+    <div class="mb-2 md:mb-8 bg-myBrown">
       <h2 class="py-1 text-xl font-bold text-center text-white">
         預備工具
       </h2>
@@ -123,7 +124,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-1 before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
+          class="flex before:block relative before:absolute before:top-1 before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
           @click="addTool"
         >
           <img
@@ -136,7 +137,7 @@
     <!-- 開始切切 -->
     <div>
       <div class="flex gap-3 items-center mb-8">
-        <h2 class="mb-1 text-2xl font-bold text-myBrown md:mb-2">
+        <h2 class="mb-1 text-2xl font-bold md:mb-2 text-myBrown">
           開始切切
         </h2>
         <span class="text-sm font-bold text-red-400">請至少填寫 1 個切切</span>
@@ -144,30 +145,38 @@
       <div></div>
     </div>
     <!-- 附屬任務 -->
-    <div class="mb-2 bg-myBrown md:mb-8">
+    <div class="mb-2 md:mb-8 bg-myBrown">
       <h2 class="py-1 text-xl font-bold text-center text-white">
         附屬任務
       </h2>
     </div>
     <div>
       <!-- 說明 -->
-      <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
+      <p class="mb-6 text-sm font-bold md:text-base text-myBrown">
         完成這個切切的補充知識與延伸是什麼呢? Ex.閱讀的書、相關的知識、要備妥的文件、要安裝的檔案...
       </p>
     </div>
     <!-- 操作 -->
-    <div class="flex justify-between items-start">
+    <div class="flex justify-between items-start text-2xl">
       <button
         type="button"
         class="button-md myButtonValid myButtonValidHover"
       >
         取消編輯
       </button>
+      <button
+        type="button"
+        class="button-md myButtonValid myButtonValidHover"
+        @click="sendImage"
+      >
+        送出
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import CoverUpload from '@/components/editor/CoverUpload.vue'
 import _ from 'lodash'
 import EditNavbar from '@/components/editor/EditNavbar.vue'
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
@@ -178,11 +187,13 @@ import PrepareTool from '@/components/editor/PrepareTool.vue'
 import { useField } from 'vee-validate'
 import { getInterestList } from '@api'
 import { v4 as uuidv4 } from 'uuid'
+import { uploadImage } from '@api'
 
 export default {
   name: 'EditKiru',
   components: {
     EditNavbar,
+    CoverUpload,
     Switch,
     SwitchGroup,
     SwitchLabel,
@@ -199,8 +210,9 @@ export default {
         isFree: true,
         articlecategory: null,
         artInfo: '',
-        coverImage: '',
+        artTitlePic: '',
       },
+      coverImage: null,
       categoryVm: null,
       artInfoCount: 0,
       errors: [],
@@ -229,11 +241,18 @@ export default {
     })
   },
   methods: {
-    coverImgChange(e) {
-      console.log(e.target.files)
+    coverHandler(file) {
+      console.log(file)
+      this.coverImage = file
     },
-    coverImgToggle() {
-      this.coverUpload = !this.coverUpload
+    sendImage() {
+      const data = new FormData()
+      data.append('photo', this.coverImage.file)
+      console.log(data)
+      uploadImage(data).then(res => {
+        console.log(res)
+      })
+      .catch(error => console.log(error))
     },
     titleHandler(target) {
       console.log(target)

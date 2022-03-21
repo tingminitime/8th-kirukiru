@@ -30,13 +30,21 @@
       >
         <span class="text-xl text-white align-middle material-icons">format_strikethrough</span>
       </button>
+      <!-- H2 -->
+      <button
+        class="editorBubbleBtn"
+        :class="{ 'bg-gray-500': editor.isActive('strike') }"
+        @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
+      >
+        <span class="text-xl text-white align-middle material-icons">title</span>
+      </button>
       <!-- H1 -->
       <button
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('strike') }"
         @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
       >
-        <span class="text-xl text-white align-middle material-icons">title</span>
+        <span class="text-2xl text-white align-middle material-icons">title</span>
       </button>
       <!-- 連結 -->
       <button
@@ -128,9 +136,9 @@ export default {
           placeholder: this.placeholder,
         }),
         Heading.configure({
-          levels: [1, 2, 3],
+          levels: [1, 2],
           HTMLAttributes: {
-            class: '',
+            class: 'editor-heading',
           }
         }),
         Paragraph.configure({
@@ -146,6 +154,7 @@ export default {
           },
           autolink: true,
           openOnClick: true,
+          linkOnPaste: true,
         }),
         CharacterCount.configure({
           limit: parseInt(this.wordLimit, 10),
@@ -159,13 +168,22 @@ export default {
   methods: {
     setLink() {
       const previousUrl = this.editor.getAttributes('link').href
-      const url = window.prompt('URL', previousUrl)
+      let url = window.prompt('URL', previousUrl)
       if (url === null) return
       if (url === '') {
         this.editor.chain().focus().extendMarkRange('link').unsetLink().run()
         return
       }
-      this.editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+      const urlRegex = /https?:\/\//g
+      if (urlRegex.test(url)) {
+        this.editor.chain().focus().extendMarkRange('link').setLink({
+          href: `${url}`,
+        }).run()
+      } else {
+        this.editor.chain().focus().extendMarkRange('link').setLink({
+          href: `http://${url}`,
+        }).run()
+      }
     },
   },
 }
@@ -179,4 +197,13 @@ export default {
     color: #aaa
     pointer-events: none
     height: 0
+
+  h1.editor-heading, h2.editor-heading
+    letter-spacing: 0.025rem
+
+  h1.editor-heading
+    font-size: 1.5rem
+  h2.editor-heading
+    font-size: 1.25rem
+
 </style>

@@ -1,4 +1,5 @@
 import http from './index'
+import httpForm from './index-form'
 
 // 會員登入
 export const userSignIn = (data) => {
@@ -18,4 +19,8 @@ export const userSignUp = (data) => {
 // 會員註冊 - 取得文章類別清單
 export const getInterestList = () => {
   return http.get(`api/Test/GetArticlecategory`)
+}
+
+export const uploadImage = (data) => {
+  return httpForm.post(`/upload`, data)
 }

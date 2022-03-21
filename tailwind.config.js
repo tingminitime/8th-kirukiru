@@ -8,7 +8,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      
       colors: {
         myBrown: '#553529',
         myYellow: '#FFB11B',

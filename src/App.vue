@@ -62,7 +62,7 @@ import { getUserInfo } from '@api'
             this.$notify({
               group: "success",
               title: "登入成功 !",
-              text: `歡迎回來，${res.data.Name}`
+              text: `歡迎回來，${res.data.data.Name}`
             }, 3000)
           })
           .catch(error => {
