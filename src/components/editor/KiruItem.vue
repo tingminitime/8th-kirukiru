@@ -53,10 +53,6 @@ export default {
       type: String,
       required: true,
     },
-    tool: {
-      type: String,
-      default: '',
-    },
     origImage: {
       type: String,
       default: '',

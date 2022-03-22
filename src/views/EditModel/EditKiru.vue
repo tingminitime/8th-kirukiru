@@ -1,5 +1,8 @@
 <template>
-  <EditNavbar></EditNavbar>
+  <EditNavbar
+    @save-article="saveHandler"
+    @publish-article="publishHandler"
+  ></EditNavbar>
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
     <!-- 上傳圖片 -->
     <div>
@@ -103,14 +106,14 @@
       </p>
       <!-- 預備工具欄位 -->
       <PrepareTool
-        v-for="content in tools"
+        v-for="content in articleVm.fArrayList"
         :key="content.uuid"
         v-bind="content"
-        :orig-image="content.toolImage"
+        :orig-image="content.secPhoto"
         :edit-mode="editMode"
         @remove-item="removeTool"
-        @update:tool="content.tool = $event"
-        @tool-img-upload="content.toolImage = $event"
+        @update:tool="content.mission = $event"
+        @tool-img-upload="content.secPhoto = $event"
       ></PrepareTool>
       <!-- 新增欄位 -->
       <div class="flex justify-center my-4">
@@ -202,7 +205,7 @@
         附註與補充
       </h2>
       <TipTap
-        v-model="articleVm.finaldata.final"
+        v-model="articleVm.final"
         placeholder="補充事項、提醒、小撇步等等 _"
         custom-class="min-h-[6rem]"
         word-limit="100"
@@ -217,15 +220,9 @@
       >
         取消編輯
       </button>
-      <button
-        type="button"
-        class="button-md myButtonValid myButtonValidHover"
-        @click="sendImage"
-      >
-        測試用按鈕
-      </button>
     </div>
   </div>
+  <AlertModal></AlertModal>
 </template>
 
 <script>
@@ -238,11 +235,12 @@ import TipTap from '@/components/editor/TipTap.vue'
 import PrepareTool from '@/components/editor/PrepareTool.vue'
 import KiruItem from '@/components/editor/KiruItem.vue'
 import MissionItem from '@/components/editor/MissionItem.vue'
+import AlertModal from '@/components/utils/AlertModal.vue'
 import _ from 'lodash'
 import { useField } from 'vee-validate'
 import { getInterestList } from '@api'
 import { v4 as uuidv4 } from 'uuid'
-import { uploadImage } from '@api'
+import { uploadImage, addKiruArticle } from '@api'
 
 export default {
   name: 'EditKiru',
@@ -258,6 +256,13 @@ export default {
     PrepareTool,
     KiruItem,
     MissionItem,
+    AlertModal,
+  },
+  props: {
+    articleId: {
+      type: [String, Number],
+      default: '',
+    },
   },
   data() {
     return {
@@ -267,44 +272,27 @@ export default {
         title: '',
         isFree: true,
         isPush: false,
-        articlecategory: null,
+        articlecategoryId: null,
         introduction: '',
         firstPhoto: '',
+        fArrayList: [],
         // 切切欄位
         mArrayList: [
           {
             uuid: uuidv4(),
-            mId: null,
             thirdPhoto: '',
             main: '',
           },
         ],
         // 附屬任務欄位
-        fMissionList: [
-          {
-            fId: null,
-            uuid: uuidv4(),
-            auxiliary: '',
-            auxiliarymain: '',
-          },
-        ],
-        finaldata: {
-          final: '',
-        },
+        fMissionList: [],
+        final: '',
       },
       coverImage: null,
       categoryVm: null,
       artInfoCount: 0,
       finalCount: 0,
       errors: [],
-      tools: [],
-      // tools: [
-      //   {
-      //     uuid: uuidv4(),
-      //     toolImage: 'Photo132923562178381541.jpg',
-      //     tool: '123',
-      //   }
-      // ],
       coverUpload: false,
       imgDataUrl: '',
       editMode: false,
@@ -313,12 +301,11 @@ export default {
   computed: {
     categoryHandler: {
       get() {
-        console.log(this.categoryVm)
         return this.categoryVm
       },
       set(newVal) {
         this.categoryVm = newVal
-        this.articleVm.articlecategory = newVal.Id
+        this.articleVm.articlecategoryId = newVal.Id
       }
     },
   },
@@ -332,6 +319,12 @@ export default {
     },
   },
   mounted() {
+    if (this.articleId) {
+      this.editMode = true
+    } else {
+      this.editMode = false
+    }
+
     getInterestList().then(res => {
       this.category = res.data
     })
@@ -339,7 +332,6 @@ export default {
   },
   methods: {
     coverHandler(file) {
-      console.log(file)
       this.coverImage = file
     },
     // 上傳圖片
@@ -368,7 +360,6 @@ export default {
     titleError(target) {
       const hasError = this.errors.findIndex(err => err === target.name)
       if (target.error) {
-        console.log(hasError)
         if (hasError === -1) this.errors.push(target.name)
         return ''
       } else {
@@ -379,27 +370,25 @@ export default {
 
     // 切切敘述字數計算
     artInfoCountHandler: _.throttle(function debounceProcess(value) {
-      console.log(value)
       this.artInfoCount = value
     }, 500),
     // 補充事項字數計算
     finalCountHandler: _.throttle(function debounceProcess(value) {
-      console.log(value)
       this.finalCount = value
     }, 500),
     // 新增預備工具欄位
     addTool() {
-      this.tools.push({
+      this.articleVm.fArrayList.push({
         uuid: uuidv4(),
-        toolImage: '',
-        tool: '',
+        secPhoto: '',
+        mission: '',
       })
     },
     // 新增切切欄位
     addKiru() {
       this.articleVm.mArrayList.push({
         uuid: uuidv4(),
-        mId: null,
+        // mId: null,
         thirdPhoto: '',
         main: '',
       })
@@ -407,33 +396,95 @@ export default {
     addMission() {
       this.articleVm.fMissionList.push({
         uuid: uuidv4(),
-        mId: null,
+        // mId: null,
         auxiliary: '',
         auxiliarymain: '',
       })
     },
     removeTool(id) {
-      console.log(id)
-      const removeIndex = this.tools.findIndex(tool => tool.uuid === id)
-      this.tools.splice(removeIndex, 1)
+      const removeIndex = this.articleVm.fArrayList.findIndex(tool => tool.uuid === id)
+      this.articleVm.fArrayList.splice(removeIndex, 1)
     },
     removeKiru(id) {
-      console.log(id)
       const removeIndex = this.articleVm.mArrayList.findIndex(m => m.uuid === id)
       this.articleVm.mArrayList.splice(removeIndex, 1)
     },
     removeMission(id) {
-      console.log(id)
       const removeIndex = this.articleVm.fMissionList.findIndex(m => m.uuid === id)
       this.articleVm.fMissionList.splice(removeIndex, 1)
-    },
-    toolHandler(value) {
-      console.log(value)
     },
     // 初始化資料
     initData(target) {
         this.$data[target] = this.$options.data()[target];
     },
+    // 儲存 / 發布前檢查
+    checkHandler(data) {
+      console.log(data)
+      const errors = []
+
+      if (!data.title) {
+        errors.push({
+          key: 'title',
+          anchor: 'kiru-title',
+          message: '切切標題為必填 !',
+        })
+      }
+
+      if (!data.articlecategory) {
+        errors.push({
+          key: 'articlecategory',
+          anchor: 'kiru-articlecategory',
+          message: '全站分類為必填 !'
+        })
+      }
+
+      if (!data.firstPhoto) {
+        errors.push({
+          key: 'firstPhoto',
+          anchor: 'kiru-firstPhoto',
+          message: '必須上傳封面圖片 !',
+        })
+      }
+
+      const kiruError = data.mArrayList.find(kiru => !kiru.main)
+      if (data.mArrayList.length === 0 || kiruError) {
+        errors.push({
+          key: 'mArrayList',
+          anchor: 'kiru-content',
+          message: '請至少填寫一個切切 !',
+        })
+      }
+  
+      if (!errors.length) {
+        return true
+      } else {
+        return {
+          success: false,
+          errors,
+        }
+      }
+    },
+    // 儲存文章
+    saveHandler() {
+      if (this.editMode) return
+      
+    },
+    // 發布文章
+    publishHandler() {
+      if (this.editMode) return
+      const checkResult = this.checkHandler(this.articleVm)
+      console.log(checkResult)
+      if (checkResult) {
+        addKiruArticle(this.articleVm).then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      } else {
+        this.$notify()
+      }
+    }
   }
 }
 </script>

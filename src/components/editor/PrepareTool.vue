@@ -6,7 +6,7 @@
       class="w-full sm:w-[256px]"
       upload-bg="bg-upload-image"
       upload-container="w-full"
-      :orig-image="origImage"
+      :orig-image="secPhoto"
       :edit-mode="editMode"
       @file-change="imageHandler"
     ></CoverUpload>
@@ -14,7 +14,7 @@
     <div class="flex flex-col gap-1 w-full sm:w-72 md:-translate-y-3">
       <span class="inline-block font-bold text-center text-myBrown align-middle md:text-left">工具</span>
       <input
-        :value="tool"
+        :value="mission"
         type="text"
         placeholder="請輸入工具內容"
         class=" p-2 w-full bg-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:outline-none sm:py-1"
@@ -49,11 +49,11 @@ export default {
       type: String,
       required: true,
     },
-    tool: {
+    mission: {
       type: String,
       default: '',
     },
-    origImage: {
+    secPhoto: {
       type: String,
       default: '',
     },

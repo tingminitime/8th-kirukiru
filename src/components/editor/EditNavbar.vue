@@ -16,12 +16,14 @@
           <button
             type="button"
             class="block relative before:absolute before:bottom-0 before:left-0 p-4 before:w-full before:h-1 font-bold text-myBrown before:bg-myYellow/50 before:opacity-0 hover:before:opacity-100 before:transition-all sm:py-6"
+            @click="saveArticleHandler"
           >
             儲存文章
           </button>
           <button
             type="button"
             class="block relative before:absolute before:bottom-0 before:left-0 p-4 before:w-full before:h-1 font-bold text-white before:bg-myYellow/50 bg-center bg-no-repeat bg-contain bg-button-publish before:opacity-0 hover:before:opacity-100 before:transition-all sm:py-6"
+            @click="publishArticleHandler"
           >
             <span>發布文章</span>
           </button>
@@ -38,6 +40,7 @@ export default {
   name: 'EditNavbar',
   components: {
   },
+  emits: ['save-article', 'publish-article'],
   data() {
     return {
     }
@@ -48,6 +51,12 @@ export default {
     ])
   },
   methods: {
+    saveArticleHandler() {
+      this.$emit('save-article')
+    },
+    publishArticleHandler() {
+      this.$emit('publish-article')
+    },
   }
 }
 </script>

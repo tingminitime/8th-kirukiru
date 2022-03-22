@@ -56,7 +56,7 @@ import { getUserInfo } from '@api'
         if (token) {
           this.SET_TOKEN(token)
 
-          getUserInfo(token).then(res => {
+          getUserInfo().then(res => {
             console.log('自動登入API(200): ', res)
             this.SET_USER_INFO(res.data.data)
             this.$notify({

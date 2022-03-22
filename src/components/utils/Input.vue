@@ -50,7 +50,6 @@ export default {
       }
       return true
     })
-    console.log(value)
 
     return {
       value,

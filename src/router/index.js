@@ -60,12 +60,19 @@ const routes = [
         meta: { requiresAuth: true, navbar: false },
         children: [
           {
-            path: 'kiru',
+            path: 'kiru/:article(\\d+)?',
             name: 'EditKiru',
             components: {
               default: () => import('@/views/EditModel/EditKiru.vue')
             },
             meta: { requiresAuth: true, navbar: false },
+            props: {
+              default(route) {
+                return {
+                  articleId: route.params.article
+                }
+              }
+            },
           },
           {
             path: 'normal',

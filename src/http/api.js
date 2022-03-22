@@ -7,8 +7,13 @@ export const userSignIn = (data) => {
 }
 
 // 取得會員資訊
-export const getUserInfo = (token) => {
-  return http.get(`api/Test/GetName?Token=${token}`)
+// export const getUserInfo = (token) => {
+//   return http.get(`api/Test/GetName?Token=${token}`)
+// }
+
+// 取得會員資訊
+export const getUserInfo = () => {
+  return http.get(`/GetName`)
 }
 
 //會員註冊
@@ -21,6 +26,12 @@ export const getInterestList = () => {
   return http.get(`api/Test/GetArticlecategory`)
 }
 
+// 圖片上傳
 export const uploadImage = (data) => {
   return httpForm.post(`/upload`, data)
+}
+
+// 添加切切文章
+export const addKiruArticle = (data) => {
+  return http.post(`api/Article/AddArticle`, data)
 }
