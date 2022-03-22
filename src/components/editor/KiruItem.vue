@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 items-center mb-8 md:flex-row md:gap-0 md:justify-between">
+  <div class="flex flex-col gap-3 items-center mb-12 md:flex-row md:gap-0 md:justify-between">
     <!-- 上傳圖片 -->
     <CoverUpload
       name="kiru"
@@ -7,6 +7,8 @@
       upload-bg="bg-upload-image"
       upload-container="w-full"
       :orig-image="origImage"
+      :aspect-width="1"
+      :aspect-height="1"
       :edit-mode="editMode"
       @file-change="imageHandler"
     ></CoverUpload>
@@ -95,7 +97,6 @@ export default {
       const data = new FormData()
       data.append('photo', this.image)
       uploadImage(data).then(res => {
-        console.log(res)
         if (res.data.success) {
           this.$emit('kiru-img-upload', res.data.picname)
         } else {
@@ -111,7 +112,6 @@ export default {
     },
     // 切切字數
     kiruCountHandler: _.throttle(function debounceProcess(value) {
-      console.log(value)
       this.kiruCount = value
     }, 500),
   },

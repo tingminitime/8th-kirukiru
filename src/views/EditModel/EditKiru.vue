@@ -1,97 +1,114 @@
 <template>
+  <!-- 編輯文章頂部 Navbar -->
   <EditNavbar
     @save-article="saveHandler"
     @publish-article="publishHandler"
   ></EditNavbar>
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
-    <!-- 上傳圖片 -->
-    <div>
-      <CoverUpload
-        name="cover"
-        class="mb-4 max-w-[536px]"
-        fix-text="點我修改封面圖片"
-        upload-bg="bg-upload-cover"
-        upload-container="mb-4 w-full sm:w-2/3"
-        :orig-image="articleVm.firstPhoto"
-        :mode="editMode"
-        @file-change="coverHandler"
-      ></CoverUpload>
-    </div>
-    <!-- 切切標題 -->
-    <div class="mb-8">
-      <h2 class="mb-1 text-lg font-bold text-myBrown md:mb-2 md:text-xl">
-        切切標題
-      </h2>
-      <Input
-        class="w-full sm:w-2/3"
-        error-class="md:-right-2 md:translate-x-full md:top-1/2 md:-translate-y-1/2 md:absolute"
-        placeholder="按這裡輸入標題"
-        name="title"
-        error-text="標題為必填"
-        :default-value="articleVm.title"
-        @update="titleHandler"
-      ></Input>
+    <div class="kiruPartEffect">
+      <!-- 上傳圖片 -->
+      <div id="editor-kiru-cover">
+        <CoverUpload
+          name="cover"
+          class="mb-4 max-w-[536px]"
+          fix-text="點我修改封面圖片"
+          upload-bg="bg-upload-cover"
+          upload-container="mb-4 w-full sm:w-2/3"
+          :orig-image="articleVm.firstPhoto"
+          :mode="editMode"
+          @file-change="coverHandler"
+        ></CoverUpload>
+      </div>
+      <!-- 切切標題 -->
+      <div
+        id="editor-kiru-title"
+        class="mb-8"
+      >
+        <h2 class="mb-1 text-lg font-bold text-myBrown md:mb-2 md:text-xl">
+          切切標題
+        </h2>
+        <Input
+          class="w-full sm:w-2/3"
+          error-class="md:-right-2 md:translate-x-full md:top-1/2 md:-translate-y-1/2 md:absolute"
+          placeholder="按這裡輸入標題"
+          name="title"
+          error-text="標題為必填"
+          :default-value="articleVm.title"
+          @update="titleHandler"
+        ></Input>
+      </div>
     </div>
     <div class="mb-6 bg-myBrown md:mb-8">
       <h2 class="py-1 text-xl font-bold text-center text-white">
         編輯資訊
       </h2>
     </div>
-    <!-- 付費閱讀設定 -->
-    <div class="mb-6 md:mb-8">
-      <SwitchGroup>
-        <div class="flex gap-8 items-center">
-          <SwitchLabel class="flex gap-2 items-center">
-            <span class="font-bold text-myBrown">
-              是否要把這篇設為付費閱讀 ?
-            </span>
-            <span class="text-myBrown material-icons">info</span>
-          </SwitchLabel>
-          <Switch
-            v-model="articleVm.isFree"
-            :class="!articleVm.isFree ? 'bg-myBrown' : 'bg-white'"
-            class="mySwitchBar"
-          >
-            <span class="sr-only">是否要把這篇設為付費閱讀</span>
-            <span
-              :class="!articleVm.isFree ? 'translate-x-8' : 'translate-x-0'"
-              class="ring-myBrown mySwitchButton"
-            ></span>
-          </Switch>
-        </div>
-      </SwitchGroup>
-    </div>
-    <!-- 全站分類 -->
-    <div class="mb-8 w-full sm:w-1/3">
-      <h3 class="font-bold text-myBrown">
-        全站分類
-      </h3>
-      <div>
-        <FormInputSelect
-          v-model="categoryHandler"
-          :options="category"
-          key-prop="Name"
-          label-prop="Name"
-          default-text="打開選單"
-          options-position="absolute"
-        ></FormInputSelect>
+    <div class="kiruPartEffect">
+      <!-- 付費閱讀設定 -->
+      <div
+        id="editor-kiru-pay"
+        class="mb-6 md:mb-8"
+      >
+        <SwitchGroup>
+          <div class="flex gap-8 items-center">
+            <SwitchLabel class="flex gap-2 items-center">
+              <span class="font-bold text-myBrown">
+                是否要把這篇設為付費閱讀 ?
+              </span>
+              <span class="text-myBrown material-icons">info</span>
+            </SwitchLabel>
+            <Switch
+              v-model="articleVm.isFree"
+              :class="!articleVm.isFree ? 'bg-myBrown' : 'bg-white'"
+              class="mySwitchBar"
+            >
+              <span class="sr-only">是否要把這篇設為付費閱讀</span>
+              <span
+                :class="!articleVm.isFree ? 'translate-x-8' : 'translate-x-0'"
+                class="ring-myBrown mySwitchButton"
+              ></span>
+            </Switch>
+          </div>
+        </SwitchGroup>
       </div>
-    </div>
-    <!-- 切切敘述 -->
-    <div class="py-4 mb-6">
-      <div class="flex gap-2 items-center mb-2">
+      <!-- 全站分類 -->
+      <div
+        id="editor-kiru-category"
+        class="mb-8 w-full sm:w-1/3"
+      >
         <h3 class="font-bold text-myBrown">
-          切切敘述
+          全站分類
         </h3>
-        <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
+        <div>
+          <FormInputSelect
+            v-model="categoryHandler"
+            :options="category"
+            key-prop="Name"
+            label-prop="Name"
+            default-text="打開選單"
+            options-position="absolute"
+          ></FormInputSelect>
+        </div>
       </div>
-      <TipTap
-        v-model="articleVm.introduction"
-        placeholder="簡述一下這篇切切的內容吧 _"
-        custom-class="min-h-[6rem]"
-        word-limit="100"
-        @word-count="artInfoCountHandler"
-      ></TipTap>
+      <!-- 切切敘述 -->
+      <div
+        id="editor-kiru-introduction"
+        class="py-4 mb-6"
+      >
+        <div class="flex gap-2 items-center mb-2">
+          <h3 class="font-bold text-myBrown">
+            切切敘述
+          </h3>
+          <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
+        </div>
+        <TipTap
+          v-model="articleVm.introduction"
+          placeholder="簡述一下這篇切切的內容吧 _"
+          custom-class="min-h-[6rem]"
+          word-limit="100"
+          @word-count="artInfoCountHandler"
+        ></TipTap>
+      </div>
     </div>
     <!-- 預備工具 -->
     <div class="mb-4 bg-myBrown">
@@ -99,7 +116,10 @@
         預備工具
       </h2>
     </div>
-    <div class="py-2 mb-8 md:mb-12">
+    <div
+      id="editor-kiru-tools"
+      class="py-2 mb-8 md:mb-12 kiruPartEffect"
+    >
       <!-- 說明 -->
       <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
         會用到的物品、工具、材料、環境...等
@@ -130,9 +150,12 @@
       </div>
     </div>
     <!-- 開始切切 -->
-    <div class="mb-8 md:mb-12">
+    <div
+      id="editor-kiru-kiru"
+      class="mb-12 md:mb-16 kiruPartEffect"
+    >
       <div class="flex gap-3 items-center mb-8">
-        <h2 class="mb-1 text-2xl font-bold text-myBrown md:mb-2">
+        <h2 class="mb-1 text-2xl font-bold text-myBrown md:mb-2 md:text-3xl">
           開始切切
         </h2>
         <span class="text-sm font-bold text-red-400">請至少填寫 1 個切切</span>
@@ -162,12 +185,15 @@
       </div>
     </div>
     <!-- 附屬任務 -->
-    <div class="mb-8 md:mb-12">
-      <div class="mb-4 bg-myBrown">
-        <h2 class="py-1 text-xl font-bold text-center text-white">
-          附屬任務
-        </h2>
-      </div>
+    <div class="mb-4 bg-myBrown">
+      <h2 class="py-1 text-xl font-bold text-center text-white">
+        附屬任務
+      </h2>
+    </div>
+    <div
+      id="editor-kiru-mission"
+      class="mb-8 md:mb-12 kiruPartEffect"
+    >
       <div class="mb-8 md:mb-12">
         <!-- 說明 -->
         <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
@@ -199,7 +225,10 @@
       </div>
     </div>
     <!-- 附註與補充 -->
-    <div class="mb-8 md:mb-12">
+    <div
+      id="editor-kiru-remark"
+      class="mb-8 md:mb-12 kiruPartEffect"
+    >
       <!-- finaldata -->
       <h2 class="mb-1 text-2xl font-bold text-center text-myBrown md:mb-2">
         附註與補充
@@ -217,12 +246,17 @@
       <button
         type="button"
         class="button-md myButtonValid myButtonValidHover"
+        @click="cancelKiru"
       >
         取消編輯
       </button>
     </div>
   </div>
-  <AlertModal></AlertModal>
+  <AlertModal
+    v-bind="alertInfo"
+    @alert-confirm="alertConfirmHandler"
+    @alert-cancel="alertCancelHandler"
+  ></AlertModal>
 </template>
 
 <script>
@@ -240,7 +274,7 @@ import _ from 'lodash'
 import { useField } from 'vee-validate'
 import { getInterestList } from '@api'
 import { v4 as uuidv4 } from 'uuid'
-import { uploadImage, addKiruArticle } from '@api'
+import { uploadImage, addKiruArticle, getEditKiruArticle, editKiruArticle } from '@api'
 
 export default {
   name: 'EditKiru',
@@ -271,7 +305,7 @@ export default {
         memberUserName: '',
         title: '',
         isFree: true,
-        isPush: false,
+        isPush: true,
         articlecategoryId: null,
         introduction: '',
         firstPhoto: '',
@@ -296,6 +330,7 @@ export default {
       coverUpload: false,
       imgDataUrl: '',
       editMode: false,
+      alertInfo: null,
     }
   },
   computed: {
@@ -314,13 +349,19 @@ export default {
     coverImage(newVal) {
       if (newVal) {
         // this.articleVm.firstPhoto = newVal.name
-        this.sendImage(newVal.name)
+        this.sendCover(newVal.name)
       }
     },
   },
   mounted() {
     if (this.articleId) {
       this.editMode = true
+      getEditKiruArticle(this.articleId).then(res => {
+        console.log(res)
+      })
+      .catch(error => {
+        console.log(error)
+      })
     } else {
       this.editMode = false
     }
@@ -331,11 +372,139 @@ export default {
     this.articleVm.memberUserName = this.$store.state.userInfo.Username
   },
   methods: {
+    // 新增文章發送 API
+    postArticle() {
+      this.$store.commit('SHOW_OVERLAY_LOADING')
+      addKiruArticle(this.articleVm).then(res => {
+        console.log('新增成功: ', res)
+        if (res.data.success) {
+          const alertInfo = {
+            message: '切切已發布 !',
+            confirmText: '去看內文',
+            confirmMode: 'replace',
+            confirmTodo: {
+              name: 'ArticleContent',
+              params: { articleId: res.data.artId },
+            }
+          }
+          this.alertInfo = alertInfo
+          this.$store.commit('HIDE_OVERLAY_LOADING')
+          this.$store.commit('SHOW_ALERT')
+        } else {
+          this.$store.commit('HIDE_OVERLAY_LOADING')
+          this.$notify({
+            group: 'error',
+            title: '發布失敗',
+            message: res.data.message,
+          })
+        }
+      })
+      .catch(error => {
+        this.$store.commit('HIDE_OVERLAY_LOADING')
+        console.log(error)
+      })
+    },
+    // 編輯文章發送 API
+    editArticle() {
+      this.$store.commit('SHOW_OVERLAY_LOADING')
+      editKiruArticle(this.articleVm).then(res => {
+        console.log('編輯成功: ', res)
+        if (res.data.success) {
+          const alertInfo = {
+            message: '切切已儲存 !',
+            confirmText: '回到個人主頁',
+            confirmMode: 'replace',
+            confirmTodo: {
+              name: 'User',
+              params: { userId: this.$store.userInfo },
+            }
+          }
+          this.alertInfo = alertInfo
+          this.$store.commit('HIDE_OVERLAY_LOADING')
+          this.$store.commit('SHOW_ALERT')
+        } else {
+          this.$store.commit('HIDE_OVERLAY_LOADING')
+          this.$notify({
+            group: 'error',
+            title: '發布失敗',
+            message: res.data.message,
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    // 儲存文章
+    saveHandler() {
+      this.alertInfo = null
+      this.articleVm.isPush = true
+
+      const checkResult = this.checkHandler(this.articleVm)
+      console.log(checkResult)
+      if (checkResult.success) {
+        this.editMode
+          ? this.editArticle()
+          : this.postArticle()
+      } else {
+        this.alertInfo = {
+          message: `${checkResult.errors[0].message}`,
+          showConfirm: false,
+          showCancel: true,
+          cancelText: '返回',
+          cancelMode: 'anchor',
+          cancelTodo: {
+            name: this.$route.name,
+            hash: `#${checkResult.errors[0].anchor}`
+          }
+        }
+        this.$store.commit('SHOW_ALERT')
+      }
+    },
+    // 發布文章
+    publishHandler() {
+      this.alertInfo = null
+      const checkResult = this.checkHandler(this.articleVm)
+      console.log(checkResult)
+      if (checkResult.success) {
+        this.editMode
+          ? this.editArticle()
+          : this.postArticle()
+      } else {
+        this.alertInfo = {
+          message: `${checkResult.errors[0].message}`,
+          showConfirm: false,
+          showCancel: true,
+          cancelText: '返回',
+          cancelMode: 'anchor',
+          cancelTodo: {
+            name: this.$route.name,
+            hash: `#${checkResult.errors[0].anchor}`
+          }
+        }
+        this.$store.commit('SHOW_ALERT')
+      }
+    },
+    alertConfirmHandler(todo) {
+      console.log(todo)
+    },
+    alertCancelHandler(todo) {
+      console.log(todo)
+    },
+    cancelKiru() {
+      this.alertInfo = {
+        message: '確定取消這次的切切 ?',
+        confirmMode: 'push',
+        confirmTodo: { name: this.$store.state.recordPath },
+      }
+      this.$store.commit('SHOW_ALERT')
+    },
+    // 封面圖片選擇後 -> 檔案儲存
     coverHandler(file) {
       this.coverImage = file
     },
     // 上傳圖片
-    sendImage(name) {
+    sendCover(name) {
       const data = new FormData()
       data.append('photo', this.coverImage.file)
       uploadImage(data).then(res => {
@@ -422,27 +591,27 @@ export default {
       console.log(data)
       const errors = []
 
+      if (!data.firstPhoto) {
+        errors.push({
+          key: 'firstPhoto',
+          anchor: 'editor-kiru-cover',
+          message: '必須上傳封面圖片 !',
+        })
+      }
+
       if (!data.title) {
         errors.push({
           key: 'title',
-          anchor: 'kiru-title',
+          anchor: 'editor-kiru-title',
           message: '切切標題為必填 !',
         })
       }
 
-      if (!data.articlecategory) {
+      if (!data.articlecategoryId) {
         errors.push({
-          key: 'articlecategory',
-          anchor: 'kiru-articlecategory',
+          key: 'articlecategoryId',
+          anchor: 'editor-kiru-category',
           message: '全站分類為必填 !'
-        })
-      }
-
-      if (!data.firstPhoto) {
-        errors.push({
-          key: 'firstPhoto',
-          anchor: 'kiru-firstPhoto',
-          message: '必須上傳封面圖片 !',
         })
       }
 
@@ -450,41 +619,24 @@ export default {
       if (data.mArrayList.length === 0 || kiruError) {
         errors.push({
           key: 'mArrayList',
-          anchor: 'kiru-content',
+          anchor: 'editor-kiru-kiru',
           message: '請至少填寫一個切切 !',
         })
       }
   
       if (!errors.length) {
-        return true
+        return {
+          success: true,
+          message: '文章編輯檢查成功'
+        }
       } else {
         return {
           success: false,
           errors,
+          message: '必填欄位未填'
         }
       }
     },
-    // 儲存文章
-    saveHandler() {
-      if (this.editMode) return
-      
-    },
-    // 發布文章
-    publishHandler() {
-      if (this.editMode) return
-      const checkResult = this.checkHandler(this.articleVm)
-      console.log(checkResult)
-      if (checkResult) {
-        addKiruArticle(this.articleVm).then(res => {
-          console.log(res)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      } else {
-        this.$notify()
-      }
-    }
   }
 }
 </script>

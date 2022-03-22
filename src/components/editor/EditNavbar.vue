@@ -1,5 +1,7 @@
 <template> 
-  <div class="sticky top-0 z-20 w-full">
+  <div
+    class="sticky top-0 z-20 w-full"
+  >
     <nav class="relative px-8 h-nav bg-myGray/80 border-b border-slate-50/50 drop-shadow-lg backdrop-blur">
       <div class="container flex justify-between items-center mx-auto max-w-5xl h-full">
         <router-link
@@ -39,6 +41,12 @@ import { mapState } from 'vuex'
 export default {
   name: 'EditNavbar',
   components: {
+  },
+  props: {
+    position: {
+      type: String,
+      default: 'sticky',
+    },
   },
   emits: ['save-article', 'publish-article'],
   data() {

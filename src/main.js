@@ -4,6 +4,7 @@ import router from '@/router'
 import store from '@/store'
 import Notifications from 'notiwind'
 import '@/index.css'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import 'animate.css'
 import 'cropperjs/dist/cropper.css'
 

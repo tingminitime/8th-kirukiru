@@ -33,14 +33,6 @@ const routes = [
           default: () => import('@/views/SignIn.vue'),
         },
         meta: { requiresAuth: false, navbar: true, recordPath: true },
-        beforeEnter(to, from, next) {
-          console.log(to, from)
-          store.commit(
-            'SET_RECORD_PATH',
-            from.meta.recordPath ? from.name : 'HomePage'
-          )
-          next()
-        }
       },
       // 註冊頁面
       {
@@ -51,13 +43,14 @@ const routes = [
         },
         meta: { requiresAuth: false, navbar: true, recordPath: false },
       },
+      // 文章新增 / 編輯
       {
         path: 'editor',
         name: 'EditPage',
         components: {
           default: () => import('@/views/EditModel/EditPage.vue')
         },
-        meta: { requiresAuth: true, navbar: false },
+        meta: { requiresAuth: true, navbar: false, recordPath: false },
         children: [
           {
             path: 'kiru/:article(\\d+)?',
@@ -84,6 +77,49 @@ const routes = [
           },
         ]
       },
+      // 文章頁面
+      {
+        path: 'article',
+        name: 'Article',
+        components: {
+          default: () => import('@/views/Article/ArticlePage.vue')
+        },
+        meta: { requiresAuth: false, navbar: true },
+        children: [
+          {
+            path: ':articleId',
+            name: 'ArticleContent',
+            components: {
+              default: () => import('@/views/Article/ArticleKiru.vue')
+            },
+          }
+        ],
+      },
+      // 作者個人頁面
+      {
+        path: 'author/(profile/)?:authorId',
+        name: 'Author',
+        components: {
+          default: () => import('@/views/Author/AuthorPage.vue'),
+          subscribed: () => import('@/views/Author/AuthorSubscribed.vue'),
+        },
+        meta: { requiresAuth: false, navbar: true },
+      },
+      // 使用者個人頁面
+      {
+        path: 'user/(profile/)?:userId',
+        name: 'User',
+        components: {
+          default: () => import('@/views/User/UserPage.vue'),
+          info: () => import('@/views/User/UserInfo.vue'),
+          profile: () => import('@/views/User/UserProfile.vue'),
+          articles: () => import('@/views/User/UserArticles.vue'),
+          collections: () => import('@/views/User/UserCollections.vue'),
+          plan: () => import('@/views/User/UserPlan.vue'),
+          subscriptions: () => import('@/views/User/UserSubscriptions.vue'),
+        },
+        meta: { requiresAuth: true, navbar: true },
+      },
       // 404 Not Found
       {
         path: '/:pathMatch(.*)',
@@ -103,6 +139,7 @@ const scrollBehavior = (to, from, savedPosition) => {
   if (to.hash) {
     return {
       el: to.hash,
+      top: 100,
       behavior: 'smooth',
     }
   } else {
@@ -119,13 +156,21 @@ const Router = createRouter({
 
 Router.beforeEach((to, from, next) => {
   console.log('trigger beforeEach!', to, from)
+  // 進度條開始
   NProgress.start()
 
+  // 判斷記錄導頁前路徑
+  store.commit(
+    'SET_RECORD_PATH',
+    from.meta.recordPath ? from.name : 'HomePage'
+  )
+
+  // 判斷是否驗證導頁
   if (to.meta.requiresAuth) {
     const token = localStorage.getItem('kirukiruToken')
     if (token) {
       getUserInfo(token).then(res => {
-        console.log('編輯模式驗證登入狀態: ', res)
+        console.log('頁面要求驗證登入狀態: ', res)
         if (res.data) {
           next()
         } else {
@@ -149,6 +194,7 @@ Router.beforeEach((to, from, next) => {
 })
 
 Router.afterEach((to, from) => {
+  // 進度條結束
   NProgress.done()
 })
 

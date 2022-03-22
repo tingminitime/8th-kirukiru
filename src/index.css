@@ -20,19 +20,27 @@
   }
 
   .button-xl {
-    @apply block py-3 px-4 w-full md:w-56 text-2xl font-black text-center rounded cursor-pointer text-myBrown hover:text-myBrown
+    @apply block py-3 px-4 w-full min-w-[224px] md:w-56 text-2xl font-black text-center rounded cursor-pointer text-myBrown hover:text-myBrown
   }
 
   .button-lg {
-    @apply block py-2 px-4 w-full md:w-48 text-xl font-bold text-center rounded cursor-pointer text-white
+    @apply block py-2 px-4 w-full min-w-[192px] md:w-48 text-xl font-bold text-center rounded cursor-pointer text-white
   }
 
   .button-md {
     @apply block py-2 px-4 w-36 text-base font-bold text-center rounded cursor-pointer text-white
   }
 
+  .button-sm {
+    @apply block py-1 px-4 w-20 text-base font-bold text-center rounded-lg cursor-pointer
+  }
+
   .myButtonValid {
     @apply bg-myYellow focus:outline-none focus:ring focus:ring-myYellow/80 focus:ring-offset-2
+  }
+
+  .myButtonValidReverse {
+    @apply bg-transparent focus:outline-none focus:ring-offset-2 text-myYellow
   }
 
   .myButtonValidHover {
@@ -49,6 +57,10 @@
 
   .editorBubbleBtn {
     @apply rounded hover:bg-gray-500 inline-block p-0.5 w-8
+  }
+
+  .kiruPartEffect {
+    @apply before:block relative before:absolute before:top-0 before:-left-8 before:w-2 before:h-full before:bg-myYellow/25 before:opacity-0 hover:before:opacity-100 before:transition-all 
   }
 }
 

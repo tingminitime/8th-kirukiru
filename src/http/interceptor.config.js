@@ -10,7 +10,9 @@ export const setInterceptors = (axiosInstance) => {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
-      store.commit('SHOW_REQUEST_LOADING')
+      if (!store.state.overlayLoading) {
+        store.commit('SHOW_REQUEST_LOADING')
+      }
       return config
     },
     (error) => {

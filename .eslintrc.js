@@ -39,6 +39,7 @@ module.exports = {
         'whitelist': [
           'form\\-(input|textarea|select|multiselect|checkbox|radio)',
           'material-icons',
+          'material-icons-outlined',
         ],
       }
     ],

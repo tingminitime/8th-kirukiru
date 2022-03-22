@@ -2,6 +2,14 @@
   <TopNavbar v-if="$route.meta.navbar"></TopNavbar>
   <router-view></router-view>
 
+  <!-- 全域 Loading -->
+  <Loading v-model:active="overlayLoading">
+    <GlobalLoading
+      class="scale-150 la-2x"
+      :show="overlayLoading"
+    ></GlobalLoading>
+  </Loading>
+
   <!-- 開啟 Modal(Dialog) 遮罩 -->
   <MaskBlack></MaskBlack>
 
@@ -18,8 +26,10 @@
 <script>
 import TopNavbar from '@/components/TopNavbar.vue'
 import MaskBlack from '@/components/MaskBlack.vue'
+import Loading from 'vue-loading-overlay'
 import NotiWind from '@/components/utils/NotiWind.vue'
 import RequestLoading from '@/components/utils/RequestLoading.vue'
+import GlobalLoading from '@/components/utils/GlobalLoading.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 import { getUserInfo } from '@api'
 
@@ -28,8 +38,10 @@ import { getUserInfo } from '@api'
     components: {
       TopNavbar,
       MaskBlack,
+      Loading,
       NotiWind,
       RequestLoading,
+      GlobalLoading,
     },
     data() {
       return {
@@ -38,6 +50,7 @@ import { getUserInfo } from '@api'
     },
     computed: {
       ...mapState([
+        'overlayLoading',
         'openLoginModal',
         'openRegisterModal',
         'requestLoading',

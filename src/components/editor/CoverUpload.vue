@@ -21,7 +21,8 @@
     >
       <div
         v-show="files.length !== 0 || (origImage !== '' && editMode)"
-        class="group relative border-2 border-myBrown aspect-w-16 aspect-h-9"
+        class="group relative border-2 border-myBrown"
+        :class="`aspect-w-${aspectWidth} aspect-h-${aspectHeight}`"
       >
         <img
           :src="editMode && !userUploadStatus ? `https://kirukiru.rocket-coding.com/Pic/${origImage}` : files[0]?.url"
@@ -79,7 +80,7 @@
       v-show="!edit && files.length === 0 && origImage === ''"
       :class="uploadContainer"
     >
-      <div class="aspect-w-16 aspect-h-9">
+      <div :class="`aspect-w-${aspectWidth} aspect-h-${aspectHeight}`">
         <button
           type="button"
           :class="uploadBg"
@@ -121,6 +122,14 @@ export default {
       type: String,
       default: '',
     },
+    aspectWidth: {
+      type: [String, Number],
+      default: 16,
+    },
+    aspectHeight: {
+      type: [String, Number],
+      default: 9,
+    },
     editMode: {
       type: Boolean,
       default: false,
@@ -146,8 +155,8 @@ export default {
         this.$nextTick(function () {
           if (!this.$refs.editImage) return
           let cropper = new Cropper(this.$refs.editImage, {
-            aspectRatio: 16 / 9,
-            initialAspectRatio: 16 / 9,
+            aspectRatio: Number(this.aspectWidth) / Number(this.aspectHeight),
+            initialAspectRatio: Number(this.aspectWidth) / Number(this.aspectHeight),
             viewMode: 0,
           })
           this.cropper = cropper

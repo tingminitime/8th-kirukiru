@@ -13,7 +13,7 @@ export const userSignIn = (data) => {
 
 // 取得會員資訊
 export const getUserInfo = () => {
-  return http.get(`/GetName`)
+  return http.get(`GetName`)
 }
 
 //會員註冊
@@ -28,10 +28,20 @@ export const getInterestList = () => {
 
 // 圖片上傳
 export const uploadImage = (data) => {
-  return httpForm.post(`/upload`, data)
+  return httpForm.post(`upload`, data)
 }
 
 // 添加切切文章
 export const addKiruArticle = (data) => {
   return http.post(`api/Article/AddArticle`, data)
+}
+
+// 取得編輯切切文章資料
+export const getEditKiruArticle = (id) => {
+  return http.get(`api/Article/Geteditarticle?artId=${id}`)
+}
+
+// 編輯切切文章
+export const editKiruArticle = (data) => {
+  return http.post(`EditArticle`, data)
 }

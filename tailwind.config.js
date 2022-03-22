@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         myBrown: '#553529',
         myYellow: '#FFB11B',
+        myOrange: '#FF7F24',
         myGray: '#EDEDEB',
         myLightBrown: '#DEDEDE',
       },
@@ -40,6 +41,7 @@ module.exports = {
     require('@tailwindcss/forms')({
       strategy: 'class',
     }),
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
   ],
 }
