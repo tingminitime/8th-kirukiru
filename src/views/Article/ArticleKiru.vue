@@ -1,7 +1,7 @@
 <template>
   <div class="mb-6 border border-myBrown">
     <!-- 文章頂部作者資訊 -->
-    <div class="flex justify-between items-center py-3 px-6 border-b border-myBrown">
+    <div class="flex sticky justify-between items-center py-3 px-6 border-b border-myBrown">
       <div class="flex gap-8 items-center">
         <router-link
           class="block"
@@ -43,7 +43,10 @@
     </div>
     <!-- 分類 -->
     <div class="py-3 px-6">
-      <span class="text-myBrown">切切分類 > 居家生活</span>
+      <span class="text-myBrown">切切分類 > <a
+        href="javascript:;"
+        class="hover:text-myYellow"
+      >居家生活</a></span>
     </div>
     <!-- 標題 -->
     <div class="grid grid-cols-2 py-8 px-6">
@@ -78,10 +81,10 @@
     <!-- 預備工具內容 -->
     <div class="grid grid-cols-2 grid-flow-row gap-x-2 gap-y-6 p-4 border-b border-myBrown">
       <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:aspect-w-12 md:aspect-h-4">
+        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
-            src="https://picsum.photos/800/600?random=5"
+            src="https://picsum.photos/800/600?random=1"
             alt="tool image"
           >
         </div>
@@ -93,10 +96,10 @@
         </div>
       </div>
       <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:aspect-w-12 md:aspect-h-4">
+        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
-            src="https://picsum.photos/800/600?random=1"
+            src="https://picsum.photos/800/600?random=2"
             alt="tool image"
           >
         </div>
@@ -108,10 +111,10 @@
         </div>
       </div>
       <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:aspect-w-12 md:aspect-h-4">
+        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
-            src="https://picsum.photos/800/600?random=2"
+            src="https://picsum.photos/800/600?random=3"
             alt="tool image"
           >
         </div>
@@ -123,10 +126,10 @@
         </div>
       </div>
       <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:aspect-w-12 md:aspect-h-4">
+        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
-            src="https://picsum.photos/800/600?random=3"
+            src="https://picsum.photos/800/600?random=4"
             alt="tool image"
           >
         </div>
@@ -138,10 +141,10 @@
         </div>
       </div>
       <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:aspect-w-12 md:aspect-h-4">
+        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
-            src="https://picsum.photos/800/600?random=4"
+            src="https://picsum.photos/800/600?random=5"
             alt="tool image"
           >
         </div>

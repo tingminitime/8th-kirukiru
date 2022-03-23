@@ -38,7 +38,7 @@ export const addKiruArticle = (data) => {
 
 // 取得編輯切切文章資料
 export const getEditKiruArticle = (id) => {
-  return http.get(`api/Article/Geteditarticle?artId=${id}`)
+  return http.get(`api/Geteditarticle?artId=${id}`)
 }
 
 // 編輯切切文章
