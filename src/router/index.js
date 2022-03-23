@@ -97,7 +97,7 @@ const routes = [
       },
       // 作者個人頁面
       {
-        path: 'author/(profile/)?:authorId',
+        path: 'author/:authorId',
         name: 'Author',
         components: {
           default: () => import('@/views/Author/AuthorPage.vue'),
@@ -107,7 +107,7 @@ const routes = [
       },
       // 使用者個人頁面
       {
-        path: 'user/(profile/)?:userId',
+        path: 'user/:userId',
         name: 'User',
         components: {
           default: () => import('@/views/User/UserPage.vue'),
@@ -160,10 +160,12 @@ Router.beforeEach((to, from, next) => {
   NProgress.start()
 
   // 判斷記錄導頁前路徑
-  store.commit(
-    'SET_RECORD_PATH',
-    from.meta.recordPath ? from.name : 'HomePage'
-  )
+  if (from.name !== store.state.recordPath) {
+    store.commit(
+      'SET_RECORD_PATH',
+      from.meta.recordPath ? from.name : 'HomePage'
+    )
+  }
 
   // 判斷是否驗證導頁
   if (to.meta.requiresAuth) {

@@ -56,6 +56,14 @@ export default {
       errorMessage,
     }
   },
+  watch: {
+    'defaultValue': {
+      handler(newVal) {
+        this.value = this.defaultValue
+      },
+      immediate: true,
+    },
+  },
   mounted() {
     if (this.defaultValue) {
       this.value = this.defaultValue

@@ -40,6 +40,12 @@ module.exports = {
           'form\\-(input|textarea|select|multiselect|checkbox|radio)',
           'material-icons',
           'material-icons-outlined',
+          'text\\-my(.*)',
+          'bg\\-my(.*)',
+          'border\\-(.*)?my(.*)',
+          'ring\\-my(.*)',
+          'aspect\\-(.*)',
+          'line-clamp\\-[1-9]'
         ],
       }
     ],

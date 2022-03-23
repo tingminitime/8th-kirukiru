@@ -15,7 +15,7 @@
           upload-bg="bg-upload-cover"
           upload-container="mb-4 w-full sm:w-2/3"
           :orig-image="articleVm.firstPhoto"
-          :mode="editMode"
+          :edit-mode="editMode"
           @file-change="coverHandler"
         ></CoverUpload>
       </div>
@@ -24,7 +24,7 @@
         id="editor-kiru-title"
         class="mb-8"
       >
-        <h2 class="mb-1 text-lg font-bold text-myBrown md:mb-2 md:text-xl">
+        <h2 class="mb-1 text-lg font-bold md:mb-2 md:text-xl text-myBrown">
           切切標題
         </h2>
         <Input
@@ -38,7 +38,7 @@
         ></Input>
       </div>
     </div>
-    <div class="mb-6 bg-myBrown md:mb-8">
+    <div class="mb-6 md:mb-8 bg-myBrown">
       <h2 class="py-1 text-xl font-bold text-center text-white">
         編輯資訊
       </h2>
@@ -99,7 +99,7 @@
           <h3 class="font-bold text-myBrown">
             切切敘述
           </h3>
-          <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
+          <span class="py-0.5 px-2 text-sm text-white rounded bg-myBrown">字數 : {{ artInfoCount }}</span>
         </div>
         <TipTap
           v-model="articleVm.introduction"
@@ -121,7 +121,7 @@
       class="py-2 mb-8 md:mb-12 kiruPartEffect"
     >
       <!-- 說明 -->
-      <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
+      <p class="mb-6 text-sm font-bold md:text-base text-myBrown">
         會用到的物品、工具、材料、環境...等
       </p>
       <!-- 預備工具欄位 -->
@@ -139,7 +139,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
+          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
           @click="addTool"
         >
           <img
@@ -155,7 +155,7 @@
       class="mb-12 md:mb-16 kiruPartEffect"
     >
       <div class="flex gap-3 items-center mb-8">
-        <h2 class="mb-1 text-2xl font-bold text-myBrown md:mb-2 md:text-3xl">
+        <h2 class="mb-1 text-2xl font-bold md:mb-2 md:text-3xl text-myBrown">
           開始切切
         </h2>
         <span class="text-sm font-bold text-red-400">請至少填寫 1 個切切</span>
@@ -165,6 +165,7 @@
         :key="content.uuid"
         v-bind="content"
         :orig-image="content.thirdPhoto"
+        :orig-main="content.main"
         :edit-mode="editMode"
         @remove-item="removeKiru"
         @kiru-content="content.main = $event"
@@ -174,7 +175,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
+          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
           @click="addKiru"
         >
           <img
@@ -196,7 +197,7 @@
     >
       <div class="mb-8 md:mb-12">
         <!-- 說明 -->
-        <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
+        <p class="mb-6 text-sm font-bold md:text-base text-myBrown">
           完成這個切切的補充知識與延伸是什麼呢? Ex.閱讀的書、相關的知識、要備妥的文件、要安裝的檔案...
         </p>
       </div>
@@ -204,7 +205,6 @@
         v-for="content in articleVm.fMissionList"
         :key="content.uuid"
         v-bind="content"
-        :orig-auxiliary="content.auxiliary"
         :edit-mode="editMode"
         @remove-item="removeMission"
         @update:title="content.auxiliary = $event"
@@ -214,7 +214,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
+          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
           @click="addMission"
         >
           <img
@@ -230,7 +230,7 @@
       class="mb-8 md:mb-12 kiruPartEffect"
     >
       <!-- finaldata -->
-      <h2 class="mb-1 text-2xl font-bold text-center text-myBrown md:mb-2">
+      <h2 class="mb-1 text-2xl font-bold text-center md:mb-2 text-myBrown">
         附註與補充
       </h2>
       <TipTap
@@ -353,11 +353,23 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
     if (this.articleId) {
       this.editMode = true
-      getEditKiruArticle(this.articleId).then(res => {
-        console.log(res)
+      await getEditKiruArticle(this.articleId).then(res => {
+        console.log('取得編輯切切文章資料: ', res)
+        let { ArtInitDate, artArtlog, fArrayList, fMissionList, mArrayList, ...rest } = res.data.data
+        const filter_fArrayList = this.pushUuid(fArrayList)
+        const filter_fMissionList = this.pushUuid(fMissionList)
+        const filter_mArrayList = this.pushUuid(mArrayList)
+        const data = {
+          ...rest,
+          fArrayList: filter_fArrayList,
+          fMissionList: filter_fMissionList,
+          mArrayList: filter_mArrayList,
+        }
+        Object.assign(this.articleVm, data)
+        console.log(this.articleVm)
       })
       .catch(error => {
         console.log(error)
@@ -366,12 +378,22 @@ export default {
       this.editMode = false
     }
 
-    getInterestList().then(res => {
+    await getInterestList().then(res => {
+      console.log('取得文章分類: ', res)
       this.category = res.data
+      if (this.editMode) {
+        const categoryId = this.articleVm.articlecategoryId
+        const targetCategory = this.category.find(item => item.Id = categoryId)
+        this.categoryHandler = targetCategory
+      }
     })
     this.articleVm.memberUserName = this.$store.state.userInfo.Username
   },
   methods: {
+    pushUuid(ary) {
+      ary.forEach(item => item.uuid = uuidv4())
+      return ary
+    },
     // 新增文章發送 API
     postArticle() {
       this.$store.commit('SHOW_OVERLAY_LOADING')
@@ -416,20 +438,19 @@ export default {
             confirmMode: 'replace',
             confirmTodo: {
               name: 'User',
-              params: { userId: this.$store.userInfo },
+              params: { userId: this.$store.state.userInfo.Username },
             }
           }
           this.alertInfo = alertInfo
-          this.$store.commit('HIDE_OVERLAY_LOADING')
           this.$store.commit('SHOW_ALERT')
         } else {
-          this.$store.commit('HIDE_OVERLAY_LOADING')
           this.$notify({
             group: 'error',
             title: '發布失敗',
             message: res.data.message,
           })
         }
+        this.$store.commit('HIDE_OVERLAY_LOADING')
       })
       .catch(error => {
         console.log(error)

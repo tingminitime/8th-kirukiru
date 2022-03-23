@@ -16,7 +16,7 @@
         <h2 class="font-bold">
           水電皮卡的切切生活
         </h2>
-        <button class="font-bold text-myBrown hover:text-myOrange border border-myYellow transition-all button-sm">
+        <button class="font-bold border transition-all text-myBrown hover:text-myOrange border-myYellow button-sm">
           關注
         </button>
       </div>
@@ -43,19 +43,19 @@
     </div>
     <!-- 分類 -->
     <div class="py-3 px-6">
-      <span class="text-myBrown">切切分類 > <a
+      <span class="text-myBrown">切切分類 ><a
         href="javascript:;"
         class="hover:text-myYellow"
       >居家生活</a></span>
     </div>
     <!-- 標題 -->
-    <div class="grid grid-cols-2 py-8 px-6">
-      <h1 class="flex items-center text-2xl font-bold text-myBrown">
+    <div class="grid grid-cols-3 py-8 px-6">
+      <h1 class="flex col-span-2 items-center text-3xl font-bold text-myBrown">
         如何更換淋浴水龍頭? 標題很長的話就會變這樣最多二十八個字
       </h1>
       <div class="flex justify-end items-center">
-        <p class="font-bold text-gray-900">
-          2022/02/22 此切切共有 9 個步驟
+        <p class="font-bold text-right text-gray-900">
+          2022/02/22<br>此切切共有 9 個步驟
         </p>
       </div>
     </div>
@@ -80,8 +80,8 @@
     </div>
     <!-- 預備工具內容 -->
     <div class="grid grid-cols-2 grid-flow-row gap-x-2 gap-y-6 p-4 border-b border-myBrown">
-      <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
+      <div class="flex flex-col justify-between border md:flex-row border-myBrown">
+        <div class="w-full border-b md:w-1/2 md:border-r md:border-b-0 border-myBrown aspect-w-16 aspect-h-9 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
             src="https://picsum.photos/800/600?random=1"
@@ -95,8 +95,8 @@
           <p>1 支</p>
         </div>
       </div>
-      <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
+      <div class="flex flex-col justify-between border md:flex-row border-myBrown">
+        <div class="w-full border-b md:w-1/2 md:border-r md:border-b-0 border-myBrown aspect-w-16 aspect-h-9 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
             src="https://picsum.photos/800/600?random=2"
@@ -110,8 +110,8 @@
           <p>2 支</p>
         </div>
       </div>
-      <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
+      <div class="flex flex-col justify-between border md:flex-row border-myBrown">
+        <div class="w-full border-b md:w-1/2 md:border-r md:border-b-0 border-myBrown aspect-w-16 aspect-h-9 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
             src="https://picsum.photos/800/600?random=3"
@@ -125,8 +125,8 @@
           <p>3 支</p>
         </div>
       </div>
-      <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
+      <div class="flex flex-col justify-between border md:flex-row border-myBrown">
+        <div class="w-full border-b md:w-1/2 md:border-r md:border-b-0 border-myBrown aspect-w-16 aspect-h-9 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
             src="https://picsum.photos/800/600?random=4"
@@ -140,8 +140,8 @@
           <p>4 支</p>
         </div>
       </div>
-      <div class="flex flex-col justify-between border border-myBrown md:flex-row">
-        <div class="w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
+      <div class="flex flex-col justify-between border md:flex-row border-myBrown">
+        <div class="w-full border-b md:w-1/2 md:border-r md:border-b-0 border-myBrown aspect-w-16 aspect-h-9 md:aspect-w-12 md:aspect-h-4">
           <img
             class="object-cover absolute"
             src="https://picsum.photos/800/600?random=5"

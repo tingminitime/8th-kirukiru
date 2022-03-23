@@ -1,5 +1,5 @@
 <template>
-  <div class="flex relative justify-center translate-x-12">
+  <div class="flex relative gap-3 justify-center translate-x-12">
     <div class="pt-16 pb-11 pl-4 max-w-[816px] md:pl-8">
       <router-view></router-view>
     </div>

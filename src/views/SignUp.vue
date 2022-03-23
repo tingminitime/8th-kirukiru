@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-hidden h-[calc(100vh-72px)] md:grid md:grid-cols-2 md:gap-11">
-    <div class="my-auto ml-auto">
+  <div class="overflow-hidden relative h-[calc(100vh-72px)] md:grid md:grid-cols-2 md:gap-11">
+    <div class="z-20 my-auto ml-auto">
       <Transition
         appear
         mode="out-in"
@@ -14,10 +14,19 @@
         <component :is="'SignUpModal'"></component>
       </Transition>
     </div>
-    <div class="md:grid md:grid-rows-2 md:grid-flow-col md:gap-32">
+    <div class="relative z-10 py-4 my-auto">
+      <div class="hidden overflow-hidden min-w-[464px] max-w-[500px]  rounded-xl border-2 -translate-x-1/2 md:flex md:justify-center md:items-center md:max-w-[813px] md:max-h-[80vh] border-myBrown">
+        <img
+          class="block object-cover w-full h-full scale-105"
+          src="@img/signup-bg.svg"
+          alt="signin background image"
+        >
+      </div>
+    </div>
+    <!-- <div class="md:grid md:grid-rows-2 md:grid-flow-col md:gap-32">
       <div class="flex items-end">
         <div class="hidden relative md:block">
-          <div class="absolute bottom-1 left-8 text-3xl font-bold text-myBrown translate-y-full select-none">
+          <div class="absolute bottom-1 left-8 text-3xl font-bold translate-y-full select-none text-myBrown">
             填 都填
           </div>
           <img
@@ -25,12 +34,12 @@
             src="@img/register-sayhi.svg"
             alt="hi"
           >
-          <div class="absolute right-0 -bottom-12 text-sm text-myYellow -translate-y-full">
+          <div class="absolute right-0 -bottom-12 text-sm -translate-y-full text-myYellow">
             哩戈共幾百
           </div>
         </div>
       </div>
-      <p class="hidden font-bold text-myBrown md:block">
+      <p class="hidden font-bold md:block text-myBrown">
         已經有帳號了 ? 
         <router-link
           class="text-xl hover:text-black"
@@ -39,9 +48,17 @@
           <span class="inline-block underline underline-offset-4">點我登入</span><span class="align-sub material-icons">arrow_forward</span>
         </router-link>
       </p>
-    </div>
+    </div> -->
+    <p class="hidden absolute right-0 bottom-0 z-10 p-2 px-12 w-full font-bold text-right md:block text-myBrown bg-myYellow">
+      已經有帳號了 ? 
+      <router-link
+        class="text-xl hover:text-black"
+        :to="{ name: 'SignIn' }"
+      >
+        <span class="inline-block underline underline-offset-4">點我登入</span><span class="align-sub material-icons">arrow_forward</span>
+      </router-link>
+    </p>
   </div>
-  <div class="hidden absolute top-1/2 left-1/2 -z-10 w-[60vw] max-w-screen-md h-[70vh] rounded-tl-[240px] rounded-tr-[80px] rounded-br-[240px] rounded-bl-[80px] border-2 border-myBrown -translate-x-1/2 -translate-y-1/2 md:block md:bg-myYellow"></div>
 </template>
 
 <script>

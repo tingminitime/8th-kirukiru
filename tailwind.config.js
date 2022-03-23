@@ -9,11 +9,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        myBrown: '#553529',
-        myYellow: '#FFB11B',
-        myOrange: '#FF7F24',
-        myGray: '#EDEDEB',
-        myLightBrown: '#DEDEDE',
+        'myBrown': '#553529',
+        'myYellow': '#FFB11B',
+        'myOrange': '#FF7F24',
+        'myGray': '#EDEDEB',
+        'myLightBrown': '#DEDEDE',
       },
       height: {
         'nav': '72px'

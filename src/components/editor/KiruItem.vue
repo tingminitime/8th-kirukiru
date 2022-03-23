@@ -9,6 +9,7 @@
       :orig-image="origImage"
       :aspect-width="1"
       :aspect-height="1"
+      upload-class="aspect-w-1 aspect-h-1"
       :edit-mode="editMode"
       @file-change="imageHandler"
     ></CoverUpload>
@@ -21,7 +22,7 @@
         word-limit="100"
         @word-count="kiruCountHandler"
       ></TipTap>
-      <span class="inline-block absolute right-0 bottom-0 py-0.5 px-1 text-xs text-myBrown rounded translate-y-full">字數 : {{ kiruCount }}</span>
+      <span class="inline-block absolute right-0 bottom-0 py-0.5 px-1 text-xs rounded translate-y-full text-myBrown">字數 : {{ kiruCount }}</span>
     </div>
     <!-- 移除欄位 -->
     <div class="flex justify-center self-stretch py-4 w-full sm:w-auto md:self-center md:bg-transparent">
@@ -31,7 +32,7 @@
         @click="removeItem"
       >
         <span class="text-myBrown material-icons">delete_sweep</span>
-        <span class="text-myBrown md:hidden">移除欄位</span>
+        <span class="md:hidden text-myBrown">移除欄位</span>
       </button>
     </div>
   </div>
@@ -63,6 +64,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    origMain: {
+      type: String,
+      default: '',
+    }
   },
   emits: ['remove-item', 'kiru-img-upload', 'kiru-content'],
   data() {
@@ -84,6 +89,14 @@ export default {
         this.$emit('kiru-content', newVal)
       }
     },
+    'origMain': {
+      handler(newVal) {
+        if (newVal) {
+          this.content = newVal
+        }
+      },
+      immediate: true,
+    }
   },
   methods: {
     removeItem() {

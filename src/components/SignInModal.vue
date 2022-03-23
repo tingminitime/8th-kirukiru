@@ -1,15 +1,15 @@
 <template>
   <div
     v-invalid="isInvalidAniProcess"
-    class="overflow-hidden h-screen ring-myBrown md:w-96 md:h-fit md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl"
+    class="overflow-hidden h-screen md:w-96 md:h-fit md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl ring-myBrown"
     @animationend.stop="animationEndHandler"
   >
-    <div class="py-8 border-b-myBrown md:py-4 md:bg-myYellow md:border-b-2">
-      <h1 class="text-2xl font-bold text-center text-myBrown select-none md:text-3xl">
+    <div class="py-8 md:py-4 md:border-b-2 border-b-myBrown md:bg-myYellow">
+      <h1 class="text-2xl font-bold text-center select-none md:text-3xl text-myBrown">
         切切會員登入
       </h1>
     </div>
-    <div class="px-10 pb-6 bg-myGray md:pt-10">
+    <div class="px-10 pb-6 md:pt-10 bg-myGray">
       <v-form
         :validation-schema="schema"
         @submit="onSubmit"
@@ -55,7 +55,7 @@
               v-model="rememberMe"
               name="remember-me"
               type="checkbox"
-              class="w-4 h-4 text-myBrown rounded border-gray-300 focus:ring-myYellow form-checkbox"
+              class="w-4 h-4 rounded border-gray-300 text-myBrown focus:ring-myYellow form-checkbox"
             >
             <label
               for="remember-me"
@@ -92,7 +92,7 @@
             <span>{{ signInProcess ? '登入中...' : '登入' }}</span>
           </button>
           <router-link
-            class="py-1 px-4 mt-4 text-lg font-bold text-center text-myBrown underline underline-offset-4 md:hover:underline"
+            class="py-1 px-4 mt-4 text-lg font-bold text-center underline underline-offset-4 md:hover:underline text-myBrown"
             :to="{ name: 'SignUp' }"
           >
             立即註冊 !

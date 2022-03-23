@@ -25,6 +25,7 @@
         :class="`aspect-w-${aspectWidth} aspect-h-${aspectHeight}`"
       >
         <img
+          class="object-cover"
           :src="editMode && !userUploadStatus ? `https://kirukiru.rocket-coding.com/Pic/${origImage}` : files[0]?.url"
           alt="show image"
         >
@@ -80,11 +81,11 @@
       v-show="!edit && files.length === 0 && origImage === ''"
       :class="uploadContainer"
     >
-      <div :class="`aspect-w-${aspectWidth} aspect-h-${aspectHeight}`">
+      <div :class="uploadClass">
         <button
           type="button"
           :class="uploadBg"
-          class="block w-full h-full bg-myLightBrown bg-center bg-no-repeat rounded-lg border-2 border-myBrown"
+          class="block w-full h-full bg-center bg-no-repeat rounded-lg border-2 bg-myLightBrown border-myBrown"
           @click="toggleUploadCover"
         >
           <span class="sr-only">上傳圖片</span>
@@ -129,6 +130,10 @@ export default {
     aspectHeight: {
       type: [String, Number],
       default: 9,
+    },
+    uploadClass: {
+      type: String,
+      default: 'aspect-w-16 aspect-h-9'
     },
     editMode: {
       type: Boolean,
@@ -226,7 +231,8 @@ export default {
           newFile.url = URL.createObjectURL(newFile.file)
         }
         this.userUploadStatus = true
-        this.$emit('file-change', this.files[0])
+        console.log(newFile)
+        this.$emit('file-change', newFile)
       }
     },
   },
