@@ -18,6 +18,7 @@
         >
           <!-- Email -->
           <FormInputText
+            :focus="true"
             name="register-email"
             type="email"
             label="Email"
@@ -273,10 +274,11 @@ export default {
             title: "註冊成功 !",
             text: `${res.data.message}`
           }, 2500)
+          this.$router.push({ name: 'SignIn' })
         } else {
           this.signUpErrorMsg = res.data.message
           this.$notify({
-            group: "success",
+            group: "error",
             title: "註冊失敗 !",
             text: `${res.data.message}`
           }, 2500)

@@ -31,7 +31,7 @@
             >
               <DialogTitle
                 as="h2"
-                class="relative py-4 text-2xl font-bold leading-6 text-center text-myYellow bg-myBrown md:text-3xl"
+                class="relative py-4 text-2xl font-medium leading-6 text-center text-myYellow bg-myBrown md:text-3xl"
               >
                 <span>選擇編輯模式</span>
                 <button
@@ -50,7 +50,7 @@
                       alt="kiru mode"
                     >
                   </div>
-                  <p class="my-6 font-bold text-myBrown">
+                  <p class="my-6 font-medium text-myBrown">
                     切切獨創的編輯模式，讓你不用再為了編排而煩惱，專注在內容撰寫的好幫手。
                   </p>
                   <button
@@ -68,7 +68,7 @@
                       alt="kiru mode"
                     >
                   </div>
-                  <p class="my-6 font-bold text-myBrown">
+                  <p class="my-6 font-medium text-myBrown">
                     具備常見文字編輯器功能的寫作模式。
                   </p>
                   <button

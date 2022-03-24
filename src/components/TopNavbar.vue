@@ -1,6 +1,6 @@
 <template> 
   <div class="sticky top-0 z-20 w-full">
-    <nav class="relative px-8 h-[72px] bg-myYellow/[0.85] border-b border-slate-50/50 backdrop-blur">
+    <nav class="relative px-8 h-14 bg-myYellow/[0.85] border-b border-slate-50/50 backdrop-blur">
       <router-link
         :to="{ name: 'HomePage' }"
         class="block absolute top-1/2 left-1/2 w-[140px] -translate-x-1/2 -translate-y-1/2"

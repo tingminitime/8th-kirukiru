@@ -23,6 +23,7 @@
         leave-to-class="opacity-0"
       >
         <ListboxOptions
+          v-if="options.length !== 0"
           class="overflow-auto z-50 py-1 mt-2 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-2 ring-myYellow shadow-lg sm:text-sm"
           :class="optionsPosition"
         >
@@ -50,6 +51,24 @@
                 class="flex absolute inset-y-0 left-0 items-center pl-3 text-amber-600"
               >
               </span>
+            </li>
+          </ListboxOption>
+        </ListboxOptions>
+        <ListboxOptions
+          v-else
+          class="overflow-auto z-50 py-1 mt-2 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-2 ring-myYellow shadow-lg sm:text-sm"
+          :class="optionsPosition"
+        >
+          <ListboxOption
+            key="unknow"
+            as="template"
+          >
+            <li
+              class="relative py-2 pr-4 pl-6 text-gray-900 cursor-default select-none"
+            >
+              <span
+                class="block truncate"
+              >資料載入中...</span>
             </li>
           </ListboxOption>
         </ListboxOptions>

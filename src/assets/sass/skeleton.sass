@@ -1,0 +1,10 @@
+@keyframes loading
+  to
+    background-position-x: -20%
+
+.load
+  display: block
+  background: linear-gradient(100deg,rgba(256, 256, 256, 0) 30%,rgba(255, 255, 255, 0.75) 50%, rgba(256, 256, 256, 0) 30%) #ededed
+  background-size: 200% 100%
+  background-position-x: 180%
+  animation: 1s loading ease-in-out infinite

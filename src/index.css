@@ -20,7 +20,7 @@
   }
 
   .button-xl {
-    @apply block py-3 px-4 w-full min-w-[224px] md:w-56 text-2xl font-black text-center rounded cursor-pointer text-myBrown hover:text-myBrown
+    @apply block py-3 px-4 w-full min-w-[224px] md:w-56 text-2xl font-bold text-center rounded cursor-pointer text-myBrown hover:text-myBrown
   }
 
   .button-lg {

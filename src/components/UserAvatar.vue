@@ -28,13 +28,13 @@
           class="absolute right-0 mt-2 w-60 bg-white rounded-md divide-y divide-gray-100 focus:outline-none ring-1 ring-black/5 shadow-lg origin-top-right"
         >
           <div class="py-2 px-4 text-left">
-            <span class="block py-1 text-sm font-bold text-myBrown break-words">哈囉! {{ $store.state.userInfo?.Name }}</span>
+            <span class="block py-1 text-sm font-medium text-myBrown break-words">哈囉! {{ $store.state.userInfo?.Name }}</span>
             <span class="block text-xs tracking-wider text-gray-500 break-words">{{ $store.state.userInfo?.Email }}</span>
           </div>
           <div class="block p-1 md:hidden">
             <MenuItem v-slot="{ active }">
               <button
-                class="text-base font-bold"
+                class="text-base font-medium"
                 :class="[
                   active ? 'bg-myBrown text-white' : 'text-myBrown',
                   'group flex rounded-md items-center w-full px-4 py-2',
@@ -48,7 +48,7 @@
           <div class="p-1">
             <MenuItem v-slot="{ active }">
               <button
-                class="text-base font-bold"
+                class="text-base font-medium"
                 :class="[
                   active ? 'bg-myBrown text-white' : 'text-myBrown',
                   'group flex rounded-md items-center w-full px-4 py-2',
@@ -59,7 +59,7 @@
             </MenuItem>
             <MenuItem v-slot="{ active }">
               <button
-                class="text-base font-bold"
+                class="text-base font-medium"
                 :class="[
                   active ? 'bg-myBrown text-white' : 'text-myBrown',
                   'group flex rounded-md items-center w-full px-4 py-2',
@@ -73,7 +73,7 @@
           <div class="p-1">
             <MenuItem v-slot="{ active }">
               <button
-                class="text-base font-bold"
+                class="text-base font-medium"
                 :class="[
                   active ? 'bg-myBrown text-white' : 'text-myBrown',
                   'group flex rounded-md items-center w-full px-4 py-2',

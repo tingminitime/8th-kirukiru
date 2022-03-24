@@ -26,7 +26,7 @@ module.exports = {
         'upload-image': "url('@img/upload-image.png')",
       },
       fontFamily: {
-        'sans': ['Noto Sans TC', 'Helvetica Neue', ...defaultTheme.fontFamily.sans],
+        'sans': ['Inter var', 'Noto Sans TC', 'Helvetica Neue', ...defaultTheme.fontFamily.sans],
         'mono': [...defaultTheme.fontFamily.mono, 'Noto Sans TC']
       },
       boxShadow: {

@@ -22,14 +22,14 @@
             class="flex overflow-hidden mx-auto mt-4 w-3/4 max-w-sm bg-white rounded-lg shadow-md"
           >
             <div class="flex flex-col justify-start items-center py-2.5 pl-4">
-              <div class="w-6 h-6 bg-green-500 rounded-full">
+              <div class="w-6 h-6 bg-myYellow rounded-full">
                 <span class="font-bold text-white scale-75 material-icons">done</span>
               </div>
             </div>
 
             <div class="py-2 px-4 -mx-3">
               <div class="mx-3">
-                <span class="text-lg font-semibold text-green-500">{{ notification.title }}</span>
+                <span class="text-lg font-semibold text-myYellow">{{ notification.title }}</span>
                 <p class="py-1 text-sm text-gray-600">
                   {{ notification.text }}
                 </p>
@@ -40,6 +40,7 @@
       </div>
     </div>
   </NotificationGroup>
+
   <!-- 錯誤通知 -->
   <NotificationGroup group="error">
     <div

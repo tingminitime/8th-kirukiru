@@ -5,6 +5,7 @@
   >
     <input
       :id="name"
+      v-focus="focus"
       :name="name"
       :type="type"
       :placeholder="placeholder"
@@ -16,7 +17,7 @@
     >
     <label
       :for="name"
-      class="absolute top-1 peer-placeholder-shown:top-2 peer-focus:top-1 left-2 text-sm peer-placeholder-shown:text-base peer-focus:text-sm font-bold text-myBrown peer-placeholder-shown:text-myBrown/50 peer-focus:text-myBrown transition-all"
+      class="absolute top-1 peer-placeholder-shown:top-2 peer-focus:top-1 left-2 text-sm peer-placeholder-shown:text-base peer-focus:text-sm font-medium text-myBrown peer-placeholder-shown:text-myBrown/50 peer-focus:text-myBrown transition-all"
     >{{ placeholder }}</label>
 
     <p
@@ -36,6 +37,10 @@ import { nextTick, watch } from '@vue/runtime-core';
 export default {
   name: 'InputText',
   props: {
+    focus: {
+      type: Boolean,
+      default: false,
+    },
     type: {
       type: String,
       default: 'text',

@@ -1,6 +1,12 @@
 <template>
+  <!-- 頂部 Navbar -->
   <TopNavbar v-if="$route.meta.navbar"></TopNavbar>
+
+  <!-- 主要 router view -->
   <router-view></router-view>
+
+  <!-- 底部 Footer -->
+  <FooterInfo></FooterInfo>
 
   <!-- 全域 Loading -->
   <Loading v-model:active="overlayLoading">
@@ -25,6 +31,7 @@
 
 <script>
 import TopNavbar from '@/components/TopNavbar.vue'
+import FooterInfo from '@/components/FooterInfo.vue'
 import MaskBlack from '@/components/MaskBlack.vue'
 import Loading from 'vue-loading-overlay'
 import NotiWind from '@/components/utils/NotiWind.vue'
@@ -37,6 +44,7 @@ import { getUserInfo } from '@api'
     name: 'App',
     components: {
       TopNavbar,
+      FooterInfo,
       MaskBlack,
       Loading,
       NotiWind,
