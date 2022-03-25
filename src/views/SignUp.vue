@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-hidden relative h-[calc(100vh-72px)] md:grid md:grid-cols-2 md:gap-11">
+  <div class="overflow-hidden relative h-[calc(100vh-56px-64px)] md:grid md:grid-cols-2 md:gap-11">
     <div class="z-20 my-auto ml-auto">
       <Transition
         appear
@@ -15,7 +15,7 @@
       </Transition>
     </div>
     <div class="relative z-10 py-4 my-auto">
-      <div class="hidden overflow-hidden min-w-[464px] max-w-[500px]  rounded-xl border-2 border-myBrown -translate-x-1/2 md:flex md:justify-center md:items-center md:max-w-[813px] md:max-h-[80vh]">
+      <div class="hidden overflow-hidden min-w-[600px] max-w-[500px]  rounded-xl border-2 border-myBrown -translate-x-1/2 md:flex md:justify-center md:items-center md:max-w-[768px] md:max-h-[75vh]">
         <img
           class="block object-cover w-full h-full scale-105"
           src="@img/signup-bg.svg"

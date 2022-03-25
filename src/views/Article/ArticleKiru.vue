@@ -1,10 +1,34 @@
 <template>
+  <!-- 文章頂部作者資訊 -->
+  <KiruAuthor
+    v-bind="articleAuthor"
+    :replies-count="articleVm.messageArrayList?.length"
+  ></KiruAuthor>
   <!-- 文章頂部資訊 -->
-  <KiruInfo v-bind="articleInfo"></KiruInfo>
+  <KiruInfo
+    v-bind="articleInfo"
+    :kiru-count="articleVm.mArrayList?.length"
+  ></KiruInfo>
+  <!-- 預備工具 -->
+  <KiruTools :tools="articleVm.fArrayList"></KiruTools>
   <!-- 切切內容 -->
-  <KiruContent></KiruContent>
-  <!-- TIPS -->
-  <div class="mb-12">
+  <KiruContent :content="articleVm.mArrayList"></KiruContent>
+  <!-- 附註與補充 -->
+  <div class="mb-7">
+    <div class="flex gap-12 justify-between mb-2">
+      <div class="flex justify-center items-center py-1 px-4 w-1/5 h-16 text-2xl font-bold text-myBrown after:bg-myBrown bg-center bg-no-repeat bg-contain  bg-theme-outline">
+        <h2>附註與補充</h2>
+      </div>
+      <div class="before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown"></div>
+    </div>
+  </div>
+  <div
+    v-if="articleVm.final !== ''"
+    class="px-16 mb-16 text-myBrown"
+  >
+    <p v-html="articleVm.final"></p>
+  </div>
+  <!-- <div class="mb-12">
     <Disclosure
       v-slot="{ open }"
       :default-open="true"
@@ -54,7 +78,7 @@
         </DisclosurePanel>
       </transition>
     </Disclosure>
-  </div>
+  </div> -->
   <!-- 附屬切切 -->
   <div class="mb-12">
     <div class="bg-myBrown">
@@ -118,31 +142,38 @@
     </div>
   </div>
   <!-- 留言內容 -->
-  <div class="mb-16">
-    <KiruReply :replies="articleReplies"></KiruReply>
+  <div
+    id="article-kiru-replies"
+    class="mb-16"
+  >
+    <KiruReply :replies="articleVm.messageArrayList"></KiruReply>
   </div>
 </template>
 
 <script>
+import KiruAuthor from '@/components/article/kiru/KiruAuthor.vue'
 import KiruInfo from '@/components/article/kiru/KiruInfo.vue'
+import KiruTools from '@/components/article/kiru/KiruTools.vue'
 import KiruContent from '@/components/article/kiru/KiruContent.vue'
 import KiruReply from '@/components/article/kiru/KiruReply.vue'
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from '@headlessui/vue'
+// import {
+//   Disclosure,
+//   DisclosureButton,
+//   DisclosurePanel,
+// } from '@headlessui/vue'
 import { getKiruArticle } from '@api'
 
 export default {
   name: 'ArticleKiru',
   components: {
+    KiruAuthor,
     KiruInfo,
+    KiruTools,
     KiruContent,
     KiruReply,
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
+    // Disclosure,
+    // DisclosureButton,
+    // DisclosurePanel,
   },
   beforeRouteUpdate(to, from) {
     console.log('beforeRouteUpdate: ', to, from)
@@ -152,46 +183,21 @@ export default {
   data() {
     return {
       articleId: null,
-      // articleVm: {
-      //   messageArrayList: [
-      //     {
-      //       messageId: 0,
-      //       messageMemberPic: 'https://picsum.photos/128/128?random=1',
-      //       messageMember: '路卡利歐',
-      //       messageMain: '五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。',
-      //       messageInitDate: Date.now(),
-      //       reMessageArrayList: [
-      //         {
-      //           reMessageId: 0,
-      //           reMessageMemberPic: 'https://picsum.photos/128/128?random=2',
-      //           reMessageMember: '路歐利',
-      //           reMessageMain: '謝啦哪次不謝',
-      //           reMessageInitDate: Date.now(),
-      //         }
-      //       ]
-      //     },
-      //     {
-      //       messageId: 1,
-      //       messageMemberPic: 'https://picsum.photos/128/128?random=1',
-      //       messageMember: '路卡利歐',
-      //       messageMain: '說明不夠清楚，口口卡進電風扇裡面了',
-      //       messageInitDate: Date.now(),
-      //       reMessageArrayList: [
-      //         {
-      //           reMessageId: 1,
-      //           reMessageMemberPic: 'https://picsum.photos/128/128?random=2',
-      //           reMessageMember: '路歐利',
-      //           reMessageMain: '謝啦哪次不謝',
-      //           reMessageInitDate: Date.now(),
-      //         }
-      //       ]
-      //     },
-      //   ]
-      // },
       articleVm: {},
     }
   },
   computed: {
+    articleAuthor() {
+      const {
+        author,
+        lovecount,
+      } = this.articleVm
+      const authorInfo = {
+        author,
+        lovecount,
+      }
+      return authorInfo
+    },
     articleInfo() {
       const {
         title,
@@ -199,7 +205,6 @@ export default {
         introduction,
         articlecategoryId,
         artArtlog,
-        lovecount,
         ArtInitDate: artInitDate,
       } = this.articleVm
       const info = {
@@ -208,14 +213,9 @@ export default {
         introduction,
         articlecategoryId,
         artArtlog,
-        lovecount,
         artInitDate,
       }
       return info
-    },
-    articleReplies() {
-      const { messageArrayList } = this.articleVm
-      return messageArrayList
     },
   },
   created() {

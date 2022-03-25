@@ -9,7 +9,7 @@
         切切會員註冊
       </h1>
     </div>
-    <div class="overflow-x-hidden h-[75vh] bg-myGray md:h-[60vh] ">
+    <div class="overflow-x-hidden h-[80vh] bg-myGray md:h-[60vh] ">
       <div class="px-10 pb-6 md:pt-10 md:pb-8">
         <v-form
           :validation-schema="schema"

@@ -61,32 +61,43 @@
           </div>
         </div>
         <!-- 回覆留言功能 -->
-        <div
-          v-show="replyInner === reply.messageId"
-          class="grid grid-cols-4 gap-4 mb-4 md:pl-16"
+        <transition
+          appear
+          mode="out-in"
+          enter-active-class="transition duration-300 ease-out"
+          enter-from-class="transform opacity-0 translate-x-48"
+          enter-to-class="transform opacity-100 translate-x-0"
         >
-          <div class="relative col-span-3">
-            <textarea
-              rows="2"
-              class="block py-2 px-3 w-full text-black/80 bg-white/0 rounded outline-1 focus:outline-2 outline-myBrown/20 focus:outline-myYellow outline resize-none"
-            ></textarea>
-            <button
-              type="button"
-              class="absolute top-0 right-0 opacity-0 hover:opacity-100 translate-x-full -translate-y-1/2"
-              @click="toggleInnerReply(reply.messageId)"
-            >
-              <span class="material-icons">close</span>
-            </button>
+          <div
+            v-show="replyInner === reply.messageId"
+            class="grid grid-cols-4 gap-4 mb-4 md:pl-16"
+          >
+            <div class="relative col-span-3">
+              <textarea
+                :ref="`innerReply${reply.messageId}`"
+                v-model="replyInnerVm"
+                rows="2"
+                class="block py-2 px-3 w-full text-black/80 bg-white/0 rounded outline-1 focus:outline-2 outline-myBrown/20 focus:outline-myYellow outline resize-none"
+                @keyup.enter="replyInnerHandler(reply.messageId)"
+              ></textarea>
+              <button
+                type="button"
+                class="absolute top-0 right-0 opacity-0 hover:opacity-100 translate-x-full -translate-y-1/2"
+                @click="toggleInnerReply(reply.messageId)"
+              >
+                <span class="material-icons">close</span>
+              </button>
+            </div>
+            <div class="flex justify-center items-center md:justify-start">
+              <button
+                type="button"
+                class="py-1 px-4 text-sm text-black/60 hover:text-black hover:bg-myYellow/20 transition-all"
+              >
+                <span>送出</span>
+              </button>
+            </div>
           </div>
-          <div class="flex justify-center items-center md:justify-start">
-            <button
-              type="button"
-              class="py-1 px-4 text-sm text-black/60 hover:text-black hover:bg-myYellow/20 transition-all"
-            >
-              <span>送出</span>
-            </button>
-          </div>
-        </div>
+        </transition>
         <!-- 回覆留言資訊 -->
         <ul
           v-show="reply.reMessageArrayList?.length !== 0"
@@ -153,15 +164,23 @@ export default {
   data() {
     return {
       replyInner: null,
+      replyInnerVm: '',
     }
   },
   methods: {
     toggleInnerReply(messageId) {
       if (this.replyInner === messageId) {
         this.replyInner = null
+        this.replyInnerVm = ''
         return
       }
       this.replyInner = messageId
+      this.$nextTick(() => {
+        this.$refs[`innerReply${messageId}`][0].focus()
+      })
+    },
+    replyInnerHandler(messageId) {
+      this.toggleInnerReply(messageId)
     }
   },
 }

@@ -8,6 +8,8 @@ import '@/assets/sass/skeleton.sass'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import 'animate.css'
 import 'cropperjs/dist/cropper.css'
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/animations/scale-subtle.css'
 
 // --- vee-validate v4 ---
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate';

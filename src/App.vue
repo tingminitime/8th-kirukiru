@@ -24,7 +24,7 @@
 
   <!-- 右下 Loading -->
   <RequestLoading
-    class="fixed right-10 bottom-14 la-2x"
+    class="fixed right-10 bottom-14 z-50 la-2x"
     :show="requestLoading"
   ></RequestLoading>
 </template>
