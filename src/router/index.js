@@ -128,8 +128,17 @@ const routes = [
       {
         path: 'error',
         name: 'NotFound',
-        component: () => import('@/views/NotFound.vue'),
-        meta: { error: 404, navbar: true }
+        components: {
+          default: () => import('@/views/NotFound.vue')
+        },
+        meta: { error: 404, navbar: true, },
+        props: {
+          default(route) {
+            return {
+              message: route.query.message
+            }
+          }
+        }
       },
     ],
   },
@@ -155,7 +164,7 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from, next) => {
-  console.log('trigger beforeEach!', to, from)
+  // console.log('trigger beforeEach!', to, from)
   // 進度條開始
   NProgress.start()
 

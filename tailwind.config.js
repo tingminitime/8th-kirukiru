@@ -24,6 +24,7 @@ module.exports = {
         'button-publish': "url('@img/editor-publish-button.svg')",
         'upload-cover': "url('@img/upload-cover.svg')",
         'upload-image': "url('@img/upload-image.png')",
+        'theme-outline': "url('@img/theme-outline.svg')",
       },
       fontFamily: {
         'sans': ['Inter var', 'Noto Sans TC', 'Helvetica Neue', ...defaultTheme.fontFamily.sans],

@@ -43,7 +43,7 @@ export const src = {
 }
 
 export const timeformat = {
-  mounted(el, binding) {
+  updated(el, binding) {
     const time = dayjs(binding.value.time).format(binding.value.format || 'YYYY/MM/DD')
     el.textContent = time
   }

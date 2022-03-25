@@ -1,10 +1,10 @@
 <template>
   <!-- 文章頂部資訊 -->
-  <KiruInfo></KiruInfo>
+  <KiruInfo v-bind="articleInfo"></KiruInfo>
   <!-- 切切內容 -->
   <KiruContent></KiruContent>
   <!-- TIPS -->
-  <div class="mb-12 border border-myBrown/20">
+  <div class="mb-12">
     <Disclosure
       v-slot="{ open }"
       :default-open="true"
@@ -56,7 +56,7 @@
     </Disclosure>
   </div>
   <!-- 附屬切切 -->
-  <div class="mb-12 border border-myBrown/20">
+  <div class="mb-12">
     <div class="bg-myBrown">
       <h2 class="py-1 text-xl font-bold text-center text-white">
         附屬切切
@@ -93,12 +93,8 @@
     相關切切
   </h2>
   <div class="mb-16"></div>
-  <!-- 留言內容 -->
-  <div class="mb-16">
-    <KiruReply :reply-data="articleVm.messageArrayList"></KiruReply>
-  </div>
   <!-- 留言功能 -->
-  <div class="flex gap-8 justify-between px-6">
+  <div class="flex gap-8 justify-between px-6 mb-12">
     <div class="overflow-hidden w-16 h-16 rounded-full ">
       <img
         v-src="'https://picsum.photos/128/128?random=3'"
@@ -121,6 +117,10 @@
       </button>
     </div>
   </div>
+  <!-- 留言內容 -->
+  <div class="mb-16">
+    <KiruReply :replies="articleReplies"></KiruReply>
+  </div>
 </template>
 
 <script>
@@ -132,6 +132,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from '@headlessui/vue'
+import { getKiruArticle } from '@api'
 
 export default {
   name: 'ArticleKiru',
@@ -143,45 +144,100 @@ export default {
     DisclosureButton,
     DisclosurePanel,
   },
+  beforeRouteUpdate(to, from) {
+    console.log('beforeRouteUpdate: ', to, from)
+    this.articleId = to.params.articleId
+    this.getArticleInfo(this.articleId)
+  },
   data() {
     return {
-      articleVm: {
-        messageArrayList: [
-          {
-            messageId: 0,
-            messageMemberPic: 'https://picsum.photos/128/128?random=1',
-            messageMember: '路卡利歐',
-            messageMain: '五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。',
-            messageInitDate: Date.now(),
-            reMessageArrayList: [
-              {
-                reMessageId: 0,
-                reMessageMemberPic: 'https://picsum.photos/128/128?random=2',
-                reMessageMember: '路歐利',
-                reMessageMain: '謝啦哪次不謝',
-                reMessageInitDate: Date.now(),
-              }
-            ]
-          },
-          {
-            messageId: 1,
-            messageMemberPic: 'https://picsum.photos/128/128?random=1',
-            messageMember: '路卡利歐',
-            messageMain: '說明不夠清楚，口口卡進電風扇裡面了',
-            messageInitDate: Date.now(),
-            reMessageArrayList: [
-              {
-                reMessageId: 1,
-                reMessageMemberPic: 'https://picsum.photos/128/128?random=2',
-                reMessageMember: '路歐利',
-                reMessageMain: '謝啦哪次不謝',
-                reMessageInitDate: Date.now(),
-              }
-            ]
-          },
-        ]
-      }
+      articleId: null,
+      // articleVm: {
+      //   messageArrayList: [
+      //     {
+      //       messageId: 0,
+      //       messageMemberPic: 'https://picsum.photos/128/128?random=1',
+      //       messageMember: '路卡利歐',
+      //       messageMain: '五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。五星好評，讚ㄉ。',
+      //       messageInitDate: Date.now(),
+      //       reMessageArrayList: [
+      //         {
+      //           reMessageId: 0,
+      //           reMessageMemberPic: 'https://picsum.photos/128/128?random=2',
+      //           reMessageMember: '路歐利',
+      //           reMessageMain: '謝啦哪次不謝',
+      //           reMessageInitDate: Date.now(),
+      //         }
+      //       ]
+      //     },
+      //     {
+      //       messageId: 1,
+      //       messageMemberPic: 'https://picsum.photos/128/128?random=1',
+      //       messageMember: '路卡利歐',
+      //       messageMain: '說明不夠清楚，口口卡進電風扇裡面了',
+      //       messageInitDate: Date.now(),
+      //       reMessageArrayList: [
+      //         {
+      //           reMessageId: 1,
+      //           reMessageMemberPic: 'https://picsum.photos/128/128?random=2',
+      //           reMessageMember: '路歐利',
+      //           reMessageMain: '謝啦哪次不謝',
+      //           reMessageInitDate: Date.now(),
+      //         }
+      //       ]
+      //     },
+      //   ]
+      // },
+      articleVm: {},
     }
+  },
+  computed: {
+    articleInfo() {
+      const {
+        title,
+        firstPhoto,
+        introduction,
+        articlecategoryId,
+        artArtlog,
+        lovecount,
+        ArtInitDate: artInitDate,
+      } = this.articleVm
+      const info = {
+        title,
+        firstPhoto,
+        introduction,
+        articlecategoryId,
+        artArtlog,
+        lovecount,
+        artInitDate,
+      }
+      return info
+    },
+    articleReplies() {
+      const { messageArrayList } = this.articleVm
+      return messageArrayList
+    },
+  },
+  created() {
+    this.articleId = this.$route.params.articleId
+  },
+  mounted() {
+    this.getArticleInfo(this.articleId)
+  },
+  methods: {
+    getArticleInfo(articleId) {
+      getKiruArticle(articleId).then(res => {
+        console.log(res)
+        if (res.data.success) {
+          this.articleVm = res.data.data
+        } else {
+          this.$router.push({ name: 'NotFound', query: { message: res.data.message || '查無此文章' } })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
   },
 }
 </script>

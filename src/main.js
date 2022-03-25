@@ -14,7 +14,7 @@ import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate';
 import AllRules from '@vee-validate/rules';
 import { localize, setLocale } from '@vee-validate/i18n';
 import tw from '@vee-validate/i18n/dist/locale/zh_TW.json';
-import { focus, invalidAni, src, timeformat } from '@/utils/directive'
+import { focus, invalidAni, src, timeformat } from '@/utils/directives'
 import VueUploadComponent from 'vue-upload-component'
 
 // Globally add all vee-validate rules

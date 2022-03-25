@@ -7,11 +7,6 @@ export const userSignIn = (data) => {
 }
 
 // 取得會員資訊
-// export const getUserInfo = (token) => {
-//   return http.get(`api/Test/GetName?Token=${token}`)
-// }
-
-// 取得會員資訊
 export const getUserInfo = () => {
   return http.get(`GetName`)
 }
@@ -44,4 +39,9 @@ export const getEditKiruArticle = (id) => {
 // 編輯切切文章
 export const editKiruArticle = (data) => {
   return http.post(`EditArticle`, data)
+}
+
+// 取得切切文章資料
+export const getKiruArticle = (articleId) =>{
+  return http.get(`api/Article/intoArticle?artId=${articleId}`)
 }

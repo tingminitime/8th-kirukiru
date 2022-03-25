@@ -79,18 +79,22 @@ import { getUserInfo } from '@api'
 
           getUserInfo().then(res => {
             console.log('自動登入API(200): ', res)
-            this.SET_USER_INFO(res.data.data)
-            this.$notify({
-              group: "success",
-              title: "登入成功 !",
-              text: `歡迎回來，${res.data.data.Name}`
-            }, 3000)
+            if (res.data.success) {
+              this.SET_USER_INFO(res.data.data)
+              this.$notify({
+                group: "success",
+                title: "登入成功 !",
+                text: `歡迎回來，${res.data.data.Name}`
+              }, 3000)
+            } else {
+              console.log('驗證過期，請重新登入 !')
+            }
           })
           .catch(error => {
             this.$notify({
               group: "error",
               title: "登入失敗 !",
-              text: `${res.data.message}`
+              text: `${error}`
             }, 2500)
           })
         }
