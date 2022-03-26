@@ -164,7 +164,7 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from, next) => {
-  // console.log('trigger beforeEach!', to, from)
+  console.log('trigger beforeEach!', to, from)
   // 進度條開始
   NProgress.start()
 
@@ -172,7 +172,7 @@ Router.beforeEach((to, from, next) => {
   if (from.name !== store.state.recordPath) {
     store.commit(
       'SET_RECORD_PATH',
-      from.meta.recordPath ? from.name : 'HomePage'
+      from.meta.recordPath ? from.fullPath : '/'
     )
   }
 

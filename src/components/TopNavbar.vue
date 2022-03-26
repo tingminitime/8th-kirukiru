@@ -66,7 +66,7 @@
             </li>
             <li>
               <router-link
-                v-if="userInfo === null"
+                v-if="!userSignInStatus"
                 class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
                 :to="{ name: 'SignIn' }"
               >
@@ -82,7 +82,7 @@
         </div>
         <div class="block md:hidden">
           <UserAvatar
-            v-if="userInfo !== null"
+            v-if="!userSignInStatus"
             v-bind="userInfo"
           ></UserAvatar>
           <router-link
@@ -105,7 +105,7 @@
 <script>
 import MobileNavbar from '@/components/MobileNavbar.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'TopNavbar',
@@ -121,6 +121,9 @@ export default {
   computed: {
     ...mapState([
       'userInfo',
+    ]),
+    ...mapGetters([
+      'userSignInStatus'
     ])
   },
   methods: {

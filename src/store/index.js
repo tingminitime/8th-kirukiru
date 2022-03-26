@@ -6,8 +6,10 @@ const store = createStore({
     return {
       // --- 儲存資訊 ---
       token: '',
-      userInfo: null,
+      userInfo: {},
+      userSignIn: false,
       recordPath: 'HomePage',
+      recordParams: '',
 
       // --- Loading類 ---
       overlayLoading: false,
@@ -23,7 +25,11 @@ const store = createStore({
       openEditModal: false,
     }
   },
-  getters: {},
+  getters: {
+    userSignInStatus(state) {
+      return Object.keys(state.userInfo).length !== 0
+    },
+  },
   mutations: {
     // 使用者登入 / 註冊管理
     SET_TOKEN(state, token) {
@@ -88,7 +94,7 @@ const store = createStore({
     // 記錄前頁 router path
     SET_RECORD_PATH(state, payload) {
       state.recordPath = payload
-    }
+    },
   },
 })
 

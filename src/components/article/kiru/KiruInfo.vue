@@ -4,7 +4,7 @@
     <!-- 文章封面圖片 -->
     <div class="h-[440px]">
       <img
-        v-src="'https://kirukiru.rocket-coding.com/Pic/Photo132925910285994883.jpg'"
+        v-src="coverUrl"
         class="object-cover w-full h-full bg-center transition-opacity duration-300 cover load"
         alt=""
       >
@@ -87,7 +87,14 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      coverUrl: '',
+    }
+  },
+  watch: {
+    firstPhoto(newVal) {
+      this.coverUrl = `https://kirukiru.rocket-coding.com/Pic/${newVal}`
+    },
   }
 }
 </script>

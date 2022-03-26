@@ -35,7 +35,7 @@ import { setLocale } from 'yup';
 import { nextTick, watch } from '@vue/runtime-core';
 
 export default {
-  name: 'InputText',
+  name: 'FormInputText',
   props: {
     focus: {
       type: Boolean,
@@ -112,7 +112,7 @@ export default {
   methods: {
     handleInput(e) {
       this.handleChange(e)
-      this.$emit('update:model-value', e.target.value)
+      this.$emit('update:model-value', e.target.value.trim())
     }
   }
 }

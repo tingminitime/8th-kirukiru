@@ -185,7 +185,7 @@ export default {
           localStorage.setItem('kirukiruToken', res.data.token)
           this.SET_TOKEN(res.data.token)
           this.SET_USER_INFO(res.data.data)
-          this.$router.replace({ name: this.$store.state.recordPath })
+          this.$router.replace(this.$store.state.recordPath)
         } else {
           this.signInErrorMsg = res.data.message
           this.$notify({

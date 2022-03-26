@@ -88,6 +88,7 @@ import { getUserInfo } from '@api'
               }, 3000)
             } else {
               console.log('驗證過期，請重新登入 !')
+              localStorage.removeItem('kirukiruToken')
             }
           })
           .catch(error => {

@@ -62,6 +62,10 @@
   .kiruPartEffect {
     @apply before:block relative before:absolute before:top-0 before:-left-8 before:w-2 before:h-full before:bg-myYellow/25 before:opacity-0 hover:before:opacity-100 before:transition-all 
   }
+
+  .myArticlePartTitle {
+    @apply flex justify-center items-center py-1 px-4 w-1/5 h-20 text-2xl font-bold text-myBrown after:bg-myBrown bg-center bg-no-repeat bg-contain  bg-theme-outline
+  }
 }
 
 @layer base {

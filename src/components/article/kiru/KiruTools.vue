@@ -3,7 +3,7 @@
     <!-- 預備工具 -->
     <div class="mb-7">
       <div class="flex gap-12 justify-between mb-2">
-        <div class="flex grow justify-center items-center py-1 px-4 w-1/5 h-16 text-2xl font-bold text-myBrown after:bg-myBrown bg-center bg-no-repeat bg-contain  bg-theme-outline md:grow-0">
+        <div class="myArticlePartTitle">
           <h2 class="whitespace-nowrap">
             預備工具
           </h2>

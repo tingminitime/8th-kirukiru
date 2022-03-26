@@ -1,6 +1,24 @@
 import http from './index'
 import httpForm from './index-form'
 
+// 物件轉 params
+const parseParams = (params) => {
+  if (typeof params !== 'object') return false
+  let urlEncode = ''
+  for (const [key, value] of Object.entries(params)) {
+    if (typeof value === 'string' || typeof value === 'number') {
+      urlEncode += `${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
+    } else if (Array.isArray(value)) {
+      value.forEach(val => {
+        urlEncode += `${encodeURIComponent(key)}=${encodeURIComponent(val)}&`
+      })
+    } else {
+      continue
+    }
+  }
+  return urlEncode
+}
+
 // 會員登入
 export const userSignIn = (data) => {
   return http.post('Login', data)
@@ -45,3 +63,25 @@ export const editKiruArticle = (data) => {
 export const getKiruArticle = (articleId) =>{
   return http.get(`api/Article/intoArticle?artId=${articleId}`)
 }
+
+// 取得文章所有留言
+export const getArticleMessage = (params) =>{
+  return http.get(`api/Article/GetAllMessage?${parseParams(params)}`)
+}
+
+// 送出留言
+export const addArticleMessage = (params) =>{
+  return http.post(`api/Article/AddMessage?${parseParams(params)}`)
+}
+
+// 取得單筆留言回覆的內容
+export const getArticleReMessage = (messageId) =>{
+  return http.get(`api/Article/GetReMessage?messageId=${messageId}`)
+}
+
+// 送出回覆留言
+export const addArticleReMessage = (params) =>{
+  return http.post(`api/Article/AddReMessage?${parseParams(params)}`)
+}
+
+

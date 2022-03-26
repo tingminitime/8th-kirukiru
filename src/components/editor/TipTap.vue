@@ -174,7 +174,7 @@ export default {
         this.editor.chain().focus().extendMarkRange('link').unsetLink().run()
         return
       }
-      const urlRegex = /https?:\/\//g
+      const urlRegex = /https?:\/\//
       if (urlRegex.test(url)) {
         this.editor.chain().focus().extendMarkRange('link').setLink({
           href: `${url}`,

@@ -7,10 +7,13 @@
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
     <div class="kiruPartEffect">
       <!-- 上傳圖片 -->
-      <div id="editor-kiru-cover">
+      <div
+        id="editor-kiru-cover"
+        class="mb-8"
+      >
         <CoverUpload
           name="cover"
-          class="mb-4 max-w-[536px]"
+          class="max-w-[768px]"
           fix-text="點我修改封面圖片"
           upload-bg="bg-upload-cover"
           upload-container="mb-4 w-full sm:w-2/3"
@@ -22,11 +25,13 @@
       <!-- 切切標題 -->
       <div
         id="editor-kiru-title"
-        class="mb-8"
+        class="mb-12"
       >
-        <h2 class="mb-1 text-lg font-bold md:mb-2 md:text-xl text-myBrown">
-          切切標題
-        </h2>
+        <div class="mb-2">
+          <h2 class="inline-block pr-4 text-xl font-bold text-myBrown border-r-2 border-myBrown md:mb-2 md:text-2xl">
+            切切標題
+          </h2>
+        </div>
         <Input
           class="w-full sm:w-2/3"
           error-class="md:-right-2 md:translate-x-full md:top-1/2 md:-translate-y-1/2 md:absolute"
@@ -38,8 +43,8 @@
         ></Input>
       </div>
     </div>
-    <div class="mb-6 md:mb-8 bg-myBrown">
-      <h2 class="py-1 text-xl font-bold text-center text-white">
+    <div class="mb-4 md:mb-6">
+      <h2 class="inline-block pr-4 mb-1 text-lg font-bold text-myBrown border-r-2 border-myBrown md:mb-2 md:text-2xl">
         編輯資訊
       </h2>
     </div>
@@ -99,7 +104,7 @@
           <h3 class="font-bold text-myBrown">
             切切敘述
           </h3>
-          <span class="py-0.5 px-2 text-sm text-white rounded bg-myBrown">字數 : {{ artInfoCount }}</span>
+          <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
         </div>
         <TipTap
           v-model="articleVm.introduction"
@@ -111,17 +116,17 @@
       </div>
     </div>
     <!-- 預備工具 -->
-    <div class="mb-4 bg-myBrown">
-      <h2 class="py-1 text-xl font-bold text-center text-white">
+    <div class="mb-2">
+      <h2 class="inline-block pr-4 mb-1 text-lg font-bold text-myBrown border-r-2 border-myBrown md:mb-2 md:text-2xl">
         預備工具
       </h2>
     </div>
     <div
       id="editor-kiru-tools"
-      class="py-2 mb-8 md:mb-12 kiruPartEffect"
+      class="mb-8 md:mb-12 kiruPartEffect"
     >
       <!-- 說明 -->
-      <p class="mb-6 text-sm font-bold md:text-base text-myBrown">
+      <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
         會用到的物品、工具、材料、環境...等
       </p>
       <!-- 預備工具欄位 -->
@@ -139,7 +144,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
+          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
           @click="addTool"
         >
           <img
@@ -155,7 +160,7 @@
       class="mb-12 md:mb-16 kiruPartEffect"
     >
       <div class="flex gap-3 items-center mb-8">
-        <h2 class="mb-1 text-2xl font-bold md:mb-2 md:text-3xl text-myBrown">
+        <h2 class="inline-block pr-4 mb-1 text-lg font-bold text-myBrown border-r-2 border-myBrown md:mb-2 md:text-3xl">
           開始切切
         </h2>
         <span class="text-sm font-bold text-red-400">請至少填寫 1 個切切</span>
@@ -175,7 +180,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
+          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
           @click="addKiru"
         >
           <img
@@ -186,18 +191,18 @@
       </div>
     </div>
     <!-- 附屬任務 -->
-    <div class="mb-4 bg-myBrown">
-      <h2 class="py-1 text-xl font-bold text-center text-white">
+    <div class="mb-2">
+      <h2 class="inline-block pr-4 mb-1 text-lg font-bold text-myBrown border-r-2 border-myBrown md:mb-2 md:text-2xl">
         附屬任務
       </h2>
     </div>
     <div
       id="editor-kiru-mission"
-      class="mb-8 md:mb-12 kiruPartEffect"
+      class="mb-12 md:mb-12 kiruPartEffect"
     >
       <div class="mb-8 md:mb-12">
         <!-- 說明 -->
-        <p class="mb-6 text-sm font-bold md:text-base text-myBrown">
+        <p class="mb-6 text-sm font-bold text-myBrown md:text-base">
           完成這個切切的補充知識與延伸是什麼呢? Ex.閱讀的書、相關的知識、要備妥的文件、要安裝的檔案...
         </p>
       </div>
@@ -214,7 +219,7 @@
       <div class="flex justify-center my-4">
         <button
           type="button"
-          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2 before:bg-myYellow"
+          class="flex before:block relative before:absolute before:top-6 hover:before:top-1 before:left-[55%] hover:before:left-[65%] justify-center py-2 w-1/2 before:w-6 before:h-6 before:bg-myYellow before:rounded-full before:opacity-0 hover:before:opacity-50 before:transition-all before:-translate-x-1/2"
           @click="addMission"
         >
           <img
@@ -227,10 +232,10 @@
     <!-- 附註與補充 -->
     <div
       id="editor-kiru-remark"
-      class="mb-8 md:mb-12 kiruPartEffect"
+      class="mb-12 md:mb-12 kiruPartEffect"
     >
       <!-- finaldata -->
-      <h2 class="mb-1 text-2xl font-bold text-center md:mb-2 text-myBrown">
+      <h2 class="mb-1 text-2xl font-bold text-center text-myBrown md:mb-2">
         附註與補充
       </h2>
       <TipTap
