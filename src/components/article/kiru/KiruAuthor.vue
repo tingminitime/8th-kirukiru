@@ -1,6 +1,6 @@
 <template>
   <!-- 文章頂部作者資訊 -->
-  <div class="px-4">
+  <div class="">
     <div class="flex fixed bottom-0 left-0 z-20 justify-between items-center py-2 px-6 w-full bg-myGray/80 border-y border-myBrown/20 backdrop-blur md:relative md:z-0 md:mb-6 md:bg-myYellow md:border md:border-myBrown md:backdrop-blur-none">
       <div class="flex gap-8 items-center">
         <router-link
@@ -8,7 +8,7 @@
           :to="{ name: 'Author', params: { authorId: 1 } }"
         >
           <img
-            v-src="'https://kirukiru.rocket-coding.com/Pic/origin.jpg'"
+            v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
             class="object-cover w-full h-full bg-center scale-[103%] load"
             alt=""
           >
@@ -58,6 +58,8 @@
 
 <script>
 import tippy from 'tippy.js'
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/animations/scale-subtle.css'
 
 export default {
   name: 'KiruAuthor',
@@ -65,6 +67,10 @@ export default {
     author: {
       type: String,
       default: '',
+    },
+    authorPic: {
+      type: String,
+      default: ''
     },
     lovecount: {
       type: Number,

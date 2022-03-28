@@ -68,12 +68,19 @@ const routes = [
             },
           },
           {
-            path: 'normal',
+            path: 'normal/:article(\\d+)?',
             name: 'EditNormal',
             components: {
               default: () => import('@/views/EditModel/EditNormal.vue')
             },
             meta: { requiresAuth: true, navbar: false },
+            props: {
+              default(route) {
+                return {
+                  articleId: route.params.article
+                }
+              }
+            },
           },
         ]
       },
@@ -152,7 +159,7 @@ const scrollBehavior = (to, from, savedPosition) => {
       behavior: 'smooth',
     }
   } else {
-    return { top: 0 }
+    return { top: 0, behavior: 'smooth', }
   }
 }
 

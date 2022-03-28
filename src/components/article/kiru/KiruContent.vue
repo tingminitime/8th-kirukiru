@@ -1,6 +1,6 @@
 <template>
   <!-- 切切內容 -->
-  <ul class="mb-16">
+  <ul class="mb-20">
     <li
       v-for="(item, i) in content"
       :key="item.mId"
@@ -14,11 +14,17 @@
           </span>
         </div>
         <!-- 內容 -->
-        <div class="flex grow items-center px-6 border-l border-myBrown/20">
+        <div
+          class="flex grow items-center px-6 border-l border-myBrown/20"
+          :class="{ 'py-8': item.thirdPhoto === '.' }"
+        >
           <p v-html="item.main"></p>
         </div>
         <!-- 圖片 -->
-        <div class="w-64 h-64 border-l border-myBrown/20">
+        <div
+          v-if="item.thirdPhoto !== '.'"
+          class="w-64 h-64 border-l border-myBrown/20"
+        >
           <img
             v-src="`https://kirukiru.rocket-coding.com/Pic/${item.thirdPhoto}`"
             class="object-cover w-full h-full load"
@@ -38,6 +44,9 @@ export default {
       type: Array,
       default: () => []
     }
-  }
+  },
+  computed: {
+    
+  },
 }
 </script>

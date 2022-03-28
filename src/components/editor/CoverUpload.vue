@@ -20,7 +20,7 @@
       class="w-full"
     >
       <div
-        v-show="files.length !== 0 || (origImage !== '' && editMode)"
+        v-show="files.length !== 0 || (origImage !== '' && origImage !== '.' && editMode)"
         class="group relative border-2 border-myBrown"
         :class="`aspect-w-${aspectWidth} aspect-h-${aspectHeight}`"
       >
@@ -63,7 +63,7 @@
         <button
           type="button"
           class="hover:text-myBrown button-md myButtonValid"
-          @click.prevent="$refs.upload.clear"
+          @click.prevent="editCancel"
         >
           取消
         </button>
@@ -78,14 +78,14 @@
     </div>
     <!-- 尚未上傳圖片顯示 -->
     <div
-      v-show="!edit && files.length === 0 && origImage === ''"
+      v-show="!edit && files.length === 0 && (origImage === '' || origImage === '.')"
       :class="uploadContainer"
     >
       <div :class="uploadClass">
         <button
           type="button"
           :class="uploadBg"
-          class="block w-full h-full bg-center bg-no-repeat rounded-lg border-2 bg-myLightBrown border-myBrown"
+          class="block w-full h-full bg-myLightBrown bg-center bg-no-repeat rounded-lg border-2 border-myBrown"
           @click="toggleUploadCover"
         >
           <span class="sr-only">上傳圖片</span>
@@ -140,7 +140,7 @@ export default {
       default: false,
     },
   },
-  emits: ['file-change'],
+  emits: ['file-change', 'file-confirm', 'file-cancel'],
   data() {
     return {
       files: [],
@@ -194,6 +194,11 @@ export default {
         size: file.size,
         active: true,
       })
+      this.$emit('file-confirm')
+    },
+    editCancel() {
+      this.$refs.upload.clear()
+      this.$emit('file-cancel')
     },
     inputFile(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
@@ -231,7 +236,6 @@ export default {
           newFile.url = URL.createObjectURL(newFile.file)
         }
         this.userUploadStatus = true
-        console.log(newFile)
         this.$emit('file-change', newFile)
       }
     },

@@ -44,6 +44,12 @@ export const uploadImage = (data) => {
   return httpForm.post(`upload`, data)
 }
 
+// 取得作者資訊
+export const getAuthorInfo = (username) => {
+  return http.get(`api/Member/GetName?author=${username}`)
+}
+
+// -------- 切切文章 --------
 // 添加切切文章
 export const addKiruArticle = (data) => {
   return http.post(`api/Article/AddArticle`, data)
@@ -84,4 +90,18 @@ export const addArticleReMessage = (params) =>{
   return http.post(`api/Article/AddReMessage?${parseParams(params)}`)
 }
 
+// -------- 一般文章 --------
+// 添加一般文章
+export const addNormalArticle = (data) => {
+  return http.post(`api/Article/CreatArticleNormal`, data)
+}
 
+// 取得編輯一般文章資料
+export const getEditNormalArticle = (id) => {
+  return http.get(`api/Article/GetNormalArticle?artId=${id}`)
+}
+
+// 編輯一般文章
+export const editNormalArticle = (articleId, data) => {
+  return http.put(`EditArticleNormal?artId=${articleId}`, data)
+}

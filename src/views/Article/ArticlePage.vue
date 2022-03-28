@@ -1,7 +1,7 @@
 <template>
   <div class="flex relative gap-3 justify-center lg:translate-x-12">
     <div class="pb-32 max-w-[816px] md:pt-16 md:pl-8">
-      <router-view></router-view>
+      <router-view :key="$route.path"></router-view>
     </div>
     <div
       class="hidden sticky top-16 mt-16 w-48 h-screen border-x border-t border-myBrown/20 lg:block"
@@ -11,12 +11,16 @@
       </div>
     </div>
   </div>
+  <ScrollToTop></ScrollToTop>
 </template>
 
 <script>
-
+import ScrollToTop from '@/components/utils/ScrollToTop.vue'
 
 export default {
   name: 'ArticlePage',
+  components: {
+    ScrollToTop,
+  }
 }
 </script>

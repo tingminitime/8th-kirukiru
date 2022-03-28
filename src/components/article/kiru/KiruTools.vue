@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 mb-16">
+  <div class="mb-24">
     <!-- 預備工具 -->
     <div class="mb-7">
       <div class="flex gap-12 justify-between mb-2">
@@ -21,14 +21,20 @@
         :key="tool.fId"
         class="flex flex-col justify-between border border-myBrown md:flex-row md:justify-start md:items-center"
       >
-        <div class="shrink-0 w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4">
+        <div
+          v-if="tool.secPhoto !== '.'"
+          class="shrink-0 w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4"
+        >
           <img
             v-src="`https://kirukiru.rocket-coding.com/Pic/${tool.secPhoto}`"
             class="object-cover absolute tools load"
             alt=""
           >
         </div>
-        <p class="px-2 font-bold text-myBrown line-clamp-3">
+        <p
+          class="px-2 font-bold text-myBrown line-clamp-3"
+          :class="{ 'py-2': tool.secPhoto === '.' }"
+        >
           {{ tool.mission }}
         </p>
       </li>

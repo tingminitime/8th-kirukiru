@@ -1,7 +1,7 @@
 <template>
   <div>
     <textarea
-      v-focus="true"
+      v-focus="setFocus"
       :value="modelValue"
       :style="inputStyle"
       :class="customizeClass"
@@ -27,6 +27,10 @@ export default {
     modelValue: {
       type: String,
       default: '',
+    },
+    setFocus: {
+      type: Boolean,
+      default: false,
     },
     customizeClass: {
       type: String,

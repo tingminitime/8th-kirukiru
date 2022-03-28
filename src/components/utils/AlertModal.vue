@@ -27,15 +27,15 @@
             leave-to="opacity-0 scale-95"
           >
             <div
-              class="inline-block overflow-hidden z-50 my-8 w-[75vw] text-left align-middle bg-white rounded-2xl shadow-xl transition-all sm:w-[60vw] md:max-w-sm"
+              class="inline-block overflow-hidden z-50 my-8 w-[75vw] text-left align-middle bg-white rounded-b-2xl ring-2 ring-myBrown shadow-xl transition-all sm:w-[60vw] md:max-w-sm"
             >
               <DialogTitle
                 as="h2"
-                class="relative py-4 text-center bg-myBrown"
+                class="relative py-4 text-center bg-myYellow border-b-2 border-myBrown"
               >
                 <span
                   v-show="showTitle"
-                  class="text-2xl font-bold leading-6 text-myYellow md:text-3xl"
+                  class="text-2xl font-bold leading-6 text-myBrown md:text-3xl"
                 >{{ titleText }}</span>
                 <button
                   v-if="showClose"
@@ -49,14 +49,14 @@
               <!-- alert 內容 -->
               <div class="flex flex-col gap-3 items-center py-6 md:py-8">
                 <div class="py-4">
-                  <span class="text-xl font-bold md:text-2xl">{{ message }}</span>
+                  <span class="text-2xl font-bold text-myBrown md:text-3xl">{{ message }}</span>
                 </div>
                 <div class="flex flex-col gap-3 justify-evenly items-center">
                   <!-- 確認按鈕 -->
                   <button
                     v-if="showConfirm"
                     type="button"
-                    class="button-xl myButtonValid myButtonValidHover"
+                    class="text-myBrown rounded-lg button-md myButtonValid myButtonValidHover"
                     @click="confirmHandler"
                   >
                     <span class="font-bold">{{ confirmText }}</span>
@@ -65,7 +65,7 @@
                   <button
                     v-if="showCancel"
                     type="button"
-                    class="button-lg myButtonValidReverse myButtonValidHover"
+                    class="py-1 rounded-lg button-md myButtonValidReverse myButtonValidHover"
                     @click="cancelHandler"
                   >
                     <span class="font-bold">{{ cancelText }}</span>
@@ -140,7 +140,7 @@ export default {
       default: 'nothing',
     },
     confirmTodo: {
-      type: [String, Object],
+      type: [String, Object, Function],
       default: '',
     },
     // nothing | anchor | replace | push
@@ -187,8 +187,8 @@ export default {
       this.CLOSE_ALERT()
       this.$emit('alert-confirm', this.confirmTodo)
       switch (this.confirmMode) {
-        case 'nothing':
-          this.CLOSE_ALERT()
+        case 'function':
+          this.confirmTodo()
           break
         case 'replace':
           this.$router.replace(this.confirmTodo)
@@ -196,6 +196,7 @@ export default {
         case 'push':
           this.$router.push(this.confirmTodo)
           break
+        case 'nothing':
         default:
           break
       }
@@ -206,7 +207,6 @@ export default {
       this.$emit('alert-cancel', this.cancelTodo)
       switch (this.cancelMode) {
         case 'nothing':
-          this.$store.commit('CLOSE_ALERT')
           break
         case 'anchor':
           console.log(this.cancelTodo)

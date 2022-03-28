@@ -1,6 +1,6 @@
 <template>
   <!-- 文章頂部資訊 -->
-  <div class="px-4 mb-16">
+  <div class="mb-16">
     <!-- 文章封面圖片 -->
     <div class="h-[440px]">
       <img
@@ -27,6 +27,7 @@
       </h1>
       <div class="flex flex-col items-end">
         <p
+          v-show="artInitDate"
           v-timeformat="{
             time: artInitDate,
             format: 'YYYY/MM/DD HH:mm'

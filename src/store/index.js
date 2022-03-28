@@ -39,7 +39,7 @@ const store = createStore({
       state.userInfo = payload
     },
     SIGN_OUT(state) {
-      state.userInfo = null
+      state.userInfo = {}
       state.token = ''
     },
 

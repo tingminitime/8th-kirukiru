@@ -6,18 +6,18 @@
       class="w-full sm:w-[256px]"
       upload-bg="bg-upload-image"
       upload-container="w-full"
-      :orig-image="secPhoto"
+      :orig-image="secPhoto === '.' ? '' : secPhoto"
       :edit-mode="editMode"
       @file-change="imageHandler"
     ></CoverUpload>
     <!-- 工具內容 -->
     <div class="flex flex-col gap-1 w-full sm:w-72 md:-translate-y-3">
-      <span class="inline-block font-bold text-center align-middle md:text-left text-myBrown">工具</span>
+      <span class="inline-block font-bold text-center text-myBrown align-middle md:text-left">工具</span>
       <input
         :value="mission"
         type="text"
         placeholder="請輸入工具內容"
-        class=" p-2 w-full bg-transparent rounded-lg border-2 focus:outline-none sm:py-1 border-myBrown focus:border-myYellow"
+        class=" p-2 w-full bg-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:outline-none sm:py-1"
         @input="$emit('update:tool', $event.target.value)"
       >
     </div>
@@ -29,7 +29,7 @@
         @click="removeItem"
       >
         <span class="text-myBrown material-icons">delete_sweep</span>
-        <span class="md:hidden text-myBrown">移除欄位</span>
+        <span class="text-myBrown md:hidden">移除欄位</span>
       </button>
     </div>
   </div>

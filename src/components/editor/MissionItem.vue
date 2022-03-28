@@ -1,24 +1,24 @@
 <template>
   <div class="flex flex-col gap-4 items-center mb-8 md:flex-row md:justify-between">
-    <div class="flex flex-col gap-1 w-full sm:w-72 md:-translate-y-3">
-      <span class="inline-block font-bold text-center align-middle md:text-left text-myBrown">任務標題</span>
+    <div class="flex flex-col gap-1 w-full sm:w-72">
+      <span class="inline-block font-bold text-center text-myBrown align-middle md:text-left">任務標題</span>
       <input
         type="text"
         placeholder="請輸入任務標題"
-        class="w-full placeholder:text-gray-400 bg-transparent rounded-lg border-2 border-myBrown form-input"
+        class="w-full placeholder:text-gray-400 bg-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:ring-1 focus:ring-myYellow form-input"
         :value="title"
         @input="titleHandler"
       >
     </div>
-    <div class="flex flex-col flex-1 gap-1 w-full sm:w-72 md:-translate-y-3">
+    <div class="flex flex-col flex-1 gap-1 w-full sm:w-72">
       <div class="text-center translate-x-4 md:text-left md:translate-x-0">
-        <span class="inline-block font-bold text-center align-middle md:text-left text-myBrown">任務連結</span>
-        <span class="inline-block ml-2 align-middle text-myBrown material-icons">link</span>
+        <span class="inline-block font-bold text-center text-myBrown align-middle md:text-left">任務連結</span>
+        <span class="inline-block ml-2 text-myBrown align-middle material-icons">link</span>
       </div>
       <input
         type="text"
         placeholder="請貼上任務連結"
-        class="w-full placeholder:text-gray-400 bg-transparent rounded-lg border-2 border-myBrown form-input"
+        class="w-full placeholder:text-gray-400 bg-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:ring-1 focus:ring-myYellow form-input"
         :value="link"
         @input="linkHandler"
       >
@@ -31,7 +31,7 @@
         @click="removeItem"
       >
         <span class="text-myBrown material-icons">delete_sweep</span>
-        <span class="md:hidden text-myBrown">移除欄位</span>
+        <span class="text-myBrown md:hidden">移除欄位</span>
       </button>
     </div>
   </div>

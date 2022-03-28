@@ -5,7 +5,7 @@
       type="text"
       :name="name"
       :placeholder="placeholder"
-      class="w-full placeholder:text-gray-400 bg-transparent rounded-lg border-2 border-myBrown form-input"
+      class="w-full placeholder:text-gray-400 bg-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:ring-1 focus:ring-myYellow form-input"
       @blur="handleInput"
     >
     <span

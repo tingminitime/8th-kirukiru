@@ -19,7 +19,9 @@
           upload-container="mb-4 w-full sm:w-2/3"
           :orig-image="articleVm.firstPhoto"
           :edit-mode="editMode"
-          @file-change="coverHandler"
+          @file-change="coverChange"
+          @file-confirm="coverConfirm"
+          @file-cancel="coverCancel"
         ></CoverUpload>
       </div>
       <!-- 切切標題 -->
@@ -247,7 +249,7 @@
       ></TipTap>
     </div>
     <!-- 操作 -->
-    <div class="flex justify-between items-start text-2xl">
+    <div class="flex justify-center text-2xl md:justify-end">
       <button
         type="button"
         class="button-md myButtonValid myButtonValidHover"
@@ -259,8 +261,6 @@
   </div>
   <AlertModal
     v-bind="alertInfo"
-    @alert-confirm="alertConfirmHandler"
-    @alert-cancel="alertCancelHandler"
   ></AlertModal>
 </template>
 
@@ -333,7 +333,6 @@ export default {
       finalCount: 0,
       errors: [],
       coverUpload: false,
-      imgDataUrl: '',
       editMode: false,
       alertInfo: null,
     }
@@ -349,32 +348,30 @@ export default {
       }
     },
   },
-  watch: {
-    // 封面圖片上傳後加入檔名
-    coverImage(newVal) {
-      if (newVal) {
-        // this.articleVm.firstPhoto = newVal.name
-        this.sendCover(newVal.name)
-      }
-    },
-  },
   async mounted() {
     if (this.articleId) {
       this.editMode = true
       await getEditKiruArticle(this.articleId).then(res => {
         console.log('取得編輯切切文章資料: ', res)
-        let { ArtInitDate, artArtlog, fArrayList, fMissionList, mArrayList, ...rest } = res.data.data
-        const filter_fArrayList = this.pushUuid(fArrayList)
-        const filter_fMissionList = this.pushUuid(fMissionList)
-        const filter_mArrayList = this.pushUuid(mArrayList)
-        const data = {
-          ...rest,
-          fArrayList: filter_fArrayList,
-          fMissionList: filter_fMissionList,
-          mArrayList: filter_mArrayList,
+        if (res.data.success) {
+          let { ArtInitDate, artArtlog, fArrayList, fMissionList, mArrayList, ...rest } = res.data.data
+          const filter_fArrayList = this.pushUuid(fArrayList)
+          const filter_fMissionList = this.pushUuid(fMissionList)
+          const filter_mArrayList = this.pushUuid(mArrayList)
+          const data = {
+            ...rest,
+            fArrayList: filter_fArrayList,
+            fMissionList: filter_fMissionList,
+            mArrayList: filter_mArrayList,
+          }
+          Object.assign(this.articleVm, data)
+          console.log(this.articleVm)
+        } else {
+          this.$notify({
+            group: 'error',
+            title: '文章資料取得失敗 !'
+          })
         }
-        Object.assign(this.articleVm, data)
-        console.log(this.articleVm)
       })
       .catch(error => {
         console.log(error)
@@ -395,10 +392,6 @@ export default {
     this.articleVm.memberUserName = this.$store.state.userInfo.Username
   },
   methods: {
-    pushUuid(ary) {
-      ary.forEach(item => item.uuid = uuidv4())
-      return ary
-    },
     // 新增文章發送 API
     postArticle() {
       this.$store.commit('SHOW_OVERLAY_LOADING')
@@ -464,7 +457,7 @@ export default {
     // 儲存文章
     saveHandler() {
       this.alertInfo = null
-      this.articleVm.isPush = true
+      this.articleVm.isPush = false
 
       const checkResult = this.checkHandler(this.articleVm)
       console.log(checkResult)
@@ -490,6 +483,8 @@ export default {
     // 發布文章
     publishHandler() {
       this.alertInfo = null
+      this.articleVm.isPush = true
+      
       const checkResult = this.checkHandler(this.articleVm)
       console.log(checkResult)
       if (checkResult.success) {
@@ -511,30 +506,36 @@ export default {
         this.$store.commit('SHOW_ALERT')
       }
     },
-    alertConfirmHandler(todo) {
-      console.log(todo)
-    },
-    alertCancelHandler(todo) {
-      console.log(todo)
+    // 取得編輯切切資料後，補上 uuid 的欄位
+    pushUuid(ary) {
+      ary.forEach(item => item.uuid = uuidv4())
+      return ary
     },
     cancelKiru() {
       this.alertInfo = {
         message: '確定取消這次的切切 ?',
         confirmMode: 'push',
-        confirmTodo: { name: this.$store.state.recordPath },
+        confirmTodo: { path: this.$store.state.recordPath },
       }
       this.$store.commit('SHOW_ALERT')
     },
-    // 封面圖片選擇後 -> 檔案儲存
-    coverHandler(file) {
+    // 封面圖片選擇後
+    coverChange(file) {
       this.coverImage = file
+    },
+    coverConfirm() {
+      this.sendCover(this.coverImage.name)
+    },
+    coverCancel() {
+      this.coverImage = null
+      this.articleVm.firstPhoto = ''
     },
     // 上傳圖片
     sendCover(name) {
       const data = new FormData()
       data.append('photo', this.coverImage.file)
       uploadImage(data).then(res => {
-        console.log(res)
+        console.log('上傳圖片: ', res)
         if (res.data.success) {
           this.articleVm.firstPhoto = res.data.picname
         } else {
@@ -552,6 +553,7 @@ export default {
       const { name, value, error } = target
       this.articleVm.title = this.titleError(target)
     },
+    // 切切標題驗證
     titleError(target) {
       const hasError = this.errors.findIndex(err => err === target.name)
       if (target.error) {
@@ -583,7 +585,6 @@ export default {
     addKiru() {
       this.articleVm.mArrayList.push({
         uuid: uuidv4(),
-        // mId: null,
         thirdPhoto: '',
         main: '',
       })
@@ -591,7 +592,6 @@ export default {
     addMission() {
       this.articleVm.fMissionList.push({
         uuid: uuidv4(),
-        // mId: null,
         auxiliary: '',
         auxiliarymain: '',
       })
@@ -607,10 +607,6 @@ export default {
     removeMission(id) {
       const removeIndex = this.articleVm.fMissionList.findIndex(m => m.uuid === id)
       this.articleVm.fMissionList.splice(removeIndex, 1)
-    },
-    // 初始化資料
-    initData(target) {
-        this.$data[target] = this.$options.data()[target];
     },
     // 儲存 / 發布前檢查
     checkHandler(data) {
@@ -646,7 +642,18 @@ export default {
         errors.push({
           key: 'mArrayList',
           anchor: 'editor-kiru-kiru',
-          message: '請至少填寫一個切切 !',
+          message: '切切內容不能留空 !',
+        })
+      }
+
+      const missionError = data.fMissionList.some(mission => {
+        return mission.auxiliary === '' || mission.auxiliarymain === ''
+      })
+      if (missionError) {
+        errors.push({
+          key: 'fMissionList',
+          anchor: 'editor-kiru-mission',
+          message: '任務欄位不可為空 !',
         })
       }
   
@@ -662,6 +669,10 @@ export default {
           message: '必填欄位未填'
         }
       }
+    },
+    // 初始化資料
+    initData(target) {
+        this.$data[target] = this.$options.data()[target];
     },
   }
 }

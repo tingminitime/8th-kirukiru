@@ -26,8 +26,9 @@ export const invalidAni = {
 export const src = {
   mounted(el, binding) {
     if (binding.value) {
+      el.classList.add('load')
+      const img = new Image()
       setTimeout(() => {
-        const img = new Image()
         img.src = binding.value
         img.onload = () => {
           el.classList.remove('load')
@@ -42,8 +43,9 @@ export const src = {
   },
   updated(el, binding) {
     if (binding.value) {
+      el.classList.add('load')
+      const img = new Image()
       setTimeout(() => {
-        const img = new Image()
         img.src = binding.value
         img.onload = () => {
           el.classList.remove('load')

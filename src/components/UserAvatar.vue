@@ -137,8 +137,13 @@ export default {
     signOut() {
       localStorage.removeItem('kirukiruToken')
       this.$store.commit('SIGN_OUT')
-      this.$router.replace({ name: 'HomePage' })
-      location.reload()
+      console.log(this.$route)
+      this.$router.replace({ path: this.$route.path })
+      // location.reload()
+      this.$notify({
+        group: 'success',
+        title: '已成功登出'
+      })
     },
   },
 }
