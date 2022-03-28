@@ -18,6 +18,7 @@ const store = createStore({
 
       // --- 彈出視窗類 ---
       showAlert: false,
+      showSearch: true,
       maskBlackState: {
         allowDrop: false,
         isShow: false,
@@ -27,7 +28,7 @@ const store = createStore({
   },
   getters: {
     userSignInStatus(state) {
-      return Object.keys(state.userInfo).length !== 0
+      return Object.keys(state.userInfo).length !== 0 && state.token === ''
     },
   },
   mutations: {
@@ -61,7 +62,15 @@ const store = createStore({
       state.showAlert = false
     },
 
-    // 撰寫文章談出 Modal 狀態管理
+    // Search 狀態管理
+    SHOW_SEARCH(state) {
+      state.showSearch = true
+    },
+    CLOSE_SEARCH(state) {
+      state.showSearch = false
+    },
+
+    // 撰寫文章彈出 Modal 狀態管理
     OPEN_EDIT_MODAL(state) {
       state.openEditModal = true
     },

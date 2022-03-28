@@ -1,8 +1,8 @@
 <template>
   <!-- 文章頂部資訊 -->
-  <div class="mb-16">
+  <div class="p-4 mb-16 w-full">
     <!-- 文章封面圖片 -->
-    <div class="h-[440px]">
+    <div class="w-full h-[440px]">
       <img
         v-src="coverUrl"
         class="object-cover w-full h-full bg-center transition-opacity duration-300 cover load"

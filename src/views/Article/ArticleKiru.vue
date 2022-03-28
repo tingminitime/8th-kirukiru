@@ -9,17 +9,20 @@
     v-bind="articleInfo"
     :kiru-count="articleVm.mArrayList?.length"
   ></KiruInfo>
-  <div v-if="articleVm.isFree === 'True'">
+  <div v-if="articleVm.isFree">
     <!-- 預備工具 -->
-    <KiruTools :tools="articleVm.fArrayList"></KiruTools>
+    <KiruTools
+      v-if="articleVm.fArrayList.length !== 0"
+      :tools="articleVm.fArrayList"
+    ></KiruTools>
     <!-- 切切內容 -->
     <KiruContent :content="articleVm.mArrayList"></KiruContent>
     <!-- 附註與補充 -->
     <div v-if="articleVm.final !== ''">
       <div class="mb-7">
-        <div class="flex gap-12 justify-between mb-2">
+        <div class="flex gap-12 justify-between px-4 mb-2 md:px-0">
           <div class="myArticlePartTitle">
-            <h2>附註與補充</h2>
+            <h2>附註<span class="hidden md:block">與補充</span></h2>
           </div>
           <div class="before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown"></div>
         </div>
@@ -34,13 +37,20 @@
       :missions="articleVm.fMissionList"
     ></KiruMission>
     <!-- 相關切切 -->
-    <div class="flex gap-12 justify-between mb-2">
-      <div class="myArticlePartTitle">
-        <h2>相關切切</h2>
+    <div class="flex gap-12 justify-between mb-4">
+      <div class="py-2">
+        <h2 class="text-2xl font-bold text-myBrown">
+          相關切切
+        </h2>
       </div>
-      <div class="before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown"></div>
     </div>
-    <div class="mb-24"></div>
+    <div class="px-4 mb-24 md:px-0">
+      <div class="grid grid-cols-1 grid-flow-row gap-6 md:grid-cols-2">
+        <KiruCard></KiruCard>
+        <KiruCard></KiruCard>
+        <NormalCard></NormalCard>
+      </div>
+    </div>
     <!-- 留言功能 -->
     <div
       v-if="userSignInStatus"
@@ -178,6 +188,8 @@ import KiruInfo from '@/components/article/kiru/KiruInfo.vue'
 import KiruTools from '@/components/article/kiru/KiruTools.vue'
 import KiruContent from '@/components/article/kiru/KiruContent.vue'
 import KiruMission from '@/components/article/kiru/KiruMission.vue'
+import KiruCard from '@/components/article/KiruCard.vue'
+import NormalCard from '@/components/article/NormalCard.vue'
 import KiruReply from '@/components/article/kiru/KiruReply.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
@@ -199,6 +211,8 @@ export default {
     KiruTools,
     KiruContent,
     KiruMission,
+    KiruCard,
+    NormalCard,
     KiruReply,
     DynamicTextarea,
   },

@@ -120,7 +120,7 @@
     <!-- 文章內容 -->
     <div
       id="editor-normal-main"
-      class="py-4 mb-12 kiruPartEffect"
+      class="py-4 mb-12"
     >
       <div class="mb-2">
         <h2 class="inline-block pr-4 text-2xl font-bold text-myBrown md:mb-2 md:text-3xl">
@@ -132,6 +132,7 @@
         v-model="articleVm.main"
         placeholder="開始寫作吧 _"
         custom-class="min-h-[18rem] border-none py-2 px-0"
+        :allow-image="true"
         @word-count="mainCountHandler"
         @check-empty="isMainEmpty = $event"
       ></TipTap>
@@ -317,7 +318,7 @@ export default {
     },
     // 儲存文章
     saveHandler() {
-      this.alertInfo = null
+      this.alertInfo = {}
       this.articleVm.isPush = false
 
       const checkResult = this.checkHandler(this.articleVm)
@@ -343,7 +344,7 @@ export default {
     },
     // 發布文章
     publishHandler() {
-      this.alertInfo = null
+      this.alertInfo = {}
       this.articleVm.isPush = true
 
       const checkResult = this.checkHandler(this.articleVm)

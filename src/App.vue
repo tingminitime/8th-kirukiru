@@ -16,6 +16,9 @@
     ></GlobalLoading>
   </Loading>
 
+  <!-- 搜尋 Modal -->
+  <SearchModal></SearchModal>
+
   <!-- 開啟 Modal(Dialog) 遮罩 -->
   <MaskBlack></MaskBlack>
 
@@ -32,6 +35,7 @@
 <script>
 import TopNavbar from '@/components/TopNavbar.vue'
 import FooterInfo from '@/components/FooterInfo.vue'
+import SearchModal from '@/components/utils/SearchModal.vue'
 import MaskBlack from '@/components/MaskBlack.vue'
 import Loading from 'vue-loading-overlay'
 import NotiWind from '@/components/utils/NotiWind.vue'
@@ -45,6 +49,7 @@ import { getUserInfo } from '@api'
     components: {
       TopNavbar,
       FooterInfo,
+      SearchModal,
       MaskBlack,
       Loading,
       NotiWind,

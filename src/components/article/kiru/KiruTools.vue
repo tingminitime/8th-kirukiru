@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-24">
+  <div class="p-4 mb-24">
     <!-- 預備工具 -->
     <div class="mb-7">
       <div class="flex gap-12 justify-between mb-2">

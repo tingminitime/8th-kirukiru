@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <BubbleMenu
       v-if="editor"
       class="editorBubble"
@@ -78,6 +78,69 @@
         <span class="text-xl text-white align-middle material-icons">code</span>
       </button>
     </BubbleMenu>
+    <!-- 電腦版顯示 -->
+    <div
+      v-if="allowImage"
+      class="hidden absolute left-0 p-2 mt-2 bg-[#333] rounded-lg opacity-50 hover:opacity-100 transition-all translate-x-[-150%] md:block"
+    >
+      <!-- Image -->
+      <button
+        class="p-1 bg-[#333] editorBubbleBtn"
+        @click="addImage"
+      >
+        <span class="text-white align-middle material-icons">image</span>
+      </button>
+    </div>
+    <!-- 手機板顯示 -->
+    <div
+      v-if="allowImage"
+      class="flex justify-end md:hidden"
+    >
+      <Menu
+        as="div"
+        class="inline-block relative text-left"
+      >
+        <MenuButton
+          class="flex items-end"
+        >
+          <span class="block text-3xl text-myBrown material-icons">more_horiz</span>
+        </MenuButton>
+
+        <transition
+          enter-active-class="transition duration-100 ease-out"
+          enter-from-class="transform scale-95 opacity-0"
+          enter-to-class="transform scale-100 opacity-100"
+          leave-active-class="transition duration-75 ease-in"
+          leave-from-class="transform scale-100 opacity-100"
+          leave-to-class="transform scale-95 opacity-0"
+        >
+          <MenuItems
+            class="absolute right-0 z-30 px-1 mt-2 bg-[#333] rounded-md divide-y divide-gray-100 focus:outline-none shadow-lg origin-top-right"
+          >
+            <div class="p-1">
+              <MenuItem as="div">
+                <!-- Image -->
+                <button
+                  class="editorBubbleBtn"
+                  @click="addImage"
+                >
+                  <span class="text-white align-middle material-icons">image</span>
+                </button>
+              </MenuItem>
+            </div>
+          </MenuItems>
+        </transition>
+      </Menu>
+    </div>
+    <div>
+      <!-- Image -->
+      <!-- <button
+        class="editorBubbleBtn"
+        @click="addImage"
+      >
+        <span class="text-xl text-white align-middle material-icons">image</span>
+      </button> -->
+    </div>
     <EditorContent
       class="p-2 rounded-md border-2 border-myBrown"
       :class="customClass"
@@ -99,13 +162,19 @@ import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
 import CharacterCount from '@tiptap/extension-character-count'
 import ListItem from '@tiptap/extension-list-item'
+import Image from '@tiptap/extension-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import lowlight from 'lowlight'
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 export default {
   components: {
     EditorContent,
     BubbleMenu,
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
   },
   props: {
     modelValue: {
@@ -123,7 +192,11 @@ export default {
     wordLimit: {
       type: [String, Number],
       default: 99999,
-    }
+    },
+    allowImage: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue', 'word-count', 'check-empty'],
   data() {
@@ -191,6 +264,11 @@ export default {
           languageClassPrefix: 'language-',
           defaultLanguage: 'javascript',
           lowlight,
+        }),
+        Image.configure({
+          HTMLAttributes: {
+            class: ''
+          },
         })
       ]
     })
@@ -220,6 +298,12 @@ export default {
     },
     editClickHandler() {
       this.editor.chain().focus().run()
+    },
+    addImage() {
+      const url = window.prompt('請輸入圖片網址')
+      if (url) {
+        this.editor.chain().focus().setImage({ src: url }).run()
+      }
     },
   },
 }

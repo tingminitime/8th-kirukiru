@@ -1,6 +1,6 @@
 <template>
   <!-- 文章頂部作者資訊 -->
-  <div class="">
+  <div class="p-4 w-full">
     <div class="flex fixed bottom-0 left-0 z-20 justify-between items-center py-2 px-6 w-full bg-myGray/80 border-y border-myBrown/20 backdrop-blur md:relative md:z-0 md:mb-6 md:bg-myYellow md:border md:border-myBrown md:backdrop-blur-none">
       <div class="flex gap-8 items-center">
         <router-link
@@ -41,12 +41,16 @@
           <span class="inline-block px-1 text-lg align-middle">{{ repliesCount }}</span>
         </router-link>
         <!-- 收藏 -->
-        <button class="block text-myBrown hover:text-myOrange">
+        <button
+          type="button"
+          class="block text-myBrown hover:text-myOrange"
+        >
           <span class="inline-block px-1 text-lg align-middle scale-110 material-icons-outlined">bookmark_border</span>
         </button>
         <!-- 分享 -->
         <button
           ref="copylink"
+          type="button"
           class="block text-myBrown hover:text-myOrange"
         >
           <span class="inline-block px-1 text-2xl align-middle material-icons-outlined">file_upload</span>

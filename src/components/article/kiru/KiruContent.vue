@@ -1,6 +1,6 @@
 <template>
   <!-- 切切內容 -->
-  <ul class="mb-20">
+  <ul class="p-4 mb-20">
     <li
       v-for="(item, i) in content"
       :key="item.mId"

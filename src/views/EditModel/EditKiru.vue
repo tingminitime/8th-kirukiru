@@ -307,7 +307,7 @@ export default {
     return {
       category: [],
       articleVm: {
-        memberUserName: '',
+        // memberUserName: '',
         title: '',
         isFree: true,
         isPush: true,
@@ -389,7 +389,7 @@ export default {
         this.categoryHandler = targetCategory
       }
     })
-    this.articleVm.memberUserName = this.$store.state.userInfo.Username
+    // this.articleVm.memberUserName = this.$store.state.userInfo.Username
   },
   methods: {
     // 新增文章發送 API
@@ -456,7 +456,7 @@ export default {
     },
     // 儲存文章
     saveHandler() {
-      this.alertInfo = null
+      this.alertInfo = {}
       this.articleVm.isPush = false
 
       const checkResult = this.checkHandler(this.articleVm)
@@ -482,7 +482,7 @@ export default {
     },
     // 發布文章
     publishHandler() {
-      this.alertInfo = null
+      this.alertInfo = {}
       this.articleVm.isPush = true
       
       const checkResult = this.checkHandler(this.articleVm)

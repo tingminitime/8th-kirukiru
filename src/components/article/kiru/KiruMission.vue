@@ -1,6 +1,6 @@
 <template>
   <!-- 附屬切切 -->
-  <div class="mb-12">
+  <div class="p-4 mb-12">
     <div class="flex gap-12 justify-between mb-2">
       <div class="myArticlePartTitle">
         <h2>附屬切切</h2>
