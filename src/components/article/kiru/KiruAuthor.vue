@@ -1,11 +1,11 @@
 <template>
   <!-- 文章頂部作者資訊 -->
-  <div class="p-4 w-full">
-    <div class="flex fixed bottom-0 left-0 z-20 justify-between items-center py-2 px-6 w-full bg-myGray/80 border-y border-myBrown/20 backdrop-blur md:relative md:z-0 md:mb-6 md:bg-myYellow md:border md:border-myBrown md:backdrop-blur-none">
+  <div class="px-4 w-full">
+    <div class="flex fixed bottom-0 left-0 z-20 justify-between items-center py-2 px-6 w-full bg-myGray/80 border-y border-myBrown/20 backdrop-blur md:relative md:z-0 md:bg-myYellow md:border md:border-myBrown md:backdrop-blur-none">
       <div class="flex gap-8 items-center">
         <router-link
           class="block overflow-hidden w-12 h-12 rounded-full md:w-14 md:h-14"
-          :to="{ name: 'Author', params: { authorId: 1 } }"
+          :to="{ name: 'Author', params: { authorId: username } }"
         >
           <img
             v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
@@ -18,9 +18,12 @@
         >
           {{ author }}
         </h2>
-        <button class="hidden font-bold text-myBrown hover:text-myOrange bg-myGray transition-all md:block button-sm">
+        <router-link
+          :to="{ name: 'Author', params: { authorId: username } }"
+          class="hidden font-bold text-myBrown hover:text-myOrange bg-myGray transition-all md:block button-sm"
+        >
           關注
-        </button>
+        </router-link>
       </div>
       <div class="flex gap-5 justify-end items-center">
         <!-- 喜歡 -->
@@ -69,6 +72,10 @@ export default {
   name: 'KiruAuthor',
   props: {
     author: {
+      type: String,
+      default: '',
+    },
+    username: {
       type: String,
       default: '',
     },

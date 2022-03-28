@@ -18,7 +18,7 @@ const store = createStore({
 
       // --- 彈出視窗類 ---
       showAlert: false,
-      showSearch: true,
+      showSearch: false,
       maskBlackState: {
         allowDrop: false,
         isShow: false,
@@ -28,7 +28,7 @@ const store = createStore({
   },
   getters: {
     userSignInStatus(state) {
-      return Object.keys(state.userInfo).length !== 0 && state.token === ''
+      return Object.keys(state.userInfo).length !== 0 && state.token !== ''
     },
   },
   mutations: {
@@ -68,6 +68,9 @@ const store = createStore({
     },
     CLOSE_SEARCH(state) {
       state.showSearch = false
+    },
+    TOGGLE_SEARCH(state) {
+      state.showSearch = !state.showSearch
     },
 
     // 撰寫文章彈出 Modal 狀態管理

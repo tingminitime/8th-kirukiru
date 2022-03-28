@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="{ name: 'ArticleContent', params: { articleId: 1 } }"
-    class="block relative p-2 w-[396px] min-h-[194px] bg-white border border-myBrown"
+    class="block relative p-2 w-[396px] h-[202px] bg-white border border-myBrown"
   >
     <div class="flex flex-col">
       <div class="max-w-[248px] border border-myBrown">
@@ -61,5 +61,11 @@
 <script>
 export default {
   name: 'KiruCard',
+  props: {
+    title: {
+      type: String,
+      default: '',
+    }
+  },
 }
 </script>

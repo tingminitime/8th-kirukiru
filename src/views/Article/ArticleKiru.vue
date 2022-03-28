@@ -44,11 +44,20 @@
         </h2>
       </div>
     </div>
-    <div class="px-4 mb-24 md:px-0">
-      <div class="grid grid-cols-1 grid-flow-row gap-6 md:grid-cols-2">
+    <div class="px-4 mb-32 md:px-0">
+      <div
+        v-if="relatedArticle.length !== 0"
+        class="grid grid-cols-1 grid-flow-row gap-6 md:grid-cols-2"
+      >
         <KiruCard></KiruCard>
-        <KiruCard></KiruCard>
-        <NormalCard></NormalCard>
+      </div>
+      <div
+        v-else
+        class="py-2"
+      >
+        <p class="text-center text-myBrown/60">
+          沒有相關的切切
+        </p>
       </div>
     </div>
     <!-- 留言功能 -->
@@ -194,10 +203,11 @@ import KiruReply from '@/components/article/kiru/KiruReply.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
   getKiruArticle,
+  getAuthorInfo,
+  getRelatedKiru,
   getArticleMessage,
   getArticleReMessage,
   addArticleMessage,
-  getAuthorInfo,
 } from '@api'
 import { mapGetters, mapState } from 'vuex'
 import userDefaultAvatar from '@img/user-origin.jpg'
@@ -212,7 +222,7 @@ export default {
     KiruContent,
     KiruMission,
     KiruCard,
-    NormalCard,
+    // NormalCard,
     KiruReply,
     DynamicTextarea,
   },
@@ -222,11 +232,17 @@ export default {
     this.articleId = to.params.articleId
     this.getArticleInfo(this.articleId)
   },
+  emits: ['author-info'],
   data() {
     return {
       articleId: null,
       articleVm: {},
       authorInfo: {},
+      relatedArticleVm: {
+        nowpage: 1,
+        showcount: 3,
+      },
+      relatedArticle: [],
       userMessageVm: '',
       messagePagination: {
         nowpage: 1,
@@ -276,11 +292,13 @@ export default {
         author,
         lovecount,
         authorPic,
+        username,
       } = this.articleVm
       const authorInfo = {
         author,
         lovecount,
         authorPic,
+        username,
       }
       return authorInfo
     },
@@ -304,6 +322,15 @@ export default {
       return info
     },
   },
+  watch: {
+    'articleVm.articlecategoryId': {
+      handler(newVal) {
+        if (newVal) {
+          this.getRelatedArticle(newVal)
+        }
+      },
+    },
+  },
   created() {
     this.articleId = this.$route.params.articleId
   },
@@ -316,7 +343,7 @@ export default {
     async getArticleInfo(articleId) {
       // 取得文章資料
       await getKiruArticle(articleId).then(res => {
-        console.log(res)
+        // console.log('取得文章資訊: ', res)
         if (res.data.success) {
           this.articleVm = res.data.data
         } else {
@@ -332,7 +359,7 @@ export default {
         ...this.messagePagination,
       }
       await getArticleMessage(params).then(res => {
-        console.log(res)
+        // console.log('取得留言資料: ', res)
         if (res.data.success) {
           this.articleMessage = res.data.data
           this.messageTotal = res.data.total || this.articleMessage.length
@@ -348,17 +375,40 @@ export default {
       })
       this.$store.commit('HIDE_OVERLAY_LOADING')
 
-      // 取得作者資訊
+      // 取得作者資訊 - 用在需付費訂閱內容
       await getAuthorInfo(this.articleVm.username).then(res => {
         console.log('取得作者資訊: ', res)
         if (res.data.success) {
           this.authorInfo = res.data.data
+          this.$emit('author-info', this.authorInfo)
         } else {
           this.$notify({
             group: 'error',
             title: '作者資訊取得失敗',
           })
         }
+      })
+    },
+    // 取得相關類別文章
+    getRelatedArticle(categoryId) {
+      getRelatedKiru({
+        articlecategoryId: categoryId,
+        ...this.relatedArticleVm,
+      }).then(res => {
+        console.log('取得相關切切文章: ', res)
+        if (res.data.success) {
+          const filterResult = res.data.data.filter(data => {
+            return Number(this.articleId) !== data.artId
+          })
+          this.relatedArticle = filterResult
+        } else {
+          this.$notify({
+            group: 'error',
+            title: '相關文章資料取得失敗',
+          })
+        }
+      }).catch(error => {
+        console.log(error)
       })
     },
     // 發送留言

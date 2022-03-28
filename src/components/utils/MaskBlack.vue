@@ -26,16 +26,16 @@ export default {
     ])
   },
   watch: {
-    'maskBlackState.isShow': {
-      handler(newVal) {
-        if (newVal === true) {
-          document.querySelector('body').classList.add('hideScrollbar')
-        } else {
-          document.querySelector('body').classList.remove('hideScrollbar')
-        }
-      },
-      immediate: true,
-    }
+    // 'maskBlackState.isShow': {
+    //   handler(newVal) {
+    //     if (newVal === true) {
+    //       document.querySelector('body').classList.add('hideScrollbar')
+    //     } else {
+    //       document.querySelector('body').classList.remove('hideScrollbar')
+    //     }
+    //   },
+    //   immediate: true,
+    // }
   },
   methods: {
     ...mapMutations([

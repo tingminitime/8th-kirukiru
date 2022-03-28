@@ -90,6 +90,17 @@ export const addArticleReMessage = (params) =>{
   return http.post(`api/Article/AddReMessage?${parseParams(params)}`)
 }
 
+// 關鍵字搜尋切切
+export const searchKiru = (params) =>{
+  return http.get(`api/Homepage/Seekstringarticle?${parseParams(params)}`)
+}
+
+// 取得相關切切文章
+export const getRelatedKiru = (params) =>{
+  return http.get(`api/Homepage/SeekArticle?${parseParams(params)}`)
+}
+
+
 // -------- 一般文章 --------
 // 添加一般文章
 export const addNormalArticle = (data) => {
@@ -104,4 +115,9 @@ export const getEditNormalArticle = (id) => {
 // 編輯一般文章
 export const editNormalArticle = (articleId, data) => {
   return http.put(`EditArticleNormal?artId=${articleId}`, data)
+}
+
+// 關鍵字搜尋一般文章
+export const searchNormal = (params) =>{
+  return http.get(`api/Homepagenormal/Seekstringarticle?${parseParams(params)}`)
 }

@@ -104,7 +104,7 @@ const routes = [
       },
       // 作者個人頁面
       {
-        path: 'author/:authorId',
+        path: 'author/:authorId?',
         name: 'Author',
         components: {
           default: () => import('@/views/Author/AuthorPage.vue'),

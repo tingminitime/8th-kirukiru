@@ -2,12 +2,14 @@
   <!-- 文章頂部資訊 -->
   <div class="p-4 mb-16 w-full">
     <!-- 文章封面圖片 -->
-    <div class="w-full h-[440px]">
-      <img
-        v-src="coverUrl"
-        class="object-cover w-full h-full bg-center transition-opacity duration-300 cover load"
-        alt=""
-      >
+    <div class="w-full max-h-[440px]">
+      <div class="aspect-w-16 aspect-h-9">
+        <img
+          v-src="coverUrl"
+          class="object-cover object-center w-full h-full bg-center transition-opacity duration-300 cover load"
+          alt=""
+        >
+      </div>
     </div>
     <!-- 分類 -->
     <div class="py-3 mb-6">
@@ -25,7 +27,7 @@
       <h1 class="flex col-span-2 items-start text-3xl font-bold text-myBrown">
         {{ title }}
       </h1>
-      <div class="flex flex-col items-end">
+      <div class="flex flex-col items-end pt-1">
         <p
           v-show="artInitDate"
           v-timeformat="{

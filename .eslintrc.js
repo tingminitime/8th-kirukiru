@@ -45,7 +45,9 @@ module.exports = {
           'border\\-(.*)?my(.*)',
           'ring\\-my(.*)',
           'aspect\\-(.*)',
-          'line-clamp\\-[1-9]'
+          'line-clamp\\-[1-9]',
+          'load',
+          'cover',
         ],
       }
     ],

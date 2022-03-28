@@ -29,11 +29,14 @@
           >切切分類</a>
         </li>
         <li>
-          <a
-            href="#"
-            class="block relative before:absolute before:bottom-0 before:left-1/2 py-6 px-10 before:w-10/12 before:h-[2px] text-xl font-bold text-myBrown before:bg-myYellow bg-transparent focus:bg-myYellow/20 transition-all before:-translate-x-1/2"
+          <button
+            type="button"
+            class="block relative before:absolute before:bottom-0 before:left-1/2 py-6 px-10 w-full before:w-10/12 before:h-[2px] text-xl font-bold text-left text-myBrown before:bg-myYellow bg-transparent focus:bg-myYellow/20 transition-all before:-translate-x-1/2"
             aria-current="page"
-          >搜尋切切</a>
+            @click="openSearch"
+          >
+            搜尋切切
+          </button>
         </li>
         <li>
           <a
@@ -66,7 +69,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   props: {
     showNavbar: {
@@ -75,10 +78,28 @@ export default {
     }
   },
   emits: ['drop-close'],
+  computed: {
+    ...mapState([
+      'showSearch',
+    ]),
+  },
   methods: {
+    ...mapMutations([
+      'SHOW_SEARCH',
+      'CLOSE_MASK'
+    ]),
     dropToggle() {
       this.$emit('drop-close', false)
-    }
+    },
+    openSearch() {
+      this.dropToggle()
+      if (this.showSearch) return
+      else {
+        this.$nextTick(() => {
+          this.SHOW_SEARCH()
+        })
+      }
+    },
   },
 }
 </script>

@@ -45,14 +45,15 @@
         >
           <ul class="flex flex-col mt-4 md:flex-row md:gap-4 md:items-center md:mt-0 md:text-sm md:font-medium lg:gap-8">
             <li>
-              <a
-                href="#"
+              <button
+                type="button"
                 class="flex justify-center items-center text-lg font-bold text-myBrown rounded md:px-4 md:bg-transparent"
+                @click="SHOW_SEARCH"
               >
                 <span class="text-3xl material-icons">
                   search
                 </span>
-              </a>
+              </button>
             </li>
             <li>
               <button
@@ -105,7 +106,7 @@
 <script>
 import MobileNavbar from '@/components/MobileNavbar.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'TopNavbar',
@@ -121,12 +122,16 @@ export default {
   computed: {
     ...mapState([
       'userInfo',
+      'showSearch',
     ]),
     ...mapGetters([
       'userSignInStatus'
     ])
   },
   methods: {
+    ...mapMutations([
+      'SHOW_SEARCH',
+    ]),
     toggleMobileNav(val) {
       if (val !== undefined) {
         this.showNavbar = !this.showNavbar
@@ -140,6 +145,10 @@ export default {
         isShow: true,
       })
       this.$store.commit('OPEN_EDIT_MODAL', true)
+    },
+    openSearch() {
+      if (this.showSearch) return
+      else this.SHOW_SEARCH()
     }
   }
 }
