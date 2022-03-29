@@ -29,7 +29,7 @@
 
             <div class="py-2 px-4 -mx-3">
               <div class="mx-3">
-                <span class="text-lg font-semibold text-myYellow">{{ notification.title }}</span>
+                <span class="text-lg font-medium text-myYellow">{{ notification.title }}</span>
                 <p class="py-1 text-sm text-gray-600">
                   {{ notification.text }}
                 </p>
@@ -76,6 +76,37 @@
                   {{ notification.text }}
                 </p>
               </div>
+            </div>
+          </div>
+        </Notification>
+      </div>
+    </div>
+  </NotificationGroup>
+
+  <!-- 一般通知 -->
+  <NotificationGroup group="normal">
+    <div
+      class="flex fixed inset-0 z-50 justify-center items-end py-16 px-4 pointer-events-none"
+    >
+      <div class="">
+        <Notification
+          v-slot="{ notifications }"
+          enter="transform ease-out duration-300 transition"
+          enter-from="translate-y-4 opacity-0"
+          enter-to="translate-y-0 opacity-100 sm:translate-y-0"
+          leave="transition ease-in duration-300"
+          leave-from="opacity-100 translate-y-0"
+          leave-to="opacity-0 translate-y-4"
+          move="transition duration-500"
+          move-delay="delay-300"
+        >
+          <div
+            v-for="notification in notifications"
+            :key="notification.id"
+            class="flex overflow-hidden mx-auto mt-4 bg-white rounded-lg shadow-md"
+          >
+            <div class="py-2 px-8">
+              <span class="text-base font-medium text-center text-myBrown">{{ notification.title }}</span>
             </div>
           </div>
         </Notification>

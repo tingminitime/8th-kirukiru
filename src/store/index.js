@@ -1,4 +1,14 @@
 import { createStore } from 'vuex'
+import {
+  addKiruLove,
+  addKiruCollection,
+  getKiruCollections,
+  removeKiruCollection,
+  addCommonLove,
+  addCommonCollection,
+  getCommonCollections,
+  removeCommonCollection,
+} from '@api'
 
 const store = createStore({
   strict: process.env.NODE_ENV !== 'production',
@@ -10,6 +20,9 @@ const store = createStore({
       userSignIn: false,
       recordPath: 'HomePage',
       recordParams: '',
+      userAddLoveList: [],
+      userKiruCollections: [],
+      userCommonCollections: [],
 
       // --- Loading類 ---
       overlayLoading: false,
@@ -106,6 +119,180 @@ const store = createStore({
     // 記錄前頁 router path
     SET_RECORD_PATH(state, payload) {
       state.recordPath = payload
+    },
+
+    // 使用者按文章愛心
+    LOAD_ARTICLE_LOVE(state) {
+      const addLoveList = JSON.parse(localStorage.getItem('userAddLoveList'))
+      if (addLoveList) {
+        state.userAddLoveList = addLoveList
+      }
+    },
+    // 更新按愛心文章清單
+    UPDATE_ARTICLE_LOVE(state, payload) {
+      state.userAddLoveList.push(payload)
+      localStorage.setItem('userAddLoveList', JSON.stringify(state.userAddLoveList))
+    },
+    // 更新收藏切切文章清單
+    UPDATE_KIRU_COLLECTIONS(state, payload) {
+      state.userKiruCollections = payload
+    },
+    // 更新收藏一般文章清單
+    UPDATE_COMMON_COLLECTIONS(state, payload) {
+      state.userCommonCollections = payload
+    },
+  },
+  actions: {
+    // 增加切切文章愛心
+    ADD_KIRU_LOVE({ commit, state }, payload) {
+      return new Promise((resolve, reject) => {
+        addKiruLove(payload).then(res => {
+          console.log('按愛心: ', res)
+          if (res.data.success) {
+            const checkRepeat = state.userAddLoveList.findIndex(item => {
+              return item.articleId === payload.artId
+            })
+            if (checkRepeat === -1) {
+              commit('UPDATE_ARTICLE_LOVE', {
+                articleId: payload.artId,
+                type: 'kiru',
+              })
+            }
+            resolve({ success: true })
+          } else {
+            resolve({ success: false })
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 取得使用者收藏切切文章
+    GET_KIRU_COLLECTIONS({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        getKiruCollections(payload).then(res => {
+          console.log('取得使用者收藏切切文章: ', res)
+          if (res.data.success) {
+            commit('UPDATE_KIRU_COLLECTIONS', res.data.data)
+            resolve({ success: true, total: res.data.total })
+          } else {
+            resolve({ success: false, errors: res })
+          }
+        }).catch(error => reject(error))
+      })
+    },
+    // 收藏切切文章
+    ADD_KIRU_COLLECTION({ dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        addKiruCollection(payload.artId).then(res => {
+          console.log('按收藏: ', res)
+          if (res.data.success) {
+            // 成功收藏後調用
+            dispatch('GET_KIRU_COLLECTIONS', {
+              nowpage: 1,
+              showcount: 9999,
+            })
+            resolve({ success: true })
+          } else {
+            resolve({ success: false, errors: res })
+          }
+        }).catch(error => reject(error))
+      })
+    },
+    // 取消收藏切切文章
+    REMOVE_KIRU_COLLECTIONS({ dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        removeKiruCollection(payload.artId).then(res => {
+          console.log('取消收藏: ', res)
+          if (res.data.success) {
+            // 成功收藏後調用
+            dispatch('GET_KIRU_COLLECTIONS', {
+              nowpage: 1,
+              showcount: 9999,
+            })
+            resolve(res.data)
+          } else {
+            resolve(res.data)
+          }
+        }).catch(error => reject(error))
+      })
+    },
+
+    // 增加一般文章愛心
+    ADD_COMMON_LOVE({ commit, state }, payload) {
+      return new Promise((resolve, reject) => {
+        addCommonLove(payload).then(res => {
+          if (res.data.success) {
+            const checkRepeat = state.userAddLoveList.findIndex(item => {
+              return item.articleId === payload.artId
+            })
+            if (checkRepeat === -1) {
+              commit('UPDATE_ARTICLE_LOVE', {
+                articleId: payload.artId,
+                type: 'common',
+              })
+            }
+            resolve({ success: true })
+          } else {
+            reject(error)
+            this.$router.push({ name: 'SignIn' })
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 取得使用者收藏一般文章
+    GET_COMMON_COLLECTIONS({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        getCommonCollections(payload).then(res => {
+          console.log('取得使用者收藏一般文章: ', res)
+          if (res.data.success) {
+            commit('UPDATE_COMMON_COLLECTIONS', res.data.data)
+            resolve({ success: true, total: res.data.total })
+          } else {
+            resolve({ success: false, errors: res })
+          }
+        }).catch(error => reject(error))
+      })
+    },
+    // 收藏一般文章
+    ADD_COMMON_COLLECTION({ dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        addCommonCollection(payload.artId).then(res => {
+          console.log('按收藏: ', res)
+          if (res.data.success) {
+            // 成功收藏後調用
+            dispatch('GET_COMMON_COLLECTIONS', {
+              nowpage: 1,
+              showcount: 9999,
+            })
+            resolve({ success: true })
+          } else {
+            resolve({ success: false, errors: res })
+          }
+        }).catch(error => reject(error))
+      })
+    },
+    // 取消收藏一般文章
+    REMOVE_COMMON_COLLECTIONS({ dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        removeCommonCollection(payload.artId).then(res => {
+          console.log('取消收藏: ', res)
+          if (res.data.success) {
+            // 成功收藏後調用
+            dispatch('GET_COMMON_COLLECTIONS', {
+              nowpage: 1,
+              showcount: 9999,
+            })
+            resolve(res.data)
+          } else {
+            resolve(res.data)
+          }
+        }).catch(error => reject(error))
+      })
     },
   },
 })

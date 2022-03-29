@@ -24,6 +24,7 @@
     "cropperjs": "^1.5.12",
     "dayjs": "^1.11.0",
     "highlight.js": "^11.5.0",
+    "html-to-text": "^8.1.0",
     "lodash": "^4.17.21",
     "notiwind": "^1.2.5",
     "nprogress": "^0.2.0",

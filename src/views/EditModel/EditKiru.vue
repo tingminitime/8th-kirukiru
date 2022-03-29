@@ -332,7 +332,6 @@ export default {
       artInfoCount: 0,
       finalCount: 0,
       errors: [],
-      coverUpload: false,
       editMode: false,
       alertInfo: null,
     }
@@ -403,7 +402,7 @@ export default {
             confirmText: '去看內文',
             confirmMode: 'replace',
             confirmTodo: {
-              name: 'ArticleContent',
+              name: 'ArticleKiru',
               params: { articleId: res.data.artId },
             }
           }

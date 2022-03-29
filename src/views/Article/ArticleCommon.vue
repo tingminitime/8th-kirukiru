@@ -6,43 +6,22 @@
     :is-add-love="isAddLove"
     :replies-count="messageTotal"
     :is-collect="isCollect"
-    article-type="kiru"
+    article-type="common"
     @add-love="addLoveHandler"
     @add-collection="addCollectionHandler"
   ></KiruAuthor>
   <!-- 文章頂部資訊 -->
   <KiruInfo
-    class="p-4 mb-16 w-full"
+    class="p-4 mb-8 w-full"
     v-bind="articleInfo"
     :kiru-count="articleVm.mArrayList?.length"
+    :show-cover="false"
   ></KiruInfo>
+  <!-- 文章內容 -->
+  <div class="px-4 mb-32 w-full">
+    <p v-html="articleVm.main"></p>
+  </div>
   <div v-if="articleVm.isFree">
-    <!-- 預備工具 -->
-    <KiruTools
-      v-if="articleVm.fArrayList.length !== 0"
-      :tools="articleVm.fArrayList"
-    ></KiruTools>
-    <!-- 切切內容 -->
-    <KiruContent :content="articleVm.mArrayList"></KiruContent>
-    <!-- 附註與補充 -->
-    <div v-if="articleVm.final !== ''">
-      <div class="mb-7">
-        <div class="flex gap-12 justify-between px-4 mb-2 md:px-0">
-          <div class="myArticlePartTitle">
-            <h2>附註<span class="hidden md:inline-block">補充</span></h2>
-          </div>
-          <div class="before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown"></div>
-        </div>
-      </div>
-      <div class="px-16 mb-16 text-myBrown">
-        <p v-html="articleVm.final"></p>
-      </div>
-    </div>
-    <!-- 附屬切切 -->
-    <KiruMission
-      v-if="articleVm.fMissionList?.length !== 0"
-      :missions="articleVm.fMissionList"
-    ></KiruMission>
     <!-- 相關切切 -->
     <div class="flex gap-12 justify-between mb-4">
       <div class="py-2">
@@ -54,13 +33,13 @@
     <div class="px-4 mb-32 md:px-0">
       <div
         v-if="relatedArticle.length !== 0"
-        class="grid grid-cols-1 grid-flow-row gap-6 md:grid-cols-2"
+        class="grid grid-cols-2 grid-flow-row gap-6 md:grid-cols-3"
       >
-        <KiruCard
+        <NormalCard
           v-for="article in relatedArticle"
           v-bind="article"
           :key="article.artId"
-        ></KiruCard>
+        ></NormalCard>
       </div>
       <div
         v-else
@@ -205,16 +184,13 @@
 import dayjs from 'dayjs'
 import KiruAuthor from '@/components/article/kiru/KiruAuthor.vue'
 import KiruInfo from '@/components/article/kiru/KiruInfo.vue'
-import KiruTools from '@/components/article/kiru/KiruTools.vue'
-import KiruContent from '@/components/article/kiru/KiruContent.vue'
-import KiruMission from '@/components/article/kiru/KiruMission.vue'
-import KiruCard from '@/components/article/KiruCard.vue'
+import NormalCard from '@/components/article/NormalCard.vue'
 import KiruReply from '@/components/article/kiru/KiruReply.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
-  getKiruArticle,
+  getCommonArticle,
   getAuthorInfo,
-  getRelatedKiru,
+  getRelatedCommon,
   getArticleMessage,
   getKiruReMessage,
   addArticleMessage,
@@ -223,14 +199,11 @@ import { mapGetters, mapState } from 'vuex'
 import userDefaultAvatar from '@img/user-origin.jpg'
 
 export default {
-  name: 'ArticleKiru',
+  name: 'ArticleCommon',
   components: {
     KiruAuthor,
     KiruInfo,
-    KiruTools,
-    KiruContent,
-    KiruMission,
-    KiruCard,
+    NormalCard,
     KiruReply,
     DynamicTextarea,
   },
@@ -334,7 +307,6 @@ export default {
     articleInfo() {
       const {
         title,
-        firstPhoto,
         introduction,
         articlecategoryId,
         artArtlog,
@@ -342,7 +314,6 @@ export default {
       } = this.articleVm
       const info = {
         title,
-        firstPhoto,
         introduction,
         articlecategoryId,
         artArtlog,
@@ -373,15 +344,15 @@ export default {
     // 取得文章所需資訊
     async getArticleInfo(articleId) {
       // 取得文章資料
-      await getKiruArticle(articleId).then(res => {
-        // console.log('取得文章資訊: ', res)
+      await getCommonArticle(articleId).then(res => {
+        console.log('取得文章資訊: ', res)
         if (res.data.success) {
           this.articleVm = res.data.data
         } else {
           this.$router.replace({ name: 'NotFound', query: { message: res.data.message || '查無此文章' } })
         }
       }).catch(error => {
-        console.log('getKiruArticle: ', error)
+        console.log('getCommonArticle: ', error)
       })
 
       // 取得留言資料
@@ -422,7 +393,7 @@ export default {
     },
     // 取得相關類別文章
     getRelatedArticle(categoryId) {
-      getRelatedKiru({
+      getRelatedCommon({
         articlecategoryId: categoryId,
         ...this.relatedArticleVm,
       }).then(res => {

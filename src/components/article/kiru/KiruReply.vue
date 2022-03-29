@@ -161,7 +161,7 @@
 <script>
 import _ from 'lodash'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
-import { addArticleReMessage } from '@api'
+import { addKiruReMessage } from '@api'
 
 export default {
   name: 'KiryReply',
@@ -221,8 +221,8 @@ export default {
         main: this.replyInnerVm,
       }
       console.log(params)
-      addArticleReMessage(params).then(res => {
-        console.log('addArticleReMessage: ', res)
+      addKiruReMessage(params).then(res => {
+        console.log('addKiruReMessage: ', res)
         this.$emit('update-reply', messageId)
       }).catch(error => {
         console.error(error)

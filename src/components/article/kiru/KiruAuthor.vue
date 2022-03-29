@@ -27,16 +27,19 @@
       </div>
       <div class="flex gap-5 justify-end items-center">
         <!-- 喜歡 -->
-        <button class="block text-myBrown hover:text-myOrange">
-          <span class="inline-block px-1 text-lg align-middle material-icons">favorite_border</span>
-          <span class="inline-block px-1 text-lg align-middle">{{ lovecount }}</span>
-        </button>
+        <AddLove
+          v-bind="$attrs"
+          :show-love-count="true"
+          :love-count="loveCount"
+          :is-add-love="isAddLove"
+          :article-type="articleType"
+        ></AddLove>
         <!-- 留言 -->
         <router-link
           :to="{
             name: $route.name,
             params: $route.params.articleId,
-            hash: `#article-kiru-replies`,
+            hash: `#article-replies`,
           }" 
           class="block text-myBrown hover:text-myOrange"
         >
@@ -44,12 +47,7 @@
           <span class="inline-block px-1 text-lg align-middle">{{ repliesCount }}</span>
         </router-link>
         <!-- 收藏 -->
-        <button
-          type="button"
-          class="block text-myBrown hover:text-myOrange"
-        >
-          <span class="inline-block px-1 text-lg align-middle scale-110 material-icons-outlined">bookmark_border</span>
-        </button>
+        <AddCollection v-bind="$attrs"></AddCollection>
         <!-- 分享 -->
         <button
           ref="copylink"
@@ -67,9 +65,15 @@
 import tippy from 'tippy.js'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/animations/scale-subtle.css'
+import AddLove from '@/components/article/AddLove.vue'
+import AddCollection from '@/components/article/AddCollection.vue'
 
 export default {
   name: 'KiruAuthor',
+  components: {
+    AddLove,
+    AddCollection,
+  },
   props: {
     author: {
       type: String,
@@ -83,15 +87,28 @@ export default {
       type: String,
       default: ''
     },
-    lovecount: {
+    loveCount: {
       type: Number,
       default: 0,
     },
+    isAddLove: {
+      type: Boolean,
+      default: false,
+    },
+    // isCollect: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     repliesCount: {
       type: Number,
       default: 0,
     },
+    articleType: {
+      type: String,
+      default: '',
+    },
   },
+  // emits: ['add-love'],
   data() {
     return {
       isLoading: false,

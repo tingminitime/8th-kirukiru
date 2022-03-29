@@ -1,8 +1,11 @@
 <template>
   <!-- 文章頂部資訊 -->
-  <div class="p-4 mb-16 w-full">
+  <div>
     <!-- 文章封面圖片 -->
-    <div class="w-full max-h-[440px]">
+    <div
+      v-if="showCover"
+      class="w-full max-h-[440px]"
+    >
       <div class="aspect-w-16 aspect-h-9">
         <img
           v-src="coverUrl"
@@ -19,7 +22,10 @@
         <a
           href="javascript:;"
           class="text-myBrown hover:text-myYellow"
-        >居家生活</a>
+        >{{ artArtlog }}</a>
+        <!-- <router-link :to="{ name: '' }" class="text-myBrown hover:text-myYellow">
+          {{ artArtlog }}
+        </router-link> -->
       </p>
     </div>
     <!-- 標題 -->
@@ -57,9 +63,15 @@
 </template>
 
 <script>
+import { getCategoryName } from '@api'
+
 export default {
   name: 'KiruInfo',
   props: {
+    showCover: {
+      type: Boolean,
+      default: true,
+    },
     title: {
       type: String,
       default: '',
@@ -92,12 +104,24 @@ export default {
   data() {
     return {
       coverUrl: '',
+      // currentCategory: {},
     }
   },
   watch: {
     firstPhoto(newVal) {
       this.coverUrl = `https://kirukiru.rocket-coding.com/Pic/${newVal}`
     },
+    // 'articlecategoryId': {
+    //   handler(newVal) {
+    //     if (newVal) {
+    //       getCategoryName(newVal).then(res => {
+    //         console.log(res)
+    //         this.currentCategory = res.data
+    //       }).catch(error => console.error(error))
+    //     }
+    //   },
+    //   immediate: true,
+    // },
   }
 }
 </script>

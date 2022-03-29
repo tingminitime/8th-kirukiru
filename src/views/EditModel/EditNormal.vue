@@ -6,24 +6,6 @@
   ></EditNavbar>
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
     <div class="kiruPartEffect">
-      <!-- 上傳圖片 -->
-      <div
-        id="editor-normal-cover"
-        class="mb-8"
-      >
-        <CoverUpload
-          name="cover"
-          class="max-w-[768px]"
-          fix-text="點我修改封面圖片"
-          upload-bg="bg-upload-cover"
-          upload-container="mb-4 w-full sm:w-2/3"
-          :orig-image="articleVm.firstPhoto"
-          :edit-mode="editMode"
-          @file-change="coverChange"
-          @file-confirm="coverConfirm"
-          @file-cancel="coverCancel"
-        ></CoverUpload>
-      </div>
       <!-- 切切標題 -->
       <div
         id="editor-normal-title"
@@ -31,7 +13,7 @@
       >
         <div class="mb-2">
           <h2 class="inline-block pr-4 text-xl font-bold text-myBrown border-r-2 border-myBrown md:mb-2 md:text-2xl">
-            切切標題
+            文章標題
           </h2>
         </div>
         <Input
@@ -131,7 +113,7 @@
       <TipTap
         v-model="articleVm.main"
         placeholder="開始寫作吧 _"
-        custom-class="min-h-[18rem] border-none py-2 px-0"
+        custom-class="min-h-[18rem] md:min-h-[24rem] border-none py-2 px-0"
         :allow-image="true"
         @word-count="mainCountHandler"
         @check-empty="isMainEmpty = $event"
@@ -154,7 +136,6 @@
 </template>
 
 <script>
-import CoverUpload from '@/components/editor/CoverUpload.vue'
 import EditNavbar from '@/components/editor/EditNavbar.vue'
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
 import FormInputSelect from '@/components/utils/FormInputSelect.vue'
@@ -171,7 +152,6 @@ export default {
   name: 'EditNormal',
   components: {
     EditNavbar,
-    CoverUpload,
     Switch,
     SwitchGroup,
     SwitchLabel,
@@ -192,7 +172,6 @@ export default {
       articleVm: {
         userName: '',
         title: '',
-        firstPhoto: '',
         isFree: true,
         isPush: true,
         articlecategoryId: null,
@@ -205,7 +184,6 @@ export default {
       mainCount: 0,
       isMainEmpty: true,
       errors: [],
-      coverUpload: false,
       editMode: false,
       alertInfo: null,
     }
@@ -265,7 +243,7 @@ export default {
             confirmText: '去看內文',
             confirmMode: 'replace',
             confirmTodo: {
-              name: 'ArticleContent',
+              name: 'ArticleCommon',
               params: { articleId: res.data.artId },
             }
           }
@@ -376,17 +354,6 @@ export default {
       }
       this.$store.commit('SHOW_ALERT')
     },
-    // 封面圖片選擇後
-    coverChange(file) {
-      this.coverImage = file
-    },
-    coverConfirm() {
-      this.sendCover(this.coverImage.name)
-    },
-    coverCancel() {
-      this.coverImage = null
-      this.articleVm.firstPhoto = ''
-    },
     // 上傳圖片
     sendCover(name) {
       const data = new FormData()
@@ -442,14 +409,6 @@ export default {
       console.log(data)
       const errors = []
 
-      if (!data.firstPhoto) {
-        errors.push({
-          key: 'firstPhoto',
-          anchor: 'editor-normal-cover',
-          message: '必須上傳封面圖片 !',
-        })
-      }
-
       if (!data.title) {
         errors.push({
           key: 'title',
@@ -463,6 +422,14 @@ export default {
           key: 'articlecategoryId',
           anchor: 'editor-normal-category',
           message: '全站分類為必填 !'
+        })
+      }
+
+      if (this.isMainEmpty) {
+        errors.push({
+          key: 'main',
+          anchor: 'editor-normal-main',
+          message: '文章內容不可為空 !'
         })
       }
   
@@ -482,10 +449,6 @@ export default {
     // 初始化資料
     initData(target) {
         this.$data[target] = this.$options.data()[target];
-    },
-    // 檢查編輯器空白
-    checkEmpty() {
-
     },
   }
 }

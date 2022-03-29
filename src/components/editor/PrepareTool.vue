@@ -8,7 +8,9 @@
       upload-container="w-full"
       :orig-image="secPhoto === '.' ? '' : secPhoto"
       :edit-mode="editMode"
-      @file-change="imageHandler"
+      @file-change="imageChange"
+      @file-confirm="imageConfirm"
+      @file-cancel="imageCancel"
     ></CoverUpload>
     <!-- 工具內容 -->
     <div class="flex flex-col gap-1 w-full sm:w-72 md:-translate-y-3">
@@ -69,26 +71,32 @@ export default {
     }
   },
   watch: {
-    image(newVal) {
-      if (newVal) {
-        // this.$emit('tool-img-upload', newVal.name)
-        this.sendImage(newVal.name)
-      }
-    },
+    // image(newVal) {
+    //   if (newVal) {
+    //     // this.$emit('tool-img-upload', newVal.name)
+    //     this.sendImage(newVal.name)
+    //   }
+    // },
   },
   methods: {
     removeItem() {
       this.$emit('remove-item', this.uuid)
     },
-    imageHandler(file) {
+    imageChange(file) {
       console.log(file)
       this.image = file?.file
+    },
+    imageConfirm() {
+      this.sendImage(this.image.name)
+    },
+    imageCancel() {
+      this.image = null
     },
     sendImage(name) {
       const data = new FormData()
       data.append('photo', this.image)
       uploadImage(data).then(res => {
-        console.log(res)
+        console.log('上傳預備工具圖片: ', res)
         if (res.data.success) {
           this.$emit('tool-img-upload', res.data.picname)
         } else {

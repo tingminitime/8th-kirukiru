@@ -33,7 +33,7 @@
       <!-- H2 -->
       <button
         class="editorBubbleBtn"
-        :class="{ 'bg-gray-500': editor.isActive('strike') }"
+        :class="{ 'bg-gray-500': editor.isActive('heading', { level: 2 }) }"
         @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
       >
         <span class="text-xl text-white align-middle material-icons">title</span>
@@ -41,7 +41,7 @@
       <!-- H1 -->
       <button
         class="editorBubbleBtn"
-        :class="{ 'bg-gray-500': editor.isActive('strike') }"
+        :class="{ 'bg-gray-500': editor.isActive('heading', { level: 1 }) }"
         @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
       >
         <span class="text-2xl text-white align-middle material-icons">title</span>

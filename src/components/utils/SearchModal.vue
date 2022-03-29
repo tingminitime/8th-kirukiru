@@ -76,7 +76,7 @@
                         :display-value="(result) => result.title"
                         @compositionstart="compositionStatus = true"
                         @compositionend="compositionendHandler($event)"
-                        @keyup.enter="goSearchPage"
+                        @keyup.enter="enterSearchPage"
                         @input="inputHandler($event)"
                       ></ComboboxInput>
                     </div>
@@ -94,7 +94,7 @@
                       >
                         <ComboboxOption
                           v-for="result in searchTitleList"
-                          :key="result.artId"
+                          :key="result.uuidv4"
                           v-slot="{ selected, active }"
                           :value="result"
                           as="template"
@@ -106,11 +106,15 @@
                             }"
                           >
                             <span
-                              class="block truncate"
+                              class="inline-block truncate align-middle"
                               :class="{ 'font-bold': selected, 'font-normal': !selected }"
                             >
                               {{ result.title }}
                             </span>
+                            <span
+                              v-show="result.history"
+                              class="inline-block px-2 text-xs text-myBrown/60 align-bottom"
+                            >上次搜尋紀錄</span>
                           </li>
                         </ComboboxOption>
                       </ComboboxOptions>
@@ -139,6 +143,7 @@
 
 <script>
 import _ from 'lodash'
+import { v4 as uuidv4 } from 'uuid'
 import {
   TransitionRoot,
   TransitionChild,
@@ -193,19 +198,43 @@ export default {
         title: ''
       },
       compositionStatus: false,
+      kiruHistory: [],
+      normalHistory: [],
     }
   },
   computed: {
     ...mapState([
       'showSearch',
     ]),
+    // 顯示 Combobox list
     searchTitleList() {
-      return this.searchResult.map(result => {
+      let result = this.searchResult.map(result => {
         return {
           artId: result.artId,
           title: result.title,
+          uuid: uuidv4(),
         }
       })
+      // 找到與關鍵字符合的切切搜尋歷史紀錄
+      const conformKiruHistory = this.kiruHistory.filter(history => {
+        return history.title.match(this.selected.title)
+      })
+      // 找到與關鍵字符合的切切搜尋歷史紀錄
+      const conformNormalHistory = this.normalHistory.filter(history => {
+        return history.title.match(this.selected.title)
+      })
+
+      switch (this.searchType) {
+        case 'kiru':
+          result = [...conformKiruHistory, ...result]
+          break
+        case 'normal':
+          result = [...conformNormalHistory, ...result]
+          break
+        default:
+          break
+      }
+      return result
     },
   },
   watch: {
@@ -236,6 +265,18 @@ export default {
       },
     },
   },
+  created() {
+    const kiruHistory = localStorage.getItem('kiruSearchRecord')
+    const normalHistory = localStorage.getItem('normalSearchRecord')
+    if (kiruHistory) {
+      this.searchResult = JSON.parse(kiruHistory)
+      this.kiruHistory = JSON.parse(kiruHistory)
+    }
+    if (normalHistory) {
+      this.searchResult = JSON.parse(normalHistory)
+      this.normalHistory = JSON.parse(normalHistory)
+    }
+  },
   methods: {
     ...mapMutations([
       'SET_MASK',
@@ -262,7 +303,13 @@ export default {
         console.log(res)
         if (res.data.success) {
           this.searchResult.length = 0
-          this.searchResult.push(...res.data.data)
+          const filterResult = res.data.data.map(articleInfo => {
+            return {
+              artId: articleInfo.artId,
+              title: articleInfo.title,
+            }
+          })
+          this.searchResult.push(...filterResult)
         }
       }).catch(error => {
         console.error(error)
@@ -277,7 +324,13 @@ export default {
         console.log(res)
         if (res.data.success) {
           this.searchResult.length = 0
-          this.searchResult.push(...res.data.data)
+          const filterResult = res.data.data.map(articleInfo => {
+            return {
+              artId: articleInfo.artId,
+              title: articleInfo.title,
+            }
+          })
+          this.searchResult.push(...filterResult)
         }
       }).catch(error => {
         console.error(error)
@@ -289,11 +342,11 @@ export default {
         switch (this.searchType) {
           case 'kiru':
             // this.searchKiru()
-            console.log('前往搜尋頁面', this.selected.title)
+            this.goSearchPage()
             break
           case 'normal':
             // this.searchNormal()
-            console.log('前往搜尋頁面', this.selected.title)
+            this.goSearchPage()
             break
           default:
             break
@@ -307,19 +360,75 @@ export default {
       console.log('拼音結束偵聽: ', this.compositionStatus)
       this.keywords = this.selected.title
     },
-    // 前往搜尋頁面
-    goSearchPage() {
+    // Enter 前往搜尋頁面
+    enterSearchPage() {
       console.log('enter事件', this.compositionStatus)
       if (
         !this.compositionStatus
         && this.keywords === this.selected.title
-        && this.selected !== ''
+        && this.selected.title !== ''
       ) {
-        console.log('前往搜尋頁面')
+        this.goSearchPage()
       } else {
         this.keywords = this.selected.title
       }
     },
+    // 前往搜尋頁面
+    goSearchPage() {
+      const { id, title } = this.selected
+      switch (this.searchType) {
+        case 'kiru':
+          const checkKiruRepeat = this.kiruHistory.findIndex(history => history.artId === this.selected.artId && history.title === this.selected.title)
+          if (checkKiruRepeat === -1) {
+            if (this.kiruHistory.length < 3) {
+              this.kiruHistory.push({
+                id,
+                title,
+                uuid: uuidv4(),
+                history: true,
+              })
+            } else {
+              this.kiruHistory.shift()
+              this.kiruHistory.push({
+                id,
+                title,
+                uuid: uuidv4(),
+                history: true,
+              })
+            }
+          }
+          localStorage.setItem('kiruSearchRecord', JSON.stringify(this.kiruHistory))
+          
+          console.log('前往搜尋頁面', this.selected.title)
+          break
+        case 'normal':
+          const checkNormalRepeat = this.normalHistory.findIndex(history => history.artId === this.selected.artId && history.title === this.selected.title)
+          if (checkNormalRepeat === -1) {
+            if (this.normalHistory.length < 3) {
+              this.normalHistory.push({
+                id,
+                title,
+                uuid: uuidv4(),
+                history: true,
+              })
+            } else {
+              this.normalHistory.shift()
+              this.normalHistory.push({
+                id,
+                title,
+                uuid: uuidv4(),
+                history: true,
+              })
+            }
+          }
+          localStorage.setItem('normalSearchRecord', JSON.stringify(this.normalHistory))
+
+          console.log('前往搜尋頁面', this.selected.title)
+          break
+        default:
+          break
+      }
+    }
   }
 }
 </script>

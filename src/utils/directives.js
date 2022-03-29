@@ -1,5 +1,12 @@
 import emptyImage from '@img/empty-image.jpg'
 import dayjs from 'dayjs'
+import utc from 'dayjs/esm/plugin/utc'
+import timezone from 'dayjs/esm/plugin/timezone'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault('Asia/Taipei')
+
+console.log(dayjs('2022-03-29:00:00:00').utcOffset(8).format())
 
 export const focus = {
   mounted(el, binding) {
@@ -62,11 +69,11 @@ export const src = {
 
 export const timeformat = {
   mounted(el, binding) {
-    const time = dayjs(binding.value.time).format(binding.value.format || 'YYYY/MM/DD')
+    const time = dayjs(binding.value.time).utcOffset(8).add(8, 'hour').format(binding.value.format || 'YYYY/MM/DD')
     el.textContent = time
   },
   updated(el, binding) {
-    const time = dayjs(binding.value.time).format(binding.value.format || 'YYYY/MM/DD')
+    const time = dayjs(binding.value.time).utcOffset(8).add(8, 'hour').format(binding.value.format || 'YYYY/MM/DD')
     el.textContent = time
   }
 }

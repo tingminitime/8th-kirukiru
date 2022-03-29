@@ -68,7 +68,7 @@ const routes = [
             },
           },
           {
-            path: 'normal/:article(\\d+)?',
+            path: 'common/:article(\\d+)?',
             name: 'EditNormal',
             components: {
               default: () => import('@/views/EditModel/EditNormal.vue')
@@ -94,12 +94,35 @@ const routes = [
         meta: { requiresAuth: false, navbar: true },
         children: [
           {
-            path: ':articleId',
-            name: 'ArticleContent',
+            path: 'kiru/:articleId',
+            name: 'ArticleKiru',
             components: {
               default: () => import('@/views/Article/ArticleKiru.vue')
             },
-          }
+            meta: { requiresAuth: false, navbar: true, recordPath: true, articleType: 'kiru' },
+            props: {
+              default(route) {
+                return {
+                  articleId: route.params.articleId,
+                }
+              },
+            },
+          },
+          {
+            path: 'common/:articleId',
+            name: 'ArticleCommon',
+            components: {
+              default: () => import('@/views/Article/ArticleCommon.vue')
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true, articleType: 'common' },
+            props: {
+              default(route) {
+                return {
+                  articleId: route.params.articleId,
+                }
+              },
+            },
+          },
         ],
       },
       // 作者個人頁面
@@ -173,7 +196,9 @@ const Router = createRouter({
 Router.beforeEach((to, from, next) => {
   console.log('trigger beforeEach!', to, from)
   // 進度條開始
-  NProgress.start()
+  if (to.path !== from.path) {
+    NProgress.start()
+  }
 
   // 判斷記錄導頁前路徑
   if (from.name !== store.state.recordPath) {

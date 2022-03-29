@@ -41,7 +41,7 @@ import Loading from 'vue-loading-overlay'
 import NotiWind from '@/components/utils/NotiWind.vue'
 import RequestLoading from '@/components/utils/RequestLoading.vue'
 import GlobalLoading from '@/components/utils/GlobalLoading.vue'
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import { getUserInfo } from '@api'
 
   export default {
@@ -71,11 +71,17 @@ import { getUserInfo } from '@api'
     },
     created() {
       this.checkLoginState()
+      this.LOAD_ARTICLE_LOVE()
+      this.GET_KIRU_COLLECTIONS({ nowpage: 1, showcount: 9999 })
     },
     methods: {
       ...mapMutations([
         'SET_TOKEN',
         'SET_USER_INFO',
+        'LOAD_ARTICLE_LOVE',
+      ]),
+      ...mapActions([
+        'GET_KIRU_COLLECTIONS',
       ]),
       checkLoginState() {
         const token = localStorage.getItem('kirukiruToken')
