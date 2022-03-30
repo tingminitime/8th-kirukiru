@@ -2,10 +2,10 @@
   <!-- 附屬切切 -->
   <div class="p-4 mb-12">
     <div class="flex gap-12 justify-between mb-2">
-      <div class="myArticlePartTitle">
+      <div class="myArticlePartTitle myArticlePartTitleBg">
         <h2>附屬切切</h2>
       </div>
-      <div class="before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown"></div>
+      <div class="hidden before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown md:block"></div>
     </div>
     <div class="py-8 px-12">
       <ul class="grid grid-cols-2 grid-flow-row gap-4">

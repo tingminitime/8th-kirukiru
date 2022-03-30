@@ -43,6 +43,11 @@ export const getInterestList = () => {
   return http.get(`api/Test/GetArticlecategory`)
 }
 
+// 取得會員訂閱清單
+export const getUserSubscribeList = (params) => {
+  return http.get(`api/Member/GetMyOrder?${parseParams(params)}`)
+}
+
 // 取得特定文章類別
 export const getCategoryName = (categoryId) => {
   return http.get(`api/Test/GetArtlog?Artid=${categoryId}`)
@@ -79,13 +84,13 @@ export const getKiruArticle = (articleId) =>{
   return http.get(`api/Article/intoArticle?artId=${articleId}`)
 }
 
-// 取得文章所有留言
-export const getArticleMessage = (params) =>{
+// 取得切切文章所有留言
+export const getKiruMessage = (params) =>{
   return http.get(`api/Article/GetAllMessage?${parseParams(params)}`)
 }
 
 // 送出留言
-export const addArticleMessage = (params) =>{
+export const addKiruMessage = (params) =>{
   return http.post(`api/Article/AddMessage?${parseParams(params)}`)
 }
 
@@ -102,6 +107,11 @@ export const addKiruReMessage = (params) =>{
 // 關鍵字搜尋切切
 export const searchKiru = (params) =>{
   return http.get(`api/Homepage/Seekstringarticle?${parseParams(params)}`)
+}
+
+// 取得相關切切文章
+export const getKiruContentRelated = (params) =>{
+  return http.get(`api/Article/GetArtlogArticle?${parseParams(params)}`)
 }
 
 // 取得相關切切文章
@@ -148,6 +158,26 @@ export const editNormalArticle = (articleId, data) => {
 // 取得一般文章資料
 export const getCommonArticle = (articleId) =>{
   return http.get(`api/ArticleNormal/GetArticleNormal?artId=${articleId}`)
+}
+
+// 取得一般文章所有留言
+export const getCommonMessage = (params) =>{
+  return http.get(`api/Article/GetAllMessage?${parseParams(params)}`)
+}
+
+// 送出一般文章留言
+export const addCommonMessage = (params) =>{
+  return http.post(`api/Article/AddMessage?${parseParams(params)}`)
+}
+
+// 取得一般文章單筆留言回覆的內容
+export const getCommonReMessage = (messageId) =>{
+  return http.get(`api/Article/GetReMessage?messageId=${messageId}`)
+}
+
+// 送出一般文章回覆留言
+export const addCommonReMessage = (params) =>{
+  return http.post(`api/Article/AddReMessage?${parseParams(params)}`)
 }
 
 // 關鍵字搜尋一般文章

@@ -398,12 +398,14 @@ export default {
         console.log('新增成功: ', res)
         if (res.data.success) {
           const alertInfo = {
-            message: '切切已發布 !',
-            confirmText: '去看內文',
+            message: this.articleVm.isPush ? '切切已發布 !' : '切切已儲存',
+            confirmText: this.articleVm.isPush ? '去看內文' : '回個人頁面',
             confirmMode: 'replace',
             confirmTodo: {
-              name: 'ArticleKiru',
-              params: { articleId: res.data.artId },
+              name: this.articleVm.isPush ? 'ArticleKiru' : 'User',
+              params: this.articleVm.isPush
+                ? { articleId: res.data.artId }
+                : { userId: this.$store.state.userInfo.Username },
             }
           }
           this.alertInfo = alertInfo

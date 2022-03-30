@@ -1,6 +1,6 @@
 <template>
   <!-- 文章頂部資訊 -->
-  <div>
+  <div class="w-full">
     <!-- 文章封面圖片 -->
     <div
       v-if="showCover"
@@ -17,7 +17,12 @@
     <!-- 分類 -->
     <div class="py-3 mb-6">
       <p class="flex gap-1">
-        <span class="text-myBrown">切切分類</span>
+        <span class="text-myBrown">
+          {{ $route.meta.articleType === 'kiru'
+            ? '切切分類'
+            : '文章分類'
+          }}
+        </span>
         <span class="text-myBrown/60 material-icons">chevron_right</span>
         <a
           href="javascript:;"
@@ -43,7 +48,10 @@
           class="text-right text-black/60"
         >
         </p>
-        <p class="text-right text-black/60">
+        <p
+          v-if="showKiruCount"
+          class="text-right text-black/60"
+        >
           此切切共有 <span class="text-black/80">{{ kiruCount }}</span> 個步驟
         </p>
       </div>
@@ -63,8 +71,6 @@
 </template>
 
 <script>
-import { getCategoryName } from '@api'
-
 export default {
   name: 'KiruInfo',
   props: {
@@ -96,6 +102,10 @@ export default {
       type: String,
       default: '',
     },
+    showKiruCount: {
+      type: Boolean,
+      default: false,
+    },
     kiruCount: {
       type: Number,
       default: 0,
@@ -104,24 +114,12 @@ export default {
   data() {
     return {
       coverUrl: '',
-      // currentCategory: {},
     }
   },
   watch: {
     firstPhoto(newVal) {
       this.coverUrl = `https://kirukiru.rocket-coding.com/Pic/${newVal}`
     },
-    // 'articlecategoryId': {
-    //   handler(newVal) {
-    //     if (newVal) {
-    //       getCategoryName(newVal).then(res => {
-    //         console.log(res)
-    //         this.currentCategory = res.data
-    //       }).catch(error => console.error(error))
-    //     }
-    //   },
-    //   immediate: true,
-    // },
   }
 }
 </script>

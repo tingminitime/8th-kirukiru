@@ -14,6 +14,7 @@
   <KiruInfo
     class="p-4 mb-16 w-full"
     v-bind="articleInfo"
+    :show-kiru-count="true"
     :kiru-count="articleVm.mArrayList?.length"
   ></KiruInfo>
   <div v-if="articleVm.isFree">
@@ -28,10 +29,10 @@
     <div v-if="articleVm.final !== ''">
       <div class="mb-7">
         <div class="flex gap-12 justify-between px-4 mb-2 md:px-0">
-          <div class="myArticlePartTitle">
+          <div class="myArticlePartTitle myArticlePartTitleBg">
             <h2>附註<span class="hidden md:inline-block">補充</span></h2>
           </div>
-          <div class="before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown"></div>
+          <div class="hidden before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown md:block"></div>
         </div>
       </div>
       <div class="px-16 mb-16 text-myBrown">
@@ -134,8 +135,9 @@
       <ul v-if="articleMessage.length !== 0">
         <KiruReply
           v-for="reply in loadMessage"
-          :key="reply.messageId"
           v-bind="reply"
+          :key="reply.messageId"
+          :article-username="articleVm.username"
           @update-reply="replyHandler"
         ></KiruReply>
       </ul>
@@ -153,51 +155,12 @@
       </div>
     </div>
   </div>
+  <!-- 未訂閱顯示 -->
   <div
-    v-else
+    v-else-if="!articleVm.isFree && isArticleVmLoading"
     class="mx-auto max-w-[80%]"
   >
-    <div
-      class="p-4 w-full text-center bg-myBrown rounded-lg shadow-md sm:p-8"
-    >
-      <h3 class="hidden mb-2 text-3xl font-bold text-gray-900 dark:text-white md:block">
-        以下內容僅限訂閱者閱覽
-      </h3>
-      <h3 class="block mb-2 text-3xl font-bold text-gray-900 dark:text-white md:hidden">
-        限訂閱者閱覽
-      </h3>
-      <div class="flex gap-3 justify-center items-start py-4 mb-4">
-        <router-link
-          class="block overflow-hidden shrink-0 mt-2 w-12 h-12 rounded-full"
-          :to="{ name: 'Author', params: { authorId: 1 } }"
-        >
-          <img
-            v-src="'https://kirukiru.rocket-coding.com/Pic/origin.jpg'"
-            class="object-cover w-full h-full bg-center scale-[103%] load"
-            alt=""
-          >
-        </router-link>
-        <div class="max-w-[80%] text-left text-white">
-          <p class="text-myYellow">
-            {{ authorInfo.Name }}
-          </p>
-          <p
-            v-if="!authorInfo.Introduction"
-            class="text-sm leading-6 text-left text-white"
-          >
-            {{ authorInfo.Introduction }}我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹
-          </p>
-        </div>
-      </div>
-      <div class="flex justify-center items-center">
-        <router-link
-          class="py-2 px-4 text-lg text-white bg-myYellow/40 hover:bg-myYellow/60 rounded-lg"
-          :to="{ name: 'Author', params: { authorId: '123' } }"
-        >
-          訂閱作者，觀看此文章
-        </router-link>
-      </div>
-    </div>
+    <SubscribeView v-bind="authorInfo"></SubscribeView>
   </div>
 </template>
 
@@ -210,14 +173,15 @@ import KiruContent from '@/components/article/kiru/KiruContent.vue'
 import KiruMission from '@/components/article/kiru/KiruMission.vue'
 import KiruCard from '@/components/article/KiruCard.vue'
 import KiruReply from '@/components/article/kiru/KiruReply.vue'
+import SubscribeView from '@/components/article/SubscribeView.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
   getKiruArticle,
   getAuthorInfo,
-  getRelatedKiru,
-  getArticleMessage,
+  getKiruContentRelated,
+  getKiruMessage,
   getKiruReMessage,
-  addArticleMessage,
+  addKiruMessage,
 } from '@api'
 import { mapGetters, mapState } from 'vuex'
 import userDefaultAvatar from '@img/user-origin.jpg'
@@ -232,6 +196,7 @@ export default {
     KiruMission,
     KiruCard,
     KiruReply,
+    SubscribeView,
     DynamicTextarea,
   },
   beforeRouteUpdate(to, from) {
@@ -284,6 +249,7 @@ export default {
       messageTotal: 0,
       userDefaultAvatar: userDefaultAvatar,
       isAddLove: false,
+      isArticleVmLoading: false,
       // isCollect: false,
       // userAddLoveList: [],
     }
@@ -293,6 +259,7 @@ export default {
       'userInfo',
       'userAddLoveList',
       'userKiruCollections',
+      'userSubscribeList',
     ]),
     ...mapGetters([
       'userSignInStatus',
@@ -377,6 +344,7 @@ export default {
         // console.log('取得文章資訊: ', res)
         if (res.data.success) {
           this.articleVm = res.data.data
+          this.isArticleVmLoading = true
         } else {
           this.$router.replace({ name: 'NotFound', query: { message: res.data.message || '查無此文章' } })
         }
@@ -389,7 +357,7 @@ export default {
         artId: this.articleId,
         ...this.messagePagination,
       }
-      await getArticleMessage(params).then(res => {
+      await getKiruMessage(params).then(res => {
         // console.log('取得留言資料: ', res)
         if (res.data.success) {
           this.articleMessage = res.data.data
@@ -402,7 +370,7 @@ export default {
           // })
         }
       }).catch(error => {
-        console.error('addArticleMessage: ', error)
+        console.error('addKiruMessage: ', error)
       })
       this.$store.commit('HIDE_OVERLAY_LOADING')
 
@@ -422,7 +390,7 @@ export default {
     },
     // 取得相關類別文章
     getRelatedArticle(categoryId) {
-      getRelatedKiru({
+      getKiruContentRelated({
         articlecategoryId: categoryId,
         ...this.relatedArticleVm,
       }).then(res => {
@@ -462,7 +430,7 @@ export default {
         artId: this.articleId,
         Main: this.userMessageVm,
       }
-      await addArticleMessage(sendVm).then(res => {
+      await addKiruMessage(sendVm).then(res => {
         this.userMessageVm = '',
         console.log(res)
       }).catch(error => {
@@ -473,7 +441,7 @@ export default {
         artId: this.articleId,
         ...this.messagePagination,
       }
-      await getArticleMessage(getVm).then(res => {
+      await getKiruMessage(getVm).then(res => {
         console.log('取得留言資料: ', res)
         if (res.data.success) {
           // 比較新舊留言資料，取出新的資料
@@ -487,7 +455,7 @@ export default {
           })
         }
       }).catch(error => {
-        console.error('addArticleMessage: ', error)
+        console.error('addKiruMessage: ', error)
       })
     },
     // 更新留言資料
@@ -504,7 +472,7 @@ export default {
         // 取得完最新留言資料才能避免回覆過程中有人留言造成 index 錯誤
         // 未來可用 websocket 實現
         const newReplyData = await getKiruReMessage(messageId)
-        const newMessageData = await getArticleMessage(getVm)
+        const newMessageData = await getKiruMessage(getVm)
         if (newReplyData.data.success) {
           if (newMessageData.data.success) {
             this.updateMessage(newMessageData.data.data)

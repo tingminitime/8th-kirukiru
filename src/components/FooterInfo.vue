@@ -11,25 +11,25 @@
       <div class="flex flex-col text-center text-white md:grid md:grid-cols-4 md:grid-rows-1 md:gap-4 md:mr-4">
         <router-link
           to=""
-          class="block py-3 border-y border-white md:py-2 md:w-auto md:border-none"
+          class="block py-3 text-sm border-y border-white md:py-2 md:w-auto md:border-none"
         >
           關於切切
         </router-link>
         <router-link
           to=""
-          class="block py-3 border-b border-white md:py-2 md:w-auto md:border-none"
+          class="block py-3 text-sm border-b border-white md:py-2 md:w-auto md:border-none"
         >
           隱私政策
         </router-link>
         <router-link
           to=""
-          class="block py-3 border-b border-white md:py-2 md:w-auto md:border-none"
+          class="block py-3 text-sm border-b border-white md:py-2 md:w-auto md:border-none"
         >
           幫助中心
         </router-link>
         <a
           href="javascript:;"
-          class="block py-3 border-b border-white md:py-2 md:w-auto md:border-none"
+          class="block py-3 text-sm border-b border-white md:py-2 md:w-auto md:border-none"
         >關於火箭隊</a>
       </div>
     </div>

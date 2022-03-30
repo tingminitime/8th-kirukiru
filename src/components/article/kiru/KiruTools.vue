@@ -3,12 +3,12 @@
     <!-- 預備工具 -->
     <div class="mb-7">
       <div class="flex gap-12 justify-between mb-2">
-        <div class="myArticlePartTitle">
+        <div class="myArticlePartTitle myArticlePartTitleBg">
           <h2 class="whitespace-nowrap">
             預備工具
           </h2>
         </div>
-        <div class="before:absolute relative before:top-1/2 grow w-2/3 before:w-full before:h-px before:bg-myBrown"></div>
+        <div class="hidden before:absolute relative before:top-1/2 grow w-2/3 before:w-full before:h-px before:bg-myBrown md:block"></div>
       </div>
       <p class="text-sm text-myBrown">
         此篇切切會用到的物品、工具、材料、環境...等
@@ -19,11 +19,11 @@
       <li 
         v-for="tool in tools"
         :key="tool.fId"
-        class="flex flex-col justify-between border border-myBrown md:flex-row md:justify-start md:items-center"
+        class="flex flex-col justify-between border border-myBrown/20 md:flex-row md:justify-start md:items-center"
       >
         <div
           v-if="tool.secPhoto !== '.'"
-          class="shrink-0 w-full border-b border-myBrown aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4"
+          class="shrink-0 w-full border-b border-myBrown/60 aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4"
         >
           <img
             v-src="`https://kirukiru.rocket-coding.com/Pic/${tool.secPhoto}`"

@@ -64,7 +64,11 @@
   }
 
   .myArticlePartTitle {
-    @apply flex justify-center items-center py-1 px-4 w-1/5 h-20 text-2xl font-bold text-myBrown after:bg-myBrown bg-center bg-no-repeat bg-contain  bg-theme-outline
+    @apply flex justify-center items-center py-1 px-4 w-full md:w-1/5 h-20 text-2xl font-bold text-myBrown
+  }
+  
+  .myArticlePartTitleBg {
+    @apply bg-center bg-no-repeat bg-contain  bg-theme-outline
   }
 }
 

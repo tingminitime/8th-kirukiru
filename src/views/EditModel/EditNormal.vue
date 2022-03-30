@@ -239,7 +239,7 @@ export default {
         console.log('新增成功: ', res)
         if (res.data.success) {
           const alertInfo = {
-            message: '文章已發布 !',
+            message: this.articleVm.isPush ? '切切已發布 !' : '切切已儲存',
             confirmText: '去看內文',
             confirmMode: 'replace',
             confirmTodo: {
@@ -413,7 +413,7 @@ export default {
         errors.push({
           key: 'title',
           anchor: 'editor-normal-title',
-          message: '切切標題為必填 !',
+          message: '文章標題為必填 !',
         })
       }
 

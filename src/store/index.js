@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import {
+  getUserSubscribeList,
   addKiruLove,
   addKiruCollection,
   getKiruCollections,
@@ -20,6 +21,7 @@ const store = createStore({
       userSignIn: false,
       recordPath: 'HomePage',
       recordParams: '',
+      userSubscribeList: [],
       userAddLoveList: [],
       userKiruCollections: [],
       userCommonCollections: [],
@@ -55,6 +57,11 @@ const store = createStore({
     SIGN_OUT(state) {
       state.userInfo = {}
       state.token = ''
+    },
+
+    // 使用者前台管理
+    UPDATE_SUBSCRIBE_LIST(state, payload) {
+      state.userSubscribeList = payload
     },
 
     // Mask 狀態管理
@@ -143,6 +150,22 @@ const store = createStore({
     },
   },
   actions: {
+    // 取得使用者訂閱清單
+    GET_SUBSCRIBE_LIST({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        getUserSubscribeList(payload).then(res => {
+          console.log('取得使用者訂閱清單: ', res)
+          if (res.data.success) {
+            commit('UPDATE_SUBSCRIBE_LIST', res.data.data)
+          } else {
+            resolve({ success: false, errors: res })
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
     // 增加切切文章愛心
     ADD_KIRU_LOVE({ commit, state }, payload) {
       return new Promise((resolve, reject) => {

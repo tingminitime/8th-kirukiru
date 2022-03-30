@@ -109,7 +109,7 @@ import FormInputText from '@/components/utils/FormInputText.vue'
 import LoadingSpin from '@/components/utils/LoadingSpin.vue'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
-import { mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { userSignIn } from '@api'
 
 setLocale({
@@ -162,6 +162,10 @@ export default {
       'SET_TOKEN',
       'SET_USER_INFO',
     ]),
+    ...mapActions([
+      'GET_KIRU_COLLECTIONS',
+      'GET_SUBSCRIBE_LIST',
+    ]),
     // 驗證通過，登入
     onSubmit(data) {
       this.signInProcess = true
@@ -185,6 +189,8 @@ export default {
           localStorage.setItem('kirukiruToken', res.data.token)
           this.SET_TOKEN(res.data.token)
           this.SET_USER_INFO(res.data.data)
+          this.GET_KIRU_COLLECTIONS({ nowpage: 1, showcount: 9999 })
+          this.GET_SUBSCRIBE_LIST({ nowpage: 1, showcount: 9999 })
           this.$router.replace(this.$store.state.recordPath)
         } else {
           this.signInErrorMsg = res.data.message

@@ -2,7 +2,7 @@
 // const baseURL = 'https://kirukiru.rocket-coding.com/'
 
 const baseURL = '/api'
-const timeout = 15000
+const timeout = 20000
 const headers = {
   'Content-Type': 'application/json'
 }

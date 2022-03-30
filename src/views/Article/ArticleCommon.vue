@@ -14,11 +14,15 @@
   <KiruInfo
     class="p-4 mb-8 w-full"
     v-bind="articleInfo"
+    :art-artlog="artArtlog"
     :kiru-count="articleVm.mArrayList?.length"
     :show-cover="false"
   ></KiruInfo>
   <!-- 文章內容 -->
-  <div class="px-4 mb-32 w-full">
+  <div
+    v-if="articleVm.isFree"
+    class="px-4 mb-32 w-full"
+  >
     <p v-html="articleVm.main"></p>
   </div>
   <div v-if="articleVm.isFree">
@@ -113,8 +117,9 @@
       <ul v-if="articleMessage.length !== 0">
         <KiruReply
           v-for="reply in loadMessage"
-          :key="reply.messageId"
           v-bind="reply"
+          :key="reply.messageId"
+          :article-username="articleVm.username"
           @update-reply="replyHandler"
         ></KiruReply>
       </ul>
@@ -132,51 +137,12 @@
       </div>
     </div>
   </div>
+  <!-- 未訂閱顯示 -->
   <div
-    v-else
+    v-else-if="!articleVm.isFree && isArticleVmLoading"
     class="mx-auto max-w-[80%]"
   >
-    <div
-      class="p-4 w-full text-center bg-myBrown rounded-lg shadow-md sm:p-8"
-    >
-      <h3 class="hidden mb-2 text-3xl font-bold text-gray-900 dark:text-white md:block">
-        以下內容僅限訂閱者閱覽
-      </h3>
-      <h3 class="block mb-2 text-3xl font-bold text-gray-900 dark:text-white md:hidden">
-        限訂閱者閱覽
-      </h3>
-      <div class="flex gap-3 justify-center items-start py-4 mb-4">
-        <router-link
-          class="block overflow-hidden shrink-0 mt-2 w-12 h-12 rounded-full"
-          :to="{ name: 'Author', params: { authorId: 1 } }"
-        >
-          <img
-            v-src="'https://kirukiru.rocket-coding.com/Pic/origin.jpg'"
-            class="object-cover w-full h-full bg-center scale-[103%] load"
-            alt=""
-          >
-        </router-link>
-        <div class="max-w-[80%] text-left text-white">
-          <p class="text-myYellow">
-            {{ authorInfo.Name }}
-          </p>
-          <p
-            v-if="!authorInfo.Introduction"
-            class="text-sm leading-6 text-left text-white"
-          >
-            {{ authorInfo.Introduction }}我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹我是自我介紹
-          </p>
-        </div>
-      </div>
-      <div class="flex justify-center items-center">
-        <router-link
-          class="py-2 px-4 text-lg text-white bg-myYellow/40 hover:bg-myYellow/60 rounded-lg"
-          :to="{ name: 'Author', params: { authorId: '123' } }"
-        >
-          訂閱作者，觀看此文章
-        </router-link>
-      </div>
-    </div>
+    <SubscribeView v-bind="authorInfo"></SubscribeView>
   </div>
 </template>
 
@@ -186,10 +152,12 @@ import KiruAuthor from '@/components/article/kiru/KiruAuthor.vue'
 import KiruInfo from '@/components/article/kiru/KiruInfo.vue'
 import NormalCard from '@/components/article/NormalCard.vue'
 import KiruReply from '@/components/article/kiru/KiruReply.vue'
+import SubscribeView from '@/components/article/SubscribeView.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
   getCommonArticle,
   getAuthorInfo,
+  getCategoryName,
   getRelatedCommon,
   getArticleMessage,
   getKiruReMessage,
@@ -205,6 +173,7 @@ export default {
     KiruInfo,
     NormalCard,
     KiruReply,
+    SubscribeView,
     DynamicTextarea,
   },
   beforeRouteUpdate(to, from) {
@@ -235,6 +204,7 @@ export default {
       // articleId: null,
       articleVm: {},
       authorInfo: {},
+      artArtlog: '',
       relatedArticleVm: {
         nowpage: 1,
         showcount: 3,
@@ -257,6 +227,7 @@ export default {
       messageTotal: 0,
       userDefaultAvatar: userDefaultAvatar,
       isAddLove: false,
+      isArticleVmLoading: false,
       // isCollect: false,
       // userAddLoveList: [],
     }
@@ -309,14 +280,12 @@ export default {
         title,
         introduction,
         articlecategoryId,
-        artArtlog,
-        ArtInitDate: artInitDate,
+        artInitDate,
       } = this.articleVm
       const info = {
         title,
         introduction,
         articlecategoryId,
-        artArtlog,
         artInitDate,
       }
       return info
@@ -348,12 +317,19 @@ export default {
         console.log('取得文章資訊: ', res)
         if (res.data.success) {
           this.articleVm = res.data.data
+          this.isArticleVmLoading = true
         } else {
           this.$router.replace({ name: 'NotFound', query: { message: res.data.message || '查無此文章' } })
         }
       }).catch(error => {
         console.log('getCommonArticle: ', error)
       })
+
+      // 取得文章類別
+      await getCategoryName(this.articleVm.articlecategoryId).then(res => {
+        console.log('取得文章類別名稱: ', res)
+        this.artArtlog = res.data.Name
+      }).catch(error => console.error('getCategoryName: ', error))
 
       // 取得留言資料
       const params = {

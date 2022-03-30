@@ -36,7 +36,10 @@
             <span class="inline-block px-0.5 text-sm align-middle">{{ lovecount }}</span>
           </div>
           <!-- 收藏 -->
-          <div class="flex items-center text-myBrown hover:text-myOrange">
+          <div
+            v-if="collectionCount !== 0"
+            class="flex items-center text-myBrown hover:text-myOrange"
+          >
             <span class="inline-block px-0.5 text-sm align-middle scale-110 material-icons-outlined">bookmark_border</span>
             <span class="inline-block px-0.5 text-sm align-middle">{{ collectionCount }}</span>
           </div>

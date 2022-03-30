@@ -51,7 +51,7 @@
             ></p>
             <div class="flex order-1 md:order-2">
               <button
-                v-if="1"
+                v-if="messageUserName === userInfo.Username"
                 type="button"
                 class="group block px-1 text-sm font-medium text-black/60 hover:text-black/80"
               >
@@ -59,6 +59,7 @@
                 <span class="inline-block align-middle">編輯</span>
               </button>
               <button
+                v-if="articleUsername === userInfo.Username"
                 type="button"
                 class="group flex justify-center items-center px-1 text-sm font-medium text-black/60 hover:text-black/80"
                 @click="toggleInnerReply(messageId)"
@@ -141,7 +142,7 @@
                 ></p>
                 <div class="flex order-1 md:order-2">
                   <button
-                    v-if="1"
+                    v-if="articleUsername === userInfo.Username"
                     type="button"
                     class="group block px-1 text-sm font-medium text-black/60 hover:text-black/80"
                   >
@@ -162,6 +163,7 @@
 import _ from 'lodash'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import { addKiruReMessage } from '@api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'KiryReply',
@@ -197,6 +199,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    messageUserName: {
+      type: String,
+      default: '',
+    },
+    articleUsername: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['update-reply'],
   data() {
@@ -205,6 +215,11 @@ export default {
       replyInnerVm: '',
       inputHeight: '0',
     }
+  },
+  computed: {
+    ...mapState([
+      'userInfo',
+    ]),
   },
   methods: {
     toggleInnerReply(messageId) {

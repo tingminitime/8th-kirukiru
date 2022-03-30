@@ -72,7 +72,6 @@ import { getUserInfo } from '@api'
     created() {
       this.checkLoginState()
       this.LOAD_ARTICLE_LOVE()
-      this.GET_KIRU_COLLECTIONS({ nowpage: 1, showcount: 9999 })
     },
     methods: {
       ...mapMutations([
@@ -82,6 +81,7 @@ import { getUserInfo } from '@api'
       ]),
       ...mapActions([
         'GET_KIRU_COLLECTIONS',
+        'GET_SUBSCRIBE_LIST',
       ]),
       checkLoginState() {
         const token = localStorage.getItem('kirukiruToken')
@@ -92,6 +92,8 @@ import { getUserInfo } from '@api'
             console.log('自動登入API(200): ', res)
             if (res.data.success) {
               this.SET_USER_INFO(res.data.data)
+              this.GET_KIRU_COLLECTIONS({ nowpage: 1, showcount: 9999 })
+              this.GET_SUBSCRIBE_LIST({ nowpage: 1, showcount: 9999 })
               this.$notify({
                 group: "success",
                 title: "登入成功 !",
