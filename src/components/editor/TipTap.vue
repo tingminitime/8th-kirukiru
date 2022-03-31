@@ -8,6 +8,7 @@
     >
       <!-- 粗體 -->
       <button
+        v-if="allowBold"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('bold') }"
         @click="editor.chain().focus().toggleBold().run()"
@@ -16,6 +17,7 @@
       </button>
       <!-- 斜體 -->
       <button
+        v-if="allowItalic"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('italic') }"
         @click="editor.chain().focus().toggleItalic().run()"
@@ -24,6 +26,7 @@
       </button>
       <!-- 刪除線 -->
       <button
+        v-if="allowStrike"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('strike') }"
         @click="editor.chain().focus().toggleStrike().run()"
@@ -32,6 +35,7 @@
       </button>
       <!-- H2 -->
       <button
+        v-if="allowH2"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('heading', { level: 2 }) }"
         @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
@@ -40,6 +44,7 @@
       </button>
       <!-- H1 -->
       <button
+        v-if="allowH1"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('heading', { level: 1 }) }"
         @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
@@ -48,6 +53,7 @@
       </button>
       <!-- 連結 -->
       <button
+        v-if="allowLink"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('link') }"
         @click="editor.isActive('link') ? editor.chain().focus().unsetLink().run() : setLink(editor)"
@@ -56,6 +62,7 @@
       </button>
       <!-- list -->
       <button
+        v-if="allowBullet"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('bulletList') }"
         @click="editor.chain().focus().toggleBulletList().run()"
@@ -63,6 +70,7 @@
         <span class="text-xl text-white align-middle material-icons">format_list_bulleted</span>
       </button>
       <button
+        v-if="allowOrder"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('orderedList') }"
         @click="editor.chain().focus().toggleOrderedList().run()"
@@ -71,6 +79,7 @@
       </button>
       <!-- Code Block -->
       <button
+        v-if="allowCode"
         class="editorBubbleBtn"
         :class="{ 'bg-gray-500': editor.isActive('codeBlock') }"
         @click="editor.chain().focus().toggleCodeBlock().run()"
@@ -192,6 +201,42 @@ export default {
     wordLimit: {
       type: [String, Number],
       default: 99999,
+    },
+    allowBold: {
+      type: Boolean,
+      default: true,
+    },
+    allowItalic: {
+      type: Boolean,
+      default: true,
+    },
+    allowStrike: {
+      type: Boolean,
+      default: true,
+    },
+    allowH1: {
+      type: Boolean,
+      default: true,
+    },
+    allowH2: {
+      type: Boolean,
+      default: true,
+    },
+    allowLink: {
+      type: Boolean,
+      default: true,
+    },
+    allowBullet: {
+      type: Boolean,
+      default: true,
+    },
+    allowOrder: {
+      type: Boolean,
+      default: true,
+    },
+    allowCode: {
+      type: Boolean,
+      default: true,
     },
     allowImage: {
       type: Boolean,

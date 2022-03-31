@@ -214,3 +214,39 @@ export const removeCommonCollection = (articleId) =>{
 export const getCommonCollections = (params) =>{
   return http.get(`api/ArticleNormal/GetAllcollectart?${parseParams(params)}`)
 }
+
+// ----- 作者頁面 -----
+// 取得作者發布的文章數量
+export const getAuthorArticleCount = (username) =>{
+  return http.get(`api/Member/getmemberartnumber?memberUserName=${username}`)
+}
+
+// 取得作者訂閱(關注)數量
+export const getAuthorSubscribeCount = (username) =>{
+  return http.get(`api/Member/GetOrderNumber?memberUserName=${username}`)
+}
+
+// 取得作者發布的文章數量
+export const getAuthorHasSubscribedCount = (username) =>{
+  return http.get(`api/Member/GetBeOrder?memberUserName=${username}`)
+}
+
+// 取得作者發布的切切
+export const getAuthorPublishKiru = (params) =>{
+  return http.get(`api/Member/GetMyArticles?${parseParams(params)}`)
+}
+
+// 取得作者收藏的切切
+export const getAuthorCollectKiru = (params) =>{
+  return http.get(`api/Member/Collectauthorarticle?${parseParams(params)}`)
+}
+
+// 取得作者發布的一般文章
+export const getAuthorPublishCommon = (params) =>{
+  return http.get(`api/Member/getnormalarticles?${parseParams(params)}`)
+}
+
+// 取得作者收藏的一般文章
+export const getAuthorCollectCommon = (params) =>{
+  return http.get(`api/Member/collectnormalarticle?${parseParams(params)}`)
+}

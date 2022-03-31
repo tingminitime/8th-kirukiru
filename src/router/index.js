@@ -158,13 +158,30 @@ const routes = [
       },
       // 作者個人頁面
       {
-        path: 'author/:authorId?',
+        path: 'author',
         name: 'Author',
         components: {
           default: () => import('@/views/Author/AuthorPage.vue'),
-          subscribed: () => import('@/views/Author/AuthorSubscribed.vue'),
         },
         meta: { requiresAuth: false, navbar: true, recordPath: true },
+        props: {
+          default(route) {
+            return {
+              authorId: route.params.authorId,
+            }
+          }
+        },
+        children: [
+          {
+            path: ':authorId?',
+            name: 'AuthorDetail',
+            components: {
+              default: () => import('@/views/Author/AuthorPage.vue'),
+              subscribed: () => import('@/views/Author/AuthorSubscribe.vue'),
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true },
+          }
+        ],
       },
       // 使用者個人頁面
       {

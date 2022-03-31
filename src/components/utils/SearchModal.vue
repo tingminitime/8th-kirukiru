@@ -291,7 +291,7 @@ export default {
       console.log('輸入事件', this.compositionStatus)
       if (this.compositionStatus) return
       else {
-        this.selected.title = event.target.value
+        this.selected.title = event.target.value.trim()
       }
     },
     // 搜尋切切文章
@@ -338,7 +338,7 @@ export default {
     }, 200),
     // 搜尋功能
     searchHandler() {
-      if (this.selected.title !== '') {
+      if (this.selected.title.trim() !== '') {
         switch (this.searchType) {
           case 'kiru':
             // this.searchKiru()
@@ -366,7 +366,7 @@ export default {
       if (
         !this.compositionStatus
         && this.keywords === this.selected.title
-        && this.selected.title !== ''
+        && this.selected.title.trim() !== ''
       ) {
         this.goSearchPage()
       } else {

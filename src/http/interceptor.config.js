@@ -31,6 +31,7 @@ export const setInterceptors = (axiosInstance) => {
       console.log(response)
       store.commit('HIDE_REQUEST_LOADING')
       if (response) {
+        console.error(errorMessage(response.status))
         notify({
           group: 'error',
           title: `伺服器回應錯誤 (${response.status})`,

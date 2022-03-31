@@ -45,7 +45,7 @@ export const src = {
           el.classList.remove('load')
           el.src = emptyImage
         }
-      }, 2000)
+      }, 1000)
     }
   },
   updated(el, binding) {
@@ -62,7 +62,7 @@ export const src = {
           el.classList.remove('load')
           el.src = emptyImage
         }
-      }, 2000)
+      }, 1000)
     }
   },
 }

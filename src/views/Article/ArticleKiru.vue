@@ -276,11 +276,11 @@ export default {
       let sortMessage = []
       if (ms.topNewDate) {
         sortMessage = [...this.articleMessage].sort((a, b) => {
-          return dayjs(b.messageInitDate, 'x') - dayjs(a.messageInitDate)
+          return dayjs(b.messageInitDate).format('x') - dayjs(a.messageInitDate).format('x')
         })
       } else {
         sortMessage = [...this.articleMessage].sort((a, b) => {
-          return dayjs(a.messageInitDate, 'x') - dayjs(b.messageInitDate)
+          return dayjs(a.messageInitDate).format('x') - dayjs(b.messageInitDate).format('x')
         })
       }
 

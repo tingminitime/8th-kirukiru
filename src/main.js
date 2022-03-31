@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
+import ElementPlus from 'element-plus'
 import Notifications from 'notiwind'
 import '@/index.css'
 import '@/assets/sass/skeleton.sass'
@@ -34,6 +35,7 @@ const app = createApp(App)
 
 app.use(router)
 app.use(store)
+app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.use(Notifications)
 app.component('VForm', Form)
 app.component('VField', Field)

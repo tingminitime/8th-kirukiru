@@ -1,33 +1,172 @@
 <template>
-  <div class="px-4 pt-16 pb-11 mx-auto max-w-[816px] min-h-[calc(100vh-56px-64px)] md:px-8">
-    <div class="border border-myBrown">
-      <h1 class="py-2 text-2xl font-bold text-center text-myBrown bg-myYellow border-b border-myBrown">
-        水電工皮卡的切切生活
+  <div class="px-4 pt-8 pb-11 mx-auto max-w-[816px] min-h-[calc(100vh-56px-64px)] md:px-0 md:pt-16">
+    <div class="mb-8 rounded-2xl border-t-8 border-t-myYellow shadow-md md:mb-12 md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm">
+      <!-- 桌面板 Title -->
+      <h1 class="hidden py-2 text-2xl font-bold text-center text-myBrown bg-myYellow border-b border-myBrown md:block">
+        <span class="line-clamp-1">{{ authorInfo.Name }}</span>
       </h1>
-      <div class="grid grid-cols-3 gap-8 py-10 px-8">
-        <div class="w-full aspect-w-16 aspect-h-9">
-          <img
-            v-src="'https://picsum.photos/1280/720?random=1'"
-            class="object-cover w-full h-full"
-            alt=""
-          >
+      <div class="flex flex-col gap-8 py-10 px-8 border-b-myBrown md:grid md:grid-cols-3 md:grid-rows-1 md:border-b">
+        <div class="flex gap-8 w-full md:block">
+          <div class="overflow-hidden shrink-0 w-24 h-24 rounded-full md:w-auto md:h-auto md:rounded-none md:aspect-w-16 md:aspect-h-9">
+            <img
+              v-src="`https://kirukiru.rocket-coding.com/Pic/${authorInfo?.Userpic}`"
+              class="object-cover object-center w-full h-full rounded-lg load"
+              alt=""
+            >
+          </div>
+          <!-- 手機板資訊 -->
+          <div class="flex flex-col gap-2 md:hidden">
+            <h1 class="mb-4 text-xl font-bold text-left text-myBrown">
+              <span class="line-clamp-2">{{ authorInfo?.Name }}</span>
+            </h1>
+            <div class="text-myBrown">
+              <span class="inline-block mr-2 w-20 text-sm align-super">發布文章</span>
+              <span class="text-2xl font-bold align-bottom">
+                {{ formatThousand(publishArticleCount) }}
+              </span>
+            </div>
+            <div class="text-myBrown">
+              <span class="inline-block mr-2 w-20 text-sm align-super">關注人數</span>
+              <span class="text-2xl font-bold align-bottom">
+                {{ formatThousand(subscribeCount) }}
+              </span>
+            </div>
+            <div class="text-myBrown">
+              <span class="inline-block mr-2 w-20 text-sm align-super">已關注</span>
+              <span class="text-2xl font-bold align-bottom">
+                {{ formatThousand(hasSubscribedCount) }}
+              </span>
+            </div>
+          </div>
         </div>
         <div class="col-span-2">
-          <p>
-            永續生活的議題在過去之於一般社會大眾來說，像是處於旁觀者的角色，但近幾年來，食衣住行的方方面面，從手機、住宿、信用卡。
-            合作請洽：pikakirukiru@gmail.com
-            我的社群：facebokk.com/person/pika
-          </p>
+          <p
+            class="text-sm text-myBrown md:text-base"
+            v-html="authorInfo.Introduction || '此作者尚未填寫簡介'"
+          ></p>
+        </div>
+      </div>
+      <div class="hidden grid-cols-3 md:grid">
+        <div class="flex flex-col gap-3 py-4 px-6 border-r border-r-myBrown">
+          <span class="text-myBrown">發布文章</span>
+          <span class="text-3xl font-bold text-myBrown">
+            {{ formatThousand(publishArticleCount) }}
+          </span>
+        </div>
+        <div class="flex flex-col gap-3 py-4 px-6 border-r border-r-myBrown">
+          <span class="text-myBrown">關注人數</span>
+          <span class="text-3xl font-bold text-myBrown">
+            {{ formatThousand(subscribeCount) }}
+          </span>
+        </div>
+        <div class="flex flex-col gap-3 py-4 px-6">
+          <span class="text-myBrown">已關注</span>
+          <span class="text-3xl font-bold text-myBrown">
+            {{ formatThousand(hasSubscribedCount) }}
+          </span>
         </div>
       </div>
     </div>
+    <!-- 未訂閱，訂閱方案顯示 -->
+    <div
+      v-if="false"
+      class="rounded-2xl border-t-8 border-t-myYellow shadow-md md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm"
+    >
+      <!-- 桌面板 Title -->
+      <h1 class="hidden py-2 text-2xl font-bold text-center text-myBrown bg-myYellow border-b border-myBrown md:block">
+        訂閱方案
+      </h1>
+      <div
+        class="flex flex-col items-center"
+      >
+        <p class="py-8 px-4 text-center text-myBrown md:py-12">
+          這是訂閱方案，訂閱後即可解鎖觀看付費文章
+        </p>
+        <div class="flex flex-col justify-center items-center mb-6 font-semibold text-myBrown">
+          <span>水電工皮卡的切切生活</span>
+          <span class="text-xl">$ 30 NTD / 月</span>
+        </div>
+        <button
+          type="button"
+          class="block mb-10 font-bold text-myBrown hover:text-myOrange ring-2 ring-myYellow transition-all button-sm"
+        >
+          點我訂閱
+        </button>
+      </div>
+    </div>
+    <!-- 已訂閱顯示 -->
+    <div v-if="true">
+      <div
+        class="flex flex-col items-center"
+      >
+        <div class="mb-4">
+          <span class="text-2xl font-semibold text-myBrown">您已訂閱此作者 !</span>
+        </div>
+        <button
+          type="button"
+          class="block mb-10 font-semibold text-gray-400 hover:text-myBrown ring-2 ring-gray-300 hover:ring-myYellow transition-all button-sm"
+        >
+          取消訂閱
+        </button>
+      </div>
+    </div>
+    <!-- 發布、收藏文章列表 -->
+    <router-view
+      :key="authorId"
+      name="subscribed"
+      :author-id="authorId"
+    ></router-view>
   </div>
 </template>
 
 <script>
-
+import {
+  getAuthorInfo,
+  getAuthorArticleCount,
+  getAuthorSubscribeCount,
+  getAuthorHasSubscribedCount,
+} from '@api'
 
 export default {
   name: 'AuthorPage',
+  props: {
+    authorId: {
+      type: [String, Number],
+      default: '',
+    },
+  },
+  data() {
+    return {
+      authorInfo: {},
+      publishArticleCount: 0,
+      subscribeCount: 0,
+      hasSubscribedCount: 0,
+    }
+  },
+  mounted() {
+    this.getAuthorInfo()
+  },
+  methods: {
+    // 取得作者發布文章、關注人數、已關注數量
+    getAuthorInfo() {
+      Promise.all([
+        getAuthorInfo(this.authorId),
+        getAuthorArticleCount(this.authorId),
+        getAuthorSubscribeCount(this.authorId),
+        getAuthorHasSubscribedCount(this.authorId),
+      ]).then(res => {
+        console.log('取得作者頁面數量資訊: ', res)
+        const filterRes = res.map(data => data.data)
+        this.authorInfo = filterRes[0].data
+        this.publishArticleCount = filterRes[1].artcount
+        this.subscribeCount = filterRes[2].orderNumber
+        this.hasSubscribedCount = filterRes[3].beOrderNumber
+      }).catch(error => console.error(error))
+    },
+    // 千分位逗點格式化
+    formatThousand(str) {
+      return String(str).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+    },
+  },
 }
 </script>

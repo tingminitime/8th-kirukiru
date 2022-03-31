@@ -27,7 +27,7 @@ module.exports = {
         'theme-outline': "url('@img/theme-outline.svg')",
       },
       fontFamily: {
-        'sans': ['Inter var', 'Noto Sans TC', 'Helvetica Neue', ...defaultTheme.fontFamily.sans],
+        'sans': ['Inter', 'Noto Sans TC', 'Helvetica Neue', ...defaultTheme.fontFamily.sans],
         'mono': [...defaultTheme.fontFamily.mono, 'Noto Sans TC']
       },
       boxShadow: {
