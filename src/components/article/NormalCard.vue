@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="{ name: 'ArticleCommon', params: { articleId: 2 } }"
+    :to="{ name: 'ArticleCommon', params: { articleId: artId } }"
     class="block relative w-[256px] min-h-[184px] bg-myGray rounded-b-2xl border border-myBrown drop-shadow-md"
   >
     <div class="flex flex-col">

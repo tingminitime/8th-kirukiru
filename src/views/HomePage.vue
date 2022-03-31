@@ -5,7 +5,10 @@
       id="progressBar"
       class="fixed inset-x-0 h-1"
     ></div>
-    <router-view></router-view>
+    <div class="min-h-[calc(100vh-64px-56px)]">
+      <router-view></router-view>
+      <router-view name="landing"></router-view>
+    </div>
     <EditModeModal></EditModeModal>
   </div>
 </template>

@@ -22,6 +22,7 @@ const store = createStore({
       recordPath: 'HomePage',
       recordParams: '',
       userSubscribeList: [],
+      checkUserSubscribeStatus: false,
       userAddLoveList: [],
       userKiruCollections: [],
       userCommonCollections: [],
@@ -57,11 +58,15 @@ const store = createStore({
     SIGN_OUT(state) {
       state.userInfo = {}
       state.token = ''
+      state.userSubscribeList.length = 0
     },
 
     // 使用者前台管理
     UPDATE_SUBSCRIBE_LIST(state, payload) {
       state.userSubscribeList = payload
+    },
+    CHECK_SUBSCRIBE_LIST(state, status) {
+      state.checkUserSubscribeStatus = status
     },
 
     // Mask 狀態管理
@@ -157,7 +162,10 @@ const store = createStore({
           console.log('取得使用者訂閱清單: ', res)
           if (res.data.success) {
             commit('UPDATE_SUBSCRIBE_LIST', res.data.data)
+            commit('CHECK_SUBSCRIBE_LIST', true)
+            resolve({ success: true, data: res.data })
           } else {
+            console.log(res)
             resolve({ success: false, errors: res })
           }
         }).catch(error => {

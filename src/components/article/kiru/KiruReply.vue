@@ -208,7 +208,7 @@ export default {
       default: '',
     },
   },
-  emits: ['update-reply'],
+  emits: ['update-reply', 'reply-inner'],
   data() {
     return {
       replyInner: null,
@@ -236,12 +236,13 @@ export default {
         main: this.replyInnerVm,
       }
       console.log(params)
-      addKiruReMessage(params).then(res => {
-        console.log('addKiruReMessage: ', res)
-        this.$emit('update-reply', messageId)
-      }).catch(error => {
-        console.error(error)
-      })
+      this.$emit('reply-inner', params)
+      // addKiruReMessage(params).then(res => {
+      //   console.log('addKiruReMessage: ', res)
+      //   this.$emit('update-reply', messageId)
+      // }).catch(error => {
+      //   console.error(error)
+      // })
       this.toggleInnerReply(messageId)
     },
     resize: _.throttle(function throttleResize() {

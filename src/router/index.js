@@ -20,11 +20,22 @@ const routes = [
     alias: '/index',
     // component: { render: () => h(RouterView) },
     name: 'HomePage',
+    redirect: { name: 'LandingPage' },
     components: {
       default: () => import('@/views/HomePage.vue'),
     },
     meta: { requiresAuth: false, navbar: true, recordPath: true },
     children: [
+      // 首頁
+      {
+        path: 'home',
+        alias: 'index',
+        name: 'LandingPage',
+        components: {
+          default: () => import('@/views/LandingPage.vue'),
+        },
+        meta: { requiresAuth: false, navbar: true, recordPath: true },
+      },
       // 登入頁面
       {
         path: 'signin',
@@ -125,6 +136,26 @@ const routes = [
           },
         ],
       },
+      // 搜尋頁面
+      {
+        path: 'search',
+        name: 'Search',
+        components: {
+          default: () => import('@/views/Search/SearchPage.vue'),
+        },
+        meta: { requiresAuth: false, navbar: true, recordPath: true },
+        children: [
+          {
+            path: ':articleType',
+            name: 'SearchContent',
+            components: {
+              default: () => import('@/views/Search/SearchKiru.vue'),
+              common: () => import('@/views/Search/SearchCommon.vue'),
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true },
+          }
+        ],
+      },
       // 作者個人頁面
       {
         path: 'author/:authorId?',
@@ -133,22 +164,31 @@ const routes = [
           default: () => import('@/views/Author/AuthorPage.vue'),
           subscribed: () => import('@/views/Author/AuthorSubscribed.vue'),
         },
-        meta: { requiresAuth: false, navbar: true },
+        meta: { requiresAuth: false, navbar: true, recordPath: true },
       },
       // 使用者個人頁面
       {
-        path: 'user/:userId',
+        path: 'user/',
         name: 'User',
         components: {
           default: () => import('@/views/User/UserPage.vue'),
-          info: () => import('@/views/User/UserInfo.vue'),
-          profile: () => import('@/views/User/UserProfile.vue'),
-          articles: () => import('@/views/User/UserArticles.vue'),
-          collections: () => import('@/views/User/UserCollections.vue'),
-          plan: () => import('@/views/User/UserPlan.vue'),
-          subscriptions: () => import('@/views/User/UserSubscriptions.vue'),
         },
-        meta: { requiresAuth: true, navbar: true },
+        meta: { requiresAuth: true, navbar: true, recordPath: true },
+        children: [
+          {
+            path: ':userId',
+            name: 'UserDetail',
+            components: {
+              default: () => import('@/views/User/UserInfo.vue'),
+              profile: () => import('@/views/User/UserProfile.vue'),
+              articles: () => import('@/views/User/UserArticles.vue'),
+              collections: () => import('@/views/User/UserCollections.vue'),
+              plan: () => import('@/views/User/UserPlan.vue'),
+              subscriptions: () => import('@/views/User/UserSubscriptions.vue'),
+            },
+            meta: { requiresAuth: true, navbar: true, recordPath: true },
+          }
+        ],
       },
       // 404 Not Found
       {

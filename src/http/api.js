@@ -162,27 +162,32 @@ export const getCommonArticle = (articleId) =>{
 
 // 取得一般文章所有留言
 export const getCommonMessage = (params) =>{
-  return http.get(`api/Article/GetAllMessage?${parseParams(params)}`)
+  return http.get(`api/ArticleNormal/GetAllMessage?${parseParams(params)}`)
 }
 
 // 送出一般文章留言
 export const addCommonMessage = (params) =>{
-  return http.post(`api/Article/AddMessage?${parseParams(params)}`)
+  return http.post(`api/ArticleNormal/AddMessageArticleNrmal?${parseParams(params)}`)
 }
 
 // 取得一般文章單筆留言回覆的內容
 export const getCommonReMessage = (messageId) =>{
-  return http.get(`api/Article/GetReMessage?messageId=${messageId}`)
+  return http.get(`api/ArticleNormal/Getrmessage?messageId=${messageId}`)
 }
 
 // 送出一般文章回覆留言
 export const addCommonReMessage = (params) =>{
-  return http.post(`api/Article/AddReMessage?${parseParams(params)}`)
+  return http.post(`api/ArticleNormal/Addremessage?${parseParams(params)}`)
 }
 
 // 關鍵字搜尋一般文章
 export const searchNormal = (params) =>{
   return http.get(`api/Homepagenormal/Seekstringarticle?${parseParams(params)}`)
+}
+
+// 取得相關一般文章
+export const getCommonContentRelated = (params) =>{
+  return http.get(`api/ArticleNormal/GetArtlogNormalArticle?${parseParams(params)}`)
 }
 
 // 取得相關一般文章

@@ -4,9 +4,11 @@
       <router-view
         :key="$route.path"
         :love-count="authorInfo?.loveCount"
+        :is-add-love="authorInfo?.isAddLove"
         :is-collect="isCollect"
         @author-info="authorInfoHandler"
         @add-love="addLoveHandler"
+        @is-add-love="changeLoveStatus"
         @add-collection="addCollectionHandler"
       ></router-view>
     </div>
@@ -102,7 +104,7 @@ export default {
     ...mapState([
       'userKiruCollections',
       'userCommonCollections',
-    ])
+    ]),
   },
   watch: {
     userKiruCollections() {
@@ -116,6 +118,9 @@ export default {
     authorInfoHandler(info) {
       console.log('側邊欄用作者資訊: ', info)
       this.authorInfo = info
+    },
+    changeLoveStatus(val) {
+      this.authorInfo.isAddLove = val
     },
     // 按愛心，可重複
     addLoveHandler(res) {

@@ -125,7 +125,4 @@ export default {
 </script>
 
 <style lang="sass" scope>
-  .cover
-    &.load
-      width: 752px
 </style>

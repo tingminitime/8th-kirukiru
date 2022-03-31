@@ -6,7 +6,7 @@
   ></EditNavbar>
   <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
     <div class="kiruPartEffect">
-      <!-- 切切標題 -->
+      <!-- 文章標題 -->
       <div
         id="editor-normal-title"
         class="mb-12"
@@ -79,20 +79,20 @@
           ></FormInputSelect>
         </div>
       </div>
-      <!-- 切切敘述 -->
+      <!-- 文章敘述 -->
       <div
         id="editor-normal-introduction"
         class="py-4 mb-6"
       >
         <div class="flex gap-2 items-center mb-2">
           <h3 class="font-bold text-myBrown">
-            切切敘述
+            文章敘述
           </h3>
           <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
         </div>
         <TipTap
           v-model="articleVm.introduction"
-          placeholder="簡述一下這篇切切的內容吧 _"
+          placeholder="簡述一下這篇文章的內容吧 _"
           custom-class="min-h-[6rem]"
           word-limit="100"
           @word-count="artInfoCountHandler"
@@ -239,7 +239,7 @@ export default {
         console.log('新增成功: ', res)
         if (res.data.success) {
           const alertInfo = {
-            message: this.articleVm.isPush ? '切切已發布 !' : '切切已儲存',
+            message: this.articleVm.isPush ? '文章已發布 !' : '文章已儲存',
             confirmText: '去看內文',
             confirmMode: 'replace',
             confirmTodo: {
