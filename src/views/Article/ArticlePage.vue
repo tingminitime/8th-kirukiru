@@ -44,13 +44,17 @@
               </router-link>
             </div>
           </div>
-          <div>
-            <p
+          <div class="w-full">
+            <div
               v-if="authorInfo.Introduction"
-              class="pb-10 text-justify text-myBrown"
+              class="pb-10"
             >
-              {{ authorInfo.Introduction }}
-            </p>
+              <p
+                class="text-myBrown break-words line-clamp-6"
+              >
+                {{ authorInfo.Introduction }}
+              </p>
+            </div>
             <p
               v-else
               class="text-sm text-myBrown/60"

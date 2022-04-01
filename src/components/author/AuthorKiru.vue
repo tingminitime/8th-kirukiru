@@ -41,12 +41,12 @@
         </div>
         <!-- 作者資訊 -->
         <div
-          v-if="isShowAuthor"
-          class="flex justify-between"
+          class="flex"
+          :class="[ isShowAuthor ? 'justify-between' : 'justify-end' ]"
         >
           <router-link
-            v-if="true"
-            class="flex gap-2 items-center"
+            v-if="isShowAuthor"
+            class="group flex gap-2 items-center"
             :to="{ name: 'Author', params: { authorId: username } }"
           >
             <div class="overflow-hidden w-8 h-8 rounded-full">
@@ -56,18 +56,18 @@
                 alt=""
               >
             </div>
-            <p class="text-sm font-semibold text-black/80">
+            <p class="text-sm font-semibold text-black/80 group-hover:text-myOrange">
               {{ author }}
             </p>
           </router-link>
-          <!-- 愛心 -->
+          <!-- 手機: 愛心 -->
           <div class="flex gap-2 items-center md:hidden">
             <span class="text-lg text-myOrange align-middle material-icons">favorite_border</span>
             <span class="text-myOrange">{{ lovecount }}</span>
           </div>
         </div>
       </div>
-      <!-- 愛心 -->
+      <!-- 桌機: 愛心 -->
       <div class="hidden flex-col items-center md:flex">
         <span class="text-lg text-myOrange align-middle material-icons">favorite_border</span>
         <span class="text-myOrange">{{ lovecount }}</span>

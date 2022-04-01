@@ -28,8 +28,8 @@
         <div class="flex grow gap-2 justify-between items-center md:flex-col md:grow-0 md:justify-center">
           <!-- 作者資訊 -->
           <router-link
-            v-if="!isShowAuthor"
-            class="flex gap-2 items-center"
+            v-if="isShowAuthor"
+            class="group flex gap-2 items-center"
             :to="{ name: 'Author', params: { authorId: username } }"
           >
             <div class="overflow-hidden shrink-0 w-8 h-8 rounded-full">
@@ -39,7 +39,7 @@
                 alt=""
               >
             </div>
-            <p class="pr-3 text-sm font-semibold text-black/80 break-all line-clamp-1">
+            <p class="pr-3 text-sm font-semibold text-black/80 group-hover:text-myOrange break-all line-clamp-1">
               {{ author }}
             </p>
           </router-link>

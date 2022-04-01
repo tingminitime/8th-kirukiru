@@ -77,7 +77,10 @@
   <!-- 留言功能 -->
   <div
     v-if="userSignInStatus && (articleVm.isFree || checkSubResult)"
-    class="flex gap-8 justify-between px-6 mb-12"
+    v-loading="isSendingMessage"
+    element-loading-background="rgba(0, 0, 0, 0.5)"
+    element-loading-text="正在送出留言..."
+    class="flex overflow-hidden gap-8 justify-between py-4 px-6 mb-12 rounded-lg"
   >
     <div class="overflow-hidden w-16 h-16 rounded-full ">
       <img
@@ -86,7 +89,9 @@
         class="object-cover w-full h-full scale-[102%] load"
       >
     </div>
-    <div class="flex flex-col grow gap-3 justify-between items-end md:flex-row">
+    <div
+      class="flex flex-col grow gap-3 justify-between items-end md:flex-row"
+    >
       <DynamicTextarea
         v-model.trim="userMessageVm"
         class="w-full h-full"
@@ -258,6 +263,7 @@ export default {
       // isAddLove: false,
       isArticleVmLoading: false,
       checkSubResult: false,
+      isSendingMessage: false,
     }
   },
   computed: {
@@ -446,15 +452,18 @@ export default {
     },
     // 發送留言
     async sendMessageHandler() {
-      if (this.userMessageVm === '') return
+      if (this.userMessageVm === '' || this.isSendingMessage) return
+      this.isSendingMessage = true
       const sendVm = {
         artId: this.articleId,
         Main: this.userMessageVm,
       }
       await addKiruMessage(sendVm).then(res => {
         this.userMessageVm = '',
+        this.isSendingMessage = false
         console.log(res)
       }).catch(error => {
+        this.isSendingMessage = false
         console.log(error)
       })
 

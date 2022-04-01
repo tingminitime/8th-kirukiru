@@ -104,24 +104,6 @@ export default {
       isLoading: false,
     }
   },
-  watch: {
-    // 'type': {
-    //   handler(newType) {
-    //     switch (newType) {
-    //       case 'publish-kiru':
-    //         break
-    //       case 'collect-kiru':
-    //         break
-    //       case 'publish-common':
-    //         break
-    //       case 'collect-common':
-    //         break
-    //       default:
-    //         break
-    //     }
-    //   },
-    // },
-  },
   mounted() {
 
   },

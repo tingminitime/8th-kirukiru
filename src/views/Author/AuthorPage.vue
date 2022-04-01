@@ -41,9 +41,16 @@
         </div>
         <div class="col-span-2">
           <p
+            v-if="authorInfo.Introduction"
             class="text-sm text-myBrown md:text-base"
-            v-html="authorInfo.Introduction || '此作者尚未填寫簡介'"
+            v-html="authorInfo.Introduction"
           ></p>
+          <p
+            v-else
+            class="text-myBrown/40"
+          >
+            此作者尚未填寫簡介
+          </p>
         </div>
       </div>
       <div class="hidden grid-cols-3 md:grid">
@@ -69,7 +76,7 @@
     </div>
     <!-- 未訂閱，訂閱方案顯示 -->
     <div
-      v-if="false"
+      v-if="!checkSubResult && !checkAccountResult && checkAccountResult !== null"
       class="rounded-2xl border-t-8 border-t-myYellow shadow-md md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm"
     >
       <!-- 桌面板 Title -->
@@ -95,7 +102,7 @@
       </div>
     </div>
     <!-- 已訂閱顯示 -->
-    <div v-if="true">
+    <div v-if="checkSubResult && !checkAccountResult && checkAccountResult !== null">
       <div
         class="flex flex-col items-center"
       >
@@ -126,9 +133,18 @@ import {
   getAuthorSubscribeCount,
   getAuthorHasSubscribedCount,
 } from '@api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AuthorPage',
+  beforeRouteUpdate(to, from) {
+    if (to.params.authorId !== from.params.authorId) {
+      this.$store.commit('SHOW_OVERLAY_LOADING')
+    }
+    this.checkAccountResult = this.checkAccount(to.params.authorId)
+    this.checkSubResult = this.checkSub(to.params.authorId)
+    this.getAuthorInfo(to.params.authorId)
+  },
   props: {
     authorId: {
       type: [String, Number],
@@ -141,20 +157,52 @@ export default {
       publishArticleCount: 0,
       subscribeCount: 0,
       hasSubscribedCount: 0,
+      checkSubResult: null,
+      checkAccountResult: null,
     }
   },
+  computed: {
+    ...mapState([
+      'userSubscribeList',
+    ]),
+  },
+  watch: {
+    'userSubscribeList': {
+      handler() {
+        console.log('userSubscribeList觸發訂閱狀態更新')
+        this.checkAccountResult = this.checkAccount(this.authorId)
+        this.checkSubResult = this.checkSub(this.authorId)
+      },
+      deep: true,
+    },
+  },
   mounted() {
-    this.getAuthorInfo()
+    this.getAuthorInfo(this.authorId)
   },
   methods: {
+    // 檢查是否本人
+    checkAccount(authorAccount) {
+      const checkAccount = this.$store.state.userInfo.Username === authorAccount
+      console.log('(作者頁面)檢查是否為本人: ', checkAccount)
+      return checkAccount
+    },
+    // 檢查訂閱狀態
+    checkSub(authorAccount) {
+      const checkSubList = this.userSubscribeList.some(author => {
+        return author.Author === authorAccount
+      })
+      console.log('(作者頁面)檢查訂閱狀態: ', checkSubList)
+      return checkSubList
+    },
     // 取得作者發布文章、關注人數、已關注數量
-    getAuthorInfo() {
+    getAuthorInfo(authorId) {
       Promise.all([
-        getAuthorInfo(this.authorId),
-        getAuthorArticleCount(this.authorId),
-        getAuthorSubscribeCount(this.authorId),
-        getAuthorHasSubscribedCount(this.authorId),
+        getAuthorInfo(authorId),
+        getAuthorArticleCount(authorId),
+        getAuthorSubscribeCount(authorId),
+        getAuthorHasSubscribedCount(authorId),
       ]).then(res => {
+        this.$store.commit('HIDE_OVERLAY_LOADING')
         console.log('取得作者頁面數量資訊: ', res)
         const filterRes = res.map(data => data.data)
         this.authorInfo = filterRes[0].data

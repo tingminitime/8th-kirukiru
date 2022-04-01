@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 排序方式 -->
-    <div class="flex justify-end items-center mb-6 text-sm text-myBrown md:mb-12">
+    <div
+      v-if="publishCommon.length !== 0"
+      class="flex justify-end items-center mb-6 text-sm text-myBrown md:mb-12"
+    >
       <span class="px-2 border-r-2 border-r-myBrown">排序方式</span>
       <button
         type="button"
@@ -42,6 +45,13 @@
         :hide-on-single-page="true"
       ></ElPagination>
     </div>
+    <!-- 若沒有文章 -->
+    <div
+      v-if="publishCommon.length === 0 && !isLoading"
+      class="text-lg text-center text-myBrown/40"
+    >
+      此作者尚未發布文章
+    </div>
   </div>
 </template>
 
@@ -80,6 +90,7 @@ export default {
         '--el-pagination-hover-color': '#FF7F24'
       },
       defaultSort: true,
+      isLoading: false,
     }
   },
   computed: {
@@ -111,6 +122,7 @@ export default {
   methods: {
     getAuthorPublishCommonHandler(currentPage) {
       this.$emit('is-loading', true)
+      this.isLoading = true
       getAuthorPublishCommon({
         username: this.$route.params.authorId,
         nowpage: currentPage,
@@ -126,6 +138,7 @@ export default {
             title: '作者發布的一般文章取得失敗',
           })
         }
+        this.isLoading = false
       }).catch(error => console.error(error))
     },
   },

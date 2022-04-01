@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 排序方式 -->
-    <div class="flex justify-end items-center mb-6 text-sm text-myBrown md:mb-12">
+    <div
+      v-if="collectKiru.length !== 0"
+      class="flex justify-end items-center mb-6 text-sm text-myBrown md:mb-12"
+    >
       <span class="px-2 border-r-2 border-r-myBrown">排序方式</span>
       <button
         type="button"
@@ -26,7 +29,7 @@
           v-for="content in sortHandler"
           v-bind="content"
           :key="content.artId"
-          :is-show-author="false"
+          :is-show-author="true"
         ></AuthorKiru>
       </transition-group>
     </ul>
@@ -42,8 +45,16 @@
         :hide-on-single-page="true"
       ></ElPagination>
     </div>
+    <!-- 作者沒有收藏切切 -->
     <div
-      v-if="!isOpen"
+      v-if="collectKiru.length === 0 && isOpen && !isLoading"
+      class="text-lg text-center text-myBrown/40"
+    >
+      沒有收藏的切切
+    </div>
+    <!-- 作者為開放查看 -->
+    <div
+      v-if="!isOpen && !isLoading"
       class="text-lg text-center text-myBrown/40"
     >
       此作者未開放查看收藏的文章
@@ -87,6 +98,7 @@ export default {
       },
       isOpen: false,
       defaultSort: true,
+      isLoading: false,
     }
   },
   computed: {
@@ -118,6 +130,7 @@ export default {
   methods: {
     getAuthorCollectKiruHandler(currentPage) {
       this.$emit('is-loading', true)
+      this.isLoading = true
       getAuthorCollectKiru({
         authorusername: this.$route.params.authorId,
         nowpage: currentPage,
@@ -132,6 +145,7 @@ export default {
           this.isOpen = false
           console.warn(res)
         }
+        this.isLoading = false
       }).catch(error => console.error(error))
     },
   },

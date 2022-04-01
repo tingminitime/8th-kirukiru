@@ -56,7 +56,10 @@
   <!-- 留言功能 -->
   <div
     v-if="userSignInStatus && (articleVm.isFree || checkSubResult)"
-    class="flex gap-8 justify-between px-6 mb-12"
+    v-loading="isSendingMessage"
+    element-loading-background="rgba(0, 0, 0, 0.5)"
+    element-loading-text="正在送出留言..."
+    class="flex overflow-hidden gap-8 justify-between px-6 mb-12 rounded-lg"
   >
     <div class="overflow-hidden w-16 h-16 rounded-full ">
       <img
@@ -233,6 +236,7 @@ export default {
       // isAddLove: false,
       isArticleVmLoading: false,
       checkSubResult: false,
+      isSendingMessage: false,
     }
   },
   computed: {
@@ -423,15 +427,18 @@ export default {
     },
     // 發送留言
     async sendMessageHandler() {
-      if (this.userMessageVm === '') return
+      if (this.userMessageVm === '' || this.isSendingMessage) return
+      this.isSendingMessage = true
       const sendVm = {
         artId: this.articleId,
         Main: this.userMessageVm,
       }
       await addCommonMessage(sendVm).then(res => {
         this.userMessageVm = '',
+        this.isSendingMessage = false
         console.log('送出一般文章留言: ', res)
       }).catch(error => {
+        this.isSendingMessage = false
         console.log(error)
       })
 
