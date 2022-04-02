@@ -84,6 +84,11 @@ export const getHotCommonArticle = (params) => {
   return http.get(`api/Homepagenormal/lovenormalarticle?${parseParams(params)}`)
 }
 
+// 取得精選文章
+export const getFeatureArticle = () => {
+  return http.get(`api/Backmember/GetAllBackArticles`)
+}
+
 // -------- 切切文章 --------
 // 添加切切文章
 export const addKiruArticle = (data) => {

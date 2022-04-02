@@ -65,14 +65,14 @@
       <div class="overflow-hidden col-span-2 rounded-b-2xl border border-myBrown drop-shadow md:col-span-1">
         <div class="aspect-w-16 aspect-h-9 md:aspect-w-4 md:aspect-h-3">
           <img
-            class="object-cover object-center w-full h-full"
-            src="https://images.unsplash.com/photo-1542405620-6c4bb3c5d46a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            v-src="`https://kirukiru.rocket-coding.com/images/${mainFeature?.firstPhoto}`"
+            class="object-cover object-center w-full h-full load"
             alt=""
           >
         </div>
         <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white">
           <h3 class="font-semibold leading-5 line-clamp-2">
-            誰說一定要用別人寫好的 hooks - Custom Hooks
+            {{ mainFeature?.title }}
           </h3>
           <span class="px-1 material-icons">arrow_forward</span>
         </div>
@@ -81,8 +81,8 @@
       <div class="overflow-hidden rounded-b-2xl border border-myBrown drop-shadow">
         <div class="aspect-w-4 aspect-h-3">
           <img
-            class="object-cover object-center w-full h-full"
-            src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+            v-src="`https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80`"
+            class="object-cover object-center w-full h-full load"
             alt=""
           >
         </div>
@@ -97,8 +97,8 @@
       <div class="overflow-hidden rounded-b-2xl border border-myBrown drop-shadow">
         <div class="aspect-w-4 aspect-h-3">
           <img
-            class="object-cover object-center w-full h-full"
-            src="https://images.unsplash.com/photo-1615301665770-ccd2c4fda0bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+            v-src="`https://images.unsplash.com/photo-1615301665770-ccd2c4fda0bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80`"
+            class="object-cover object-center w-full h-full load"
             alt=""
           >
         </div>
@@ -240,6 +240,7 @@
 </template>
 
 <script>
+import { convert } from 'html-to-text'
 import MainBanner from '@/components/home/MainBanner.vue'
 import KiruCard from '@/components/article/KiruCard.vue'
 import NormalCard from '@/components/article/NormalCard.vue'
@@ -250,6 +251,7 @@ import {
   getNewCommonArticle,
   getHotKiruArticle,
   getHotCommonArticle,
+  getFeatureArticle,
 } from '@api'
 
 export default {
@@ -267,6 +269,7 @@ export default {
       newCommonArticles: [],
       hotKiruArticles: [],
       hotCommonArticles: [],
+      featureArticles: [],
       newKiruArticleVm: {
         nowpage: 1,
         showcount: 4,
@@ -285,13 +288,22 @@ export default {
       },
     }
   },
+  computed: {
+    mainFeature() {
+      return this.featureArticles[0]
+    },
+  },
   mounted() {
     this.getNewKiruArticle()
     this.getNewCommonArticle()
     this.getHotKiruArticle()
     this.getHotCommonArticle()
+    this.getFeatureArticle()
   },
   methods: {
+    convertText(content) {
+      return convert(content)
+    },
     // 取得最新切切
     getNewKiruArticle() {
       getNewKiruArticle(this.newKiruArticleVm).then(res => {
@@ -333,6 +345,17 @@ export default {
           this.hotCommonArticles = res.data.data
         } else {
           console.warn('(首頁)取得熱門文章失敗: ', res)
+        }
+      })
+    },
+    // 取得精選文章
+    getFeatureArticle() {
+      getFeatureArticle().then(res => {
+        console.log('(首頁)取得精選文章: ', res)
+        if (res.data.success) {
+          this.featureArticles = res.data.data
+        } else {
+          console.warn('(首頁)取得精選文章失敗: ', res)
         }
       })
     },
