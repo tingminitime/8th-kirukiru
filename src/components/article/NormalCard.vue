@@ -1,15 +1,28 @@
 <template>
   <router-link
     :to="{ name: 'ArticleCommon', params: { articleId: artId } }"
-    class="block relative w-[256px] min-h-[184px] bg-myGray rounded-b-2xl border border-myBrown drop-shadow-md"
+    class="block relative w-[256px] h-[204px] bg-myGray rounded-b-2xl border border-myBrown drop-shadow-md"
   >
     <div class="flex flex-col">
-      <p class="py-1 px-2 w-1/2 text-myBrown bg-myYellow">
-        {{ artArtlog }}
-      </p>
-      <h3 class="py-4 px-2 text-lg font-semibold text-myBrown line-clamp-2">
-        {{ title }}
-      </h3>
+      <div class="flex justify-between items-center">
+        <p class="py-1 px-2 w-1/2 text-xs font-semibold text-myBrown bg-myYellow">
+          {{ artArtlog }}
+        </p>
+        <div class="px-2">
+          <span
+            v-timeformat="{
+              time: artInitDate,
+              format: 'YYYY.MM.DD'
+            }"
+            class="text-xs text-black/60"
+          ></span>
+        </div>
+      </div>
+      <div class="py-3">
+        <h3 class="px-2 min-h-[3.5rem] text-lg font-semibold text-myBrown line-clamp-2">
+          {{ title }}
+        </h3>
+      </div>
       <div class="p-2 min-h-[56px] bg-myYellow">
         <p class="text-sm text-myBrown text-ellipsis line-clamp-2">
           {{ convertText(introduction) }}
@@ -96,6 +109,10 @@ export default {
     isFree: {
       type: Boolean,
       default: true,
+    },
+    artInitDate: {
+      type: String,
+      default: '',
     },
   },
   methods: {

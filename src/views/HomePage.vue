@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="px-4 mx-auto md:px-8"> -->
-  <div class="mx-auto">
+  <div class="overflow-x-hidden mx-auto md:overflow-visible">
     <div
       id="progressBar"
       class="fixed inset-x-0 h-1"

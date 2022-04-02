@@ -6,8 +6,6 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('Asia/Taipei')
 
-console.log(dayjs('2022-03-29:00:00:00').utcOffset(8).format())
-
 export const focus = {
   mounted(el, binding) {
     if (binding.value) {

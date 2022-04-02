@@ -63,6 +63,27 @@ export const getAuthorInfo = (username) => {
   return http.get(`api/Member/GetName?author=${username}`)
 }
 
+// -------- 首頁 --------
+// 取得最新切切文章
+export const getNewKiruArticle = (params) => {
+  return http.get(`api/Homepage/NewArticle?${parseParams(params)}`)
+}
+
+// 取得最新一般文章
+export const getNewCommonArticle = (params) => {
+  return http.get(`api/Homepagenormal/NewArticle?${parseParams(params)}`)
+}
+
+// 取得熱門切切文章
+export const getHotKiruArticle = (params) => {
+  return http.get(`api/Homepage/lovearticle?${parseParams(params)}`)
+}
+
+// 取得熱門一般文章
+export const getHotCommonArticle = (params) => {
+  return http.get(`api/Homepagenormal/lovenormalarticle?${parseParams(params)}`)
+}
+
 // -------- 切切文章 --------
 // 添加切切文章
 export const addKiruArticle = (data) => {

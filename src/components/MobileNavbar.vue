@@ -19,7 +19,7 @@
     class="overflow-x-hidden overflow-y-auto fixed z-30 shadow-xl transition-all duration-200 md:hidden"
     :class="[ showNavbar ? 'translate-x-0' : '-translate-x-full' ]"
   >
-    <div class="flex flex-col justify-between max-w-xs h-[calc(100vh-72px)] bg-gray-200">
+    <div class="flex flex-col justify-between max-w-xs h-[calc(100vh-56px)] bg-gray-200">
       <ul class="flex flex-col">
         <li>
           <a
@@ -82,6 +82,18 @@ export default {
     ...mapState([
       'showSearch',
     ]),
+  },
+  watch: {
+    // 'showNavbar': {
+    //   handler(newVal) {
+    //     if (newVal) {
+    //       document.querySelector('html').classList.add('overflow-y-hidden')
+    //     } else {
+    //       document.querySelector('html').classList.remove('overflow-y-hidden')
+    //     }
+    //   },
+    //   immediate: true,
+    // }
   },
   methods: {
     ...mapMutations([

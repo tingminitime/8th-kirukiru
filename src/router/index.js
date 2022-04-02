@@ -32,7 +32,7 @@ const routes = [
         alias: 'index',
         name: 'LandingPage',
         components: {
-          default: () => import('@/views/LandingPage.vue'),
+          default: () => import('@/views/Home/LandingPage.vue'),
         },
         meta: { requiresAuth: false, navbar: true, recordPath: true },
       },

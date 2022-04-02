@@ -77,7 +77,11 @@
 }
 
 @layer base {
+  html {
+    @apply overflow-x-hidden
+  }
+
   body {
-    @apply overflow-x-hidden bg-myGray
+    @apply bg-myGray
   }
 }
