@@ -38,14 +38,14 @@ export const userSignUp = (data) => {
   return http.post('api/Member/CreatMember', data)
 }
 
-// 會員註冊 - 取得文章類別清單
-export const getInterestList = () => {
-  return http.get(`api/Test/GetArticlecategory`)
-}
-
 // 取得會員訂閱清單
 export const getUserSubscribeList = (params) => {
   return http.get(`api/Member/GetMyOrder?${parseParams(params)}`)
+}
+
+// 取得文章類別清單
+export const getInterestList = () => {
+  return http.get(`api/Test/GetArticlecategory`)
 }
 
 // 取得特定文章類別

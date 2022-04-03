@@ -83,7 +83,7 @@
         </div>
         <div class="block md:hidden">
           <UserAvatar
-            v-if="!userSignInStatus"
+            v-if="userSignInStatus"
             v-bind="userInfo"
           ></UserAvatar>
           <router-link

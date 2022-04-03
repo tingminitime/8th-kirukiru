@@ -59,7 +59,7 @@
     v-loading="isSendingMessage"
     element-loading-background="rgba(0, 0, 0, 0.5)"
     element-loading-text="正在送出留言..."
-    class="flex overflow-hidden gap-8 justify-between px-6 mb-12 rounded-lg"
+    class="flex overflow-hidden gap-8 justify-between py-4 px-6 mb-12 rounded-lg"
   >
     <div class="overflow-hidden w-16 h-16 rounded-full ">
       <img

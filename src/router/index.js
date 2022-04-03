@@ -146,14 +146,26 @@ const routes = [
         meta: { requiresAuth: false, navbar: true, recordPath: true },
         children: [
           {
-            path: ':articleType',
+            path: 'article',
             name: 'SearchContent',
             components: {
-              default: () => import('@/views/Search/SearchKiru.vue'),
+              kiru: () => import('@/views/Search/SearchKiru.vue'),
               common: () => import('@/views/Search/SearchCommon.vue'),
             },
             meta: { requiresAuth: false, navbar: true, recordPath: true },
-          }
+            props: {
+              kiru(route) {
+                return {
+                  articleType: route.params.articleType,
+                }
+              },
+              common(route) {
+                return {
+                  articleType: route.params.articleType,
+                }
+              },
+            },
+          },
         ],
       },
       // 作者個人頁面
@@ -176,8 +188,7 @@ const routes = [
             path: ':authorId?',
             name: 'AuthorDetail',
             components: {
-              default: () => import('@/views/Author/AuthorPage.vue'),
-              subscribed: () => import('@/views/Author/AuthorSubscribe.vue'),
+              default: () => import('@/views/Author/AuthorSubscribe.vue'),
             },
             meta: { requiresAuth: false, navbar: true, recordPath: true },
           }

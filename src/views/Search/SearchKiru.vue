@@ -5,5 +5,11 @@
 <script>
 export default {
   name: 'SearchKiru',
+  props: {
+    articleType: {
+      type: String,
+      default: '',
+    },
+  },
 }
 </script>

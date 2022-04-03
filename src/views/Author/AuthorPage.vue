@@ -120,7 +120,6 @@
     <!-- 發布、收藏文章列表 -->
     <router-view
       :key="authorId"
-      name="subscribed"
       :author-id="authorId"
     ></router-view>
   </div>

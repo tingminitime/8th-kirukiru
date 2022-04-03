@@ -5,5 +5,11 @@
 <script>
 export default {
   name: 'SearchCommon',
+  props: {
+    articleType: {
+      type: String,
+      default: '',
+    },
+  },
 }
 </script>

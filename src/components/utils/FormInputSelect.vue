@@ -7,7 +7,7 @@
       <ListboxButton
         class="myListboxButton"
       >
-        <span class="block text-base truncate">{{
+        <span class="block text-sm truncate md:text-base">{{
           (value || modelValue)?.[labelProp] || defaultText
         }}</span>
         <span
@@ -35,6 +35,7 @@
             as="template"
           >
             <li
+              class="text-sm md:text-base"
               :class="[
                 active ? 'text-amber-900 bg-amber-100' : 'text-gray-900',
                 'cursor-default select-none relative py-2 pl-6 pr-4',
@@ -67,7 +68,7 @@
               class="relative py-2 pr-4 pl-6 text-gray-900 cursor-default select-none"
             >
               <span
-                class="block truncate"
+                class="block text-sm truncate md:text-base"
               >資料載入中...</span>
             </li>
           </ListboxOption>

@@ -70,7 +70,7 @@
             alt=""
           >
         </div>
-        <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white">
+        <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white border-t border-myBrown">
           <h3 class="font-semibold leading-5 line-clamp-2">
             {{ mainFeature?.title }}
           </h3>
@@ -86,7 +86,7 @@
             alt=""
           >
         </div>
-        <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white">
+        <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white border-t border-myBrown">
           <h3 class="font-semibold leading-5 line-clamp-2">
             A Cataloging of Cafes
           </h3>
@@ -102,7 +102,7 @@
             alt=""
           >
         </div>
-        <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white">
+        <div class="flex justify-between items-center p-2 min-h-[3.5rem] text-myBrown bg-white border-t border-myBrown">
           <h3 class="font-semibold leading-5 line-clamp-2">
             Finally in Taiwan
           </h3>
