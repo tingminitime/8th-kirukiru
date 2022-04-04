@@ -25,12 +25,12 @@
         leave-from-class="transform opacity-100 translate-x-0"
         leave-to-class="transform opacity-0 -translate-x-48"
       >
-        <AuthorKiru
+        <KiruSearchItem
           v-for="content in sortHandler"
           v-bind="content"
           :key="content.artId"
           :is-show-author="false"
-        ></AuthorKiru>
+        ></KiruSearchItem>
       </transition-group>
     </ul>
     <!-- Pagination -->
@@ -58,7 +58,7 @@
 <script>
 import dayjs from 'dayjs'
 import { ElPagination } from 'element-plus'
-import AuthorKiru from '@/components/author/AuthorKiru.vue'
+import KiruSearchItem from '@/components/article/KiruSearchItem.vue'
 import {
   getAuthorPublishKiru,
 } from '@api'
@@ -67,7 +67,7 @@ export default {
   name: 'PublishKiru',
   components: {
     ElPagination,
-    AuthorKiru,
+    KiruSearchItem,
   },
   props: {
     type: {

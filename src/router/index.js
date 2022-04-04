@@ -136,6 +136,45 @@ const routes = [
           },
         ],
       },
+      // 分類頁面
+      {
+        path: 'category',
+        name: 'Category',
+        components: {
+          default: () => import('@/views/Category/CategoryPage.vue')
+        },
+        meta: { requiresAuth: false, navbar: true, recordPath: true },
+        props: {
+          default(route) {
+            return {
+              searchType: route.params.searchType,
+            }
+          },
+        },
+        children: [
+          {
+            path: ':searchType',
+            name: 'CategoryContent',
+            components: {
+              kiru: () => import('@/views/Category/CategoryKiru.vue'),
+              common: () => import('@/views/Category/CategoryCommon.vue'),
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true },
+            props: {
+              kiru(route) {
+                return {
+                  categoryId: Number(route.query.categoryId)
+                }
+              },
+              common(route) {
+                return {
+                  categoryId: Number(route.query.categoryId)
+                }
+              },
+            },
+          },
+        ],
+      },
       // 搜尋頁面
       {
         path: 'search',
@@ -144,27 +183,23 @@ const routes = [
           default: () => import('@/views/Search/SearchPage.vue'),
         },
         meta: { requiresAuth: false, navbar: true, recordPath: true },
+        props: {
+          default(route) {
+            return {
+              searchType: route.params.searchType,
+              keywords: route.query.keywords,
+            }
+          },
+        },
         children: [
           {
-            path: 'article',
+            path: ':searchType',
             name: 'SearchContent',
             components: {
               kiru: () => import('@/views/Search/SearchKiru.vue'),
               common: () => import('@/views/Search/SearchCommon.vue'),
             },
             meta: { requiresAuth: false, navbar: true, recordPath: true },
-            props: {
-              kiru(route) {
-                return {
-                  articleType: route.params.articleType,
-                }
-              },
-              common(route) {
-                return {
-                  articleType: route.params.articleType,
-                }
-              },
-            },
           },
         ],
       },

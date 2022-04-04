@@ -60,7 +60,7 @@
 import { convert } from 'html-to-text'
 
 export default {
-  name: 'NormalCard',
+  name: 'CommonCard',
   props: {
     artId: {
       type: [String, Number],

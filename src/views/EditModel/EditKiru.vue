@@ -402,7 +402,7 @@ export default {
             confirmText: this.articleVm.isPush ? '去看內文' : '回個人頁面',
             confirmMode: 'replace',
             confirmTodo: {
-              name: this.articleVm.isPush ? 'ArticleKiru' : 'User',
+              name: this.articleVm.isPush ? 'ArticleKiru' : 'UserDetail',
               params: this.articleVm.isPush
                 ? { articleId: res.data.artId }
                 : { userId: this.$store.state.userInfo.Username },

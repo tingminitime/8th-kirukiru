@@ -139,7 +139,11 @@
     </div>
     <div class="flex justify-end items-center">
       <router-link
-        :to="{ name: 'SearchContent', params: { articleType: 0 } }"
+        :to="{
+          name: 'CategoryContent',
+          params: { searchType: 'kiru' },
+          query: { type: 1 },
+        }"
         class="px-4 text-black/40 hover:text-black/80"
       >
         <span class="font-semibold align-middle">去看更多切切</span>
@@ -160,22 +164,26 @@
         v-if="newCommonArticles.length !== 0"
         class="hidden grid-cols-3 grid-flow-row gap-6 md:grid"
       >
-        <NormalCard
+        <CommonCard
           v-for="article in newCommonArticles"
           v-bind="article"
           :key="article.artId"
-        ></NormalCard>
+        ></CommonCard>
       </div>
       <!-- 手機板 -->
-      <NormalCardSwiper
+      <CommonCardSwiper
         key="new-common"
         class="block md:hidden"
         :common-info="newCommonArticles"
-      ></NormalCardSwiper>
+      ></CommonCardSwiper>
     </div>
     <div class="flex justify-end items-center px-4">
       <router-link
-        :to="{ name: 'SearchContent', params: { articleType: 0 } }"
+        :to="{
+          name: 'CategoryContent',
+          params: { searchType: 'common' },
+          query: { type: 1 },
+        }"
         class="text-black/40 hover:text-black/80"
       >
         <span class="font-semibold align-middle">去看更多文章</span>
@@ -223,18 +231,18 @@
         v-if="hotCommonArticles.length !== 0"
         class="hidden grid-cols-3 grid-flow-row gap-6 md:grid"
       >
-        <NormalCard
+        <CommonCard
           v-for="article in hotCommonArticles"
           v-bind="article"
           :key="article.artId"
-        ></NormalCard>
+        ></CommonCard>
       </div>
       <!-- 手機板 -->
-      <NormalCardSwiper
+      <CommonCardSwiper
         key="hot-common"
         class="block md:hidden"
         :common-info="hotCommonArticles"
-      ></NormalCardSwiper>
+      ></CommonCardSwiper>
     </div>
   </div>
 </template>
@@ -243,9 +251,9 @@
 import { convert } from 'html-to-text'
 import MainBanner from '@/components/home/MainBanner.vue'
 import KiruCard from '@/components/article/KiruCard.vue'
-import NormalCard from '@/components/article/NormalCard.vue'
+import CommonCard from '@/components/article/CommonCard.vue'
 import KiruCardSwiper from '@/components/article/KiruCardSwiper.vue'
-import NormalCardSwiper from '@/components/article/NormalCardSwiper.vue'
+import CommonCardSwiper from '@/components/article/CommonCardSwiper.vue'
 import {
   getNewKiruArticle,
   getNewCommonArticle,
@@ -259,9 +267,9 @@ export default {
   components: {
     MainBanner,
     KiruCard,
-    NormalCard,
+    CommonCard,
     KiruCardSwiper,
-    NormalCardSwiper,
+    CommonCardSwiper,
   },
   data() {
     return {

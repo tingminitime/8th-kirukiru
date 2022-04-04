@@ -3,7 +3,7 @@
     <router-link
       :to="{ name: 'ArticleKiru', params: { articleId: artId } }"
       target="_blank"
-      class="flex grow gap-3 md:gap-6"
+      class="flex grow gap-3"
     >
       <!-- 圖片 -->
       <div class="shrink-0 w-32 md:w-48">
@@ -17,7 +17,7 @@
       </div>
       <!-- 內容 -->
       <div
-        class="flex flex-col w-full"
+        class="flex flex-col w-full md:px-3 md:border-r md:border-r-black/10"
         :class="[ isShowAuthor ? 'justify-between' : 'justify-start' ]"
       >
         <!-- title -->
@@ -49,14 +49,14 @@
             class="group flex gap-2 items-center"
             :to="{ name: 'Author', params: { authorId: username } }"
           >
-            <div class="overflow-hidden w-8 h-8 rounded-full">
+            <div class="overflow-hidden w-6 h-6 rounded-full md:w-8 md:h-8">
               <img
                 v-src="`https://kirukiru.rocket-coding.com/Pic/origin.jpg`"
                 class="object-cover w-full h-full bg-center scale-[103%] load"
                 alt=""
               >
             </div>
-            <p class="text-sm font-semibold text-black/80 group-hover:text-myOrange">
+            <p class="text-xs font-semibold text-black/80 group-hover:text-myOrange md:text-sm">
               {{ author }}
             </p>
           </router-link>
@@ -80,7 +80,7 @@
 import { convert } from 'html-to-text'
 
 export default {
-  name: 'AuthorKiru',
+  name: 'KiruSearchItem',
   props: {
     artId: {
       type: [String, Number],

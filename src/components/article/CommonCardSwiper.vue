@@ -16,11 +16,11 @@
         :key="article.artId"
         class="normalCard-slide"
       >
-        <NormalCard
+        <CommonCard
           v-bind="article"
           :key="article.artId"
           class="w-80 scale-95"
-        ></NormalCard>
+        ></CommonCard>
       </SwiperSlide>
     </Swiper>
   </div>
@@ -29,16 +29,16 @@
 <script>
 import { Pagination, Navigation, A11y } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import NormalCard from '@/components/article/NormalCard.vue'
+import CommonCard from '@/components/article/CommonCard.vue'
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 
 export default {
-  name: 'NormalCardSwiper',
+  name: 'CommonCardSwiper',
   components: {
     Swiper,
     SwiperSlide,
-    NormalCard,
+    CommonCard,
   },
   props: {
     commonInfo: {

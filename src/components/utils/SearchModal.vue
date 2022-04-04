@@ -51,8 +51,8 @@
               <label
                 for="searchKeyword"
                 class="py-1.5 px-2 font-semibold text-myBrown rounded-xl transition-all cursor-pointer"
-                :class="{ 'ring-1 ring-myBrown': searchType === 'normal' }"
-                @click="searchType = 'normal'"
+                :class="{ 'ring-1 ring-myBrown': searchType === 'common' }"
+                @click="searchType = 'common'"
               >
                 一般文章
               </label>
@@ -185,7 +185,7 @@ export default {
   },
   data() {
     return {
-      // 文章分類 kiru (default) | normal
+      // 文章分類 kiru (default) | common
       searchType: 'kiru',
       searchVm: {
         nowpage: 1,
@@ -199,7 +199,7 @@ export default {
       },
       compositionStatus: false,
       kiruHistory: [],
-      normalHistory: [],
+      commonHistory: [],
     }
   },
   computed: {
@@ -220,7 +220,7 @@ export default {
         return history.title.match(this.selected.title)
       })
       // 找到與關鍵字符合的切切搜尋歷史紀錄
-      const conformNormalHistory = this.normalHistory.filter(history => {
+      const conformNormalHistory = this.commonHistory.filter(history => {
         return history.title.match(this.selected.title)
       })
 
@@ -228,7 +228,7 @@ export default {
         case 'kiru':
           result = [...conformKiruHistory, ...result]
           break
-        case 'normal':
+        case 'common':
           result = [...conformNormalHistory, ...result]
           break
         default:
@@ -247,13 +247,13 @@ export default {
     },
     'selected.title': {
       handler(newVal) {
-        console.log('關鍵字改變偵聽: ', newVal)
+        // console.log('關鍵字改變偵聽: ', newVal)
         if (newVal !== '') {
           switch (this.searchType) {
             case 'kiru':
               this.searchKiru()
               break
-            case 'normal':
+            case 'common':
               this.searchNormal()
               break
             default:
@@ -267,14 +267,14 @@ export default {
   },
   created() {
     const kiruHistory = localStorage.getItem('kiruSearchRecord')
-    const normalHistory = localStorage.getItem('normalSearchRecord')
+    const commonHistory = localStorage.getItem('commonSearchRecord')
     if (kiruHistory) {
       this.searchResult = JSON.parse(kiruHistory)
       this.kiruHistory = JSON.parse(kiruHistory)
     }
-    if (normalHistory) {
-      this.searchResult = JSON.parse(normalHistory)
-      this.normalHistory = JSON.parse(normalHistory)
+    if (commonHistory) {
+      this.searchResult = JSON.parse(commonHistory)
+      this.commonHistory = JSON.parse(commonHistory)
     }
   },
   methods: {
@@ -288,7 +288,7 @@ export default {
       this.CLOSE_SEARCH()
     },
     inputHandler(event) {
-      console.log('輸入事件', this.compositionStatus)
+      // console.log('輸入事件', this.compositionStatus)
       if (this.compositionStatus) return
       else {
         this.selected.title = event.target.value.trim()
@@ -300,7 +300,7 @@ export default {
         keywords: this.selected.title,
         ...this.searchVm,
       }).then(res => {
-        console.log(res)
+        // console.log('搜尋切切文章: ', res)
         if (res.data.success) {
           this.searchResult.length = 0
           const filterResult = res.data.data.map(articleInfo => {
@@ -321,7 +321,7 @@ export default {
         keywords: this.selected.title,
         ...this.searchVm,
       }).then(res => {
-        console.log(res)
+        // console.log('搜尋一般文章: ', res)
         if (res.data.success) {
           this.searchResult.length = 0
           const filterResult = res.data.data.map(articleInfo => {
@@ -344,7 +344,7 @@ export default {
             // this.searchKiru()
             this.goSearchPage()
             break
-          case 'normal':
+          case 'common':
             // this.searchNormal()
             this.goSearchPage()
             break
@@ -357,12 +357,12 @@ export default {
     compositionendHandler(event) {
       this.compositionStatus = false
       this.selected.title = event.target.value
-      console.log('拼音結束偵聽: ', this.compositionStatus)
+      // console.log('拼音結束偵聽: ', this.compositionStatus)
       this.keywords = this.selected.title
     },
     // Enter 前往搜尋頁面
     enterSearchPage() {
-      console.log('enter事件', this.compositionStatus)
+      // console.log('enter事件', this.compositionStatus)
       if (
         !this.compositionStatus
         && this.keywords === this.selected.title
@@ -401,19 +401,19 @@ export default {
           
           console.log('前往搜尋頁面', this.selected.title)
           break
-        case 'normal':
-          const checkNormalRepeat = this.normalHistory.findIndex(history => history.artId === this.selected.artId && history.title === this.selected.title)
+        case 'common':
+          const checkNormalRepeat = this.commonHistory.findIndex(history => history.artId === this.selected.artId && history.title === this.selected.title)
           if (checkNormalRepeat === -1) {
-            if (this.normalHistory.length < 3) {
-              this.normalHistory.push({
+            if (this.commonHistory.length < 3) {
+              this.commonHistory.push({
                 id,
                 title,
                 uuid: uuidv4(),
                 history: true,
               })
             } else {
-              this.normalHistory.shift()
-              this.normalHistory.push({
+              this.commonHistory.shift()
+              this.commonHistory.push({
                 id,
                 title,
                 uuid: uuidv4(),
@@ -421,13 +421,19 @@ export default {
               })
             }
           }
-          localStorage.setItem('normalSearchRecord', JSON.stringify(this.normalHistory))
+          localStorage.setItem('commonSearchRecord', JSON.stringify(this.commonHistory))
 
           console.log('前往搜尋頁面', this.selected.title)
           break
         default:
           break
       }
+      this.$router.push({
+        name: 'SearchContent',
+        params: { searchType: this.searchType },
+        query: { keywords: this.selected.title },
+      })
+      this.closeModal()
     }
   }
 }

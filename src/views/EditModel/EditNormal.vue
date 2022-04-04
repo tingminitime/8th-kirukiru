@@ -240,11 +240,13 @@ export default {
         if (res.data.success) {
           const alertInfo = {
             message: this.articleVm.isPush ? '文章已發布 !' : '文章已儲存',
-            confirmText: '去看內文',
+            confirmText: this.articleVm.isPush ? '去看內文' : '回個人頁面',
             confirmMode: 'replace',
             confirmTodo: {
-              name: 'ArticleCommon',
-              params: { articleId: res.data.artId },
+              name: this.articleVm.isPush ? 'ArticleCommon' : 'UserDetail',
+              params: this.articleVm.isPush
+                ? { articleId: res.data.artId }
+                : { userId: this.$store.state.userInfo.Username },
             }
           }
           this.alertInfo = alertInfo

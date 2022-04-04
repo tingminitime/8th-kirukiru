@@ -38,11 +38,11 @@
       v-if="relatedArticle.length !== 0"
       class="grid grid-cols-2 grid-flow-row gap-6 md:grid-cols-3"
     >
-      <NormalCard
+      <CommonCard
         v-for="article in relatedArticle"
         v-bind="article"
         :key="article.artId"
-      ></NormalCard>
+      ></CommonCard>
     </div>
     <div
       v-else
@@ -152,7 +152,7 @@
 import dayjs from 'dayjs'
 import KiruAuthor from '@/components/article/kiru/KiruAuthor.vue'
 import KiruInfo from '@/components/article/kiru/KiruInfo.vue'
-import NormalCard from '@/components/article/NormalCard.vue'
+import CommonCard from '@/components/article/CommonCard.vue'
 import KiruReply from '@/components/article/kiru/KiruReply.vue'
 import SubscribeView from '@/components/article/SubscribeView.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
@@ -174,7 +174,7 @@ export default {
   components: {
     KiruAuthor,
     KiruInfo,
-    NormalCard,
+    CommonCard,
     KiruReply,
     SubscribeView,
     DynamicTextarea,
@@ -331,12 +331,21 @@ export default {
     },
     // 取得文章所需資訊
     async getArticleInfo(articleId) {
+      let isContinue = true
       // 取得文章資料
       await getCommonArticle(articleId).then(res => {
         console.log('取得文章資訊: ', res)
         if (res.data.success) {
           if (this.checkSub(res.data.data.username)) {
             this.checkSubResult = true
+          }
+          if (
+            !res.data.data.isPush
+            && res.data.data.username !== this.userInfo?.Username
+          ) {
+            this.$router.replace({ name: 'NotFound', query: { message: '此文章尚未發布' } })
+            isContinue = false
+            return
           }
           this.articleVm = res.data.data
           this.isArticleVmLoading = true
@@ -346,6 +355,8 @@ export default {
       }).catch(error => {
         console.log('getCommonArticle: ', error)
       })
+
+      if (!isContinue) return false
 
       // 取得作者資訊 - 用在需付費訂閱內容
       await getAuthorInfo(this.articleVm.username).then(res => {

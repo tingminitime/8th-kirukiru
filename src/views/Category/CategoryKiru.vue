@@ -1,5 +1,5 @@
 <template>
-  <!-- 搜尋的切切列表 -->
+  <!-- 分類的切切列表 -->
   <ul v-if="kiruSearchResult.length !== 0">
     <transition-group
       mode="out-in"
@@ -19,7 +19,7 @@
     </transition-group>
   </ul>
   <div v-else>
-    <span class="block text-center text-myBrown/20">找不到搜尋的相關文章</span>
+    <span class="block text-center text-myBrown/20">目前分類無文章</span>
   </div>
   <!-- Pagination -->
   <div class="flex justify-center py-4">
@@ -39,19 +39,19 @@
 import { ElPagination } from 'element-plus'
 import KiruSearchItem from '@/components/article/KiruSearchItem.vue'
 import {
-  searchKiru,
+  getRelatedKiru,
 } from '@api'
 
 export default {
-  name: 'SearchKiru',
+  name: 'CategoryKiru',
   components: {
     ElPagination,
     KiruSearchItem,
   },
   props: {
-    keywords: {
-      type: String,
-      default: '',
+    categoryId: {
+      type: Number,
+      default: 1,
     },
     paginationCount: {
       type: Number,
@@ -76,6 +76,11 @@ export default {
     }
   },
   watch: {
+    'categoryId': {
+      handler() {
+        this.searchKiruHandler(this.paginationVm.currentPage)
+      },
+    },
     'paginationVm.currentPage': {
       handler(newPage) {
         this.searchKiruHandler(newPage)
@@ -94,13 +99,13 @@ export default {
     searchKiruHandler(newPage) {
       this.$emit('is-loading', true)
       this.isLoading = true
-      searchKiru({
-        keywords: this.keywords,
+      getRelatedKiru({
+        articlecategoryId: this.categoryId,
         nowpage: newPage,
         showcount: this.paginationCount,
       }).then(res => {
         this.$emit('is-loading', false)
-        console.log('(搜尋頁面)取得切切文章: ', res)
+        console.log('(分類頁面)取得切切文章: ', res)
         if (res.data.success) {
           this.paginationVm.total = res.data.total
           this.kiruSearchResult = res.data.data
@@ -108,7 +113,7 @@ export default {
         } else {
           this.$notify({
             group: 'error',
-            title: '(搜尋頁面)搜尋切切失敗',
+            title: '(分類頁面)取得切切失敗',
           })
         }
         this.isLoading = false

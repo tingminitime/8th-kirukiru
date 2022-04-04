@@ -362,12 +362,20 @@ export default {
     },
     // 取得文章所需資訊
     async getArticleInfo(articleId) {
+      let isContinue = true
       // 取得文章資料
       await getKiruArticle(articleId).then(res => {
         console.log('取得切切文章資訊: ', res)
         if (res.data.success) {
           if (this.checkSub(res.data.data.username)) {
             this.checkSubResult = true
+          }
+          if (
+            !res.data.data.isPush
+            && res.data.data.username !== this.userInfo?.Username
+          ) {
+            this.$router.replace({ name: 'NotFound', query: { message: '此文章尚未發布' } })
+            return
           }
           this.articleVm = res.data.data
           this.isArticleVmLoading = true
@@ -377,6 +385,8 @@ export default {
       }).catch(error => {
         console.log('getKiruArticle: ', error)
       })
+
+      if (!isContinue) return false
 
       // 取得作者資訊 - 用在需付費訂閱內容
       await getAuthorInfo(this.articleVm.username).then(res => {

@@ -46,7 +46,7 @@
           <!-- 時間 -->
           <span
             v-timeformat="{
-              time: ArtInitDate,
+              time: artInitDate,
               format: 'YYYY.MM.DD'
             }"
             class="text-sm tracking-wide text-myBrown align-middle"
@@ -66,7 +66,7 @@
 import { convert } from 'html-to-text'
 
 export default {
-  name: 'AuthorCommon',
+  name: 'CommonSearchItem',
   components: {
 
   },
@@ -107,7 +107,7 @@ export default {
       type: [String, Number],
       default: 0,
     },
-    ArtInitDate: {
+    artInitDate: {
       type: String,
       default: '',
     },

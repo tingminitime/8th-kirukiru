@@ -1,5 +1,5 @@
 <template> 
-  <div class="sticky top-0 z-20 w-full">
+  <div class="sticky top-0 z-30 w-full">
     <nav class="relative px-8 h-14 bg-myYellow/[0.85] border-b border-slate-50/50 backdrop-blur">
       <router-link
         :to="{ name: 'HomePage' }"
@@ -33,10 +33,16 @@
               >關於切切</a>
             </li>
             <li>
-              <a
-                href="#"
+              <router-link
+                :to="{
+                  name: 'CategoryContent',
+                  params: { searchType: 'kiru' },
+                  query: { categoryId: 1 },
+                }"
                 class="block text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
-              >切切分類</a>
+              >
+                切切分類
+              </router-link>
             </li>
           </ul>
         </div>
@@ -61,14 +67,14 @@
                 class="flex items-center text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
                 @click="openEditModal"
               >
-                <span class="text-2xl material-icons">edit</span>
+                <span class="text-xl material-icons">edit</span>
                 <span class="px-1">撰寫切切</span>
               </button>
             </li>
             <li>
               <router-link
                 v-if="!userSignInStatus"
-                class="block text-lg font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
+                class="block text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
                 :to="{ name: 'SignIn' }"
               >
                 註冊 / 登入

@@ -66,7 +66,7 @@
         background-color="#EDEDEB"
       >
         <GlobalLoading
-          class="scale-150 la-2x"
+          class="la-2x"
           :show="isLoading"
         ></GlobalLoading>
       </Loading>

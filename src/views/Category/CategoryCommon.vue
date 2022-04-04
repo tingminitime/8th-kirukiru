@@ -1,6 +1,6 @@
 <template>
-  <!-- 搜尋的切切列表 -->
-  <ul v-if="kiruSearchResult.length !== 0">
+  <!-- 分類的切切列表 -->
+  <ul v-if="commonSearchResult.length !== 0">
     <transition-group
       mode="out-in"
       enter-active-class="transition duration-300 ease-out delay-300"
@@ -10,16 +10,16 @@
       leave-from-class="transform opacity-100 translate-x-0"
       leave-to-class="transform opacity-0 -translate-x-48"
     >
-      <KiruSearchItem
-        v-for="content in kiruSearchResult"
+      <CommonSearchItem
+        v-for="content in commonSearchResult"
         v-bind="content"
         :key="content.artId"
         :is-show-author="true"
-      ></KiruSearchItem>
+      ></CommonSearchItem>
     </transition-group>
   </ul>
   <div v-else>
-    <span class="block text-center text-myBrown/20">找不到搜尋的相關文章</span>
+    <span class="block text-center text-myBrown/20">目前分類無文章</span>
   </div>
   <!-- Pagination -->
   <div class="flex justify-center py-4">
@@ -37,21 +37,21 @@
 
 <script>
 import { ElPagination } from 'element-plus'
-import KiruSearchItem from '@/components/article/KiruSearchItem.vue'
+import CommonSearchItem from '@/components/article/CommonSearchItem.vue'
 import {
-  searchKiru,
+  getRelatedCommon,
 } from '@api'
 
 export default {
-  name: 'SearchKiru',
+  name: 'CategoryCommon',
   components: {
     ElPagination,
-    KiruSearchItem,
+    CommonSearchItem,
   },
   props: {
-    keywords: {
-      type: String,
-      default: '',
+    categoryId: {
+      type: Number,
+      default: 1,
     },
     paginationCount: {
       type: Number,
@@ -61,7 +61,7 @@ export default {
   emits: ['is-loading', 'result-count'],
   data() {
     return {
-      kiruSearchResult: [],
+      commonSearchResult: [],
       paginationVm: {
         currentPage: 1,
         // pageSize: 10,
@@ -76,39 +76,44 @@ export default {
     }
   },
   watch: {
+    'categoryId': {
+      handler() {
+        this.searchCommonHandler(this.paginationVm.currentPage)
+      },
+    },
     'paginationVm.currentPage': {
       handler(newPage) {
-        this.searchKiruHandler(newPage)
+        this.searchCommonHandler(newPage)
       },
     },
     'paginationCount': {
       handler() {
-        this.searchKiruHandler(this.paginationVm.currentPage)
+        this.searchCommonHandler(this.paginationVm.currentPage)
       },
     },
   },
   mounted() {
-    this.searchKiruHandler(this.paginationVm.currentPage)
+    this.searchCommonHandler(this.paginationVm.currentPage)
   },
   methods: {
-    searchKiruHandler(newPage) {
+    searchCommonHandler(newPage) {
       this.$emit('is-loading', true)
       this.isLoading = true
-      searchKiru({
-        keywords: this.keywords,
+      getRelatedCommon({
+        articlecategoryId: this.categoryId,
         nowpage: newPage,
         showcount: this.paginationCount,
       }).then(res => {
         this.$emit('is-loading', false)
-        console.log('(搜尋頁面)取得切切文章: ', res)
+        console.log('(分類頁面)取得一般文章: ', res)
         if (res.data.success) {
           this.paginationVm.total = res.data.total
-          this.kiruSearchResult = res.data.data
+          this.commonSearchResult = res.data.data
           this.$emit('result-count', this.paginationVm.total)
         } else {
           this.$notify({
             group: 'error',
-            title: '(搜尋頁面)搜尋切切失敗',
+            title: '(分類頁面)取得一般文章失敗',
           })
         }
         this.isLoading = false

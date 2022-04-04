@@ -25,12 +25,12 @@
         leave-from-class="transform opacity-100 translate-x-0"
         leave-to-class="transform opacity-0 -translate-x-48"
       >
-        <AuthorCommon
+        <CommonSearchItem
           v-for="content in sortHandler"
           v-bind="content"
           :key="content.artId"
           :is-show-author="false"
-        ></AuthorCommon>
+        ></CommonSearchItem>
       </transition-group>
     </ul>
     <!-- Pagination -->
@@ -58,7 +58,7 @@
 <script>
 import dayjs from 'dayjs'
 import { ElPagination } from 'element-plus'
-import AuthorCommon from '@/components/author/AuthorCommon.vue'
+import CommonSearchItem from '@/components/article/CommonSearchItem.vue'
 import {
   getAuthorPublishCommon,
 } from '@api'
@@ -67,7 +67,7 @@ export default {
   name: 'PublishCommon',
   components: {
     ElPagination,
-    AuthorCommon,
+    CommonSearchItem,
   },
   props: {
     type: {

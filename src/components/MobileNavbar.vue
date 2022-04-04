@@ -10,7 +10,7 @@
   >
     <div
       v-if="showNavbar"
-      class="fixed inset-0 z-10 bg-black/30 backdrop-blur-sm transition-all duration-300"
+      class="fixed inset-0 z-20 bg-black/30 backdrop-blur-sm transition-all duration-300"
       @click="dropToggle"
     ></div>
   </transition>
@@ -22,11 +22,17 @@
     <div class="flex flex-col justify-between max-w-xs h-[calc(100vh-56px)] bg-gray-200">
       <ul class="flex flex-col">
         <li>
-          <a
-            href="#"
+          <router-link
+            :to="{
+              name: 'CategoryContent',
+              params: { searchType: 'kiru' },
+              query: { categoryId: 1 },
+            }"
             class="block relative before:absolute before:bottom-0 before:left-1/2 py-6 px-10 before:w-10/12 before:h-[2px] text-xl font-bold text-myBrown before:bg-myYellow bg-transparent focus:bg-myYellow/20 transition-all before:-translate-x-1/2"
             aria-current="page"
-          >切切分類</a>
+          >
+            切切分類
+          </router-link>
         </li>
         <li>
           <button
