@@ -1,7 +1,5 @@
 <template>
-  <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
-    <div>User Articles</div>
-  </div>
+  <div>User Articles</div>
 </template>
 
 <script>

@@ -231,25 +231,45 @@ const routes = [
       },
       // 使用者個人頁面
       {
-        path: 'user/',
+        path: 'user',
         name: 'User',
         components: {
           default: () => import('@/views/User/UserPage.vue'),
         },
         meta: { requiresAuth: true, navbar: true, recordPath: true },
+        props: {
+          default(route) {
+            return {
+              view: route.params.target,
+            }
+          }
+        },
         children: [
           {
-            path: ':userId',
+            path: ':userId/:target?',
             name: 'UserDetail',
             components: {
-              default: () => import('@/views/User/UserInfo.vue'),
+              info: () => import('@/views/User/UserInfo.vue'),
               profile: () => import('@/views/User/UserProfile.vue'),
               articles: () => import('@/views/User/UserArticles.vue'),
               collections: () => import('@/views/User/UserCollections.vue'),
               plan: () => import('@/views/User/UserPlan.vue'),
               subscriptions: () => import('@/views/User/UserSubscriptions.vue'),
             },
-            meta: { requiresAuth: true, navbar: true, recordPath: true },
+            meta: { requiresAuth: true, navbar: true, recordPath: true, requiresAuthOnce: true },
+            beforeEnter(to, from, next) {
+              if (!to.params.target) {
+                next({
+                  name: 'UserDetail',
+                  params: {
+                    userId: store.state.userInfo.Username,
+                    target: 'profile',
+                  }
+                })
+              } else {
+                next()
+              }
+            }
           }
         ],
       },
@@ -317,9 +337,10 @@ Router.beforeEach((to, from, next) => {
     if (token) {
       getUserInfo(token).then(res => {
         console.log('頁面要求驗證登入狀態: ', res)
-        if (res.data) {
+        if (res.data.success) {
           next()
         } else {
+          localStorage.removeItem('kirukiruToken')
           next({ name: 'SignIn' })
         }
       })

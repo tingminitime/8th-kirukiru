@@ -10,14 +10,14 @@
       :type="type"
       :placeholder="placeholder"
       :value="inputValue"
-      :class="{ 'text-red-500': !!errorMessage }"
-      class="peer placeholder-shown:py-4 px-2 pt-8 focus:pt-8 pb-4 focus:pb-4 w-full h-10 text-base tracking-wide placeholder:text-transparent rounded-lg border-2 border-myBrown focus:border-myYellow focus:outline-none transition-all placeholder:select-none"
+      :class="[{ 'text-red-500': !!errorMessage }, inputBorder]"
+      class="peer placeholder-shown:py-2 px-2 pt-8 focus:pt-8 pb-4 focus:pb-4 w-full h-10 text-base tracking-wide placeholder:text-transparent rounded-lg focus:outline-none transition-all placeholder:select-none"
       @input="handleInput"
       @blur="handleBlur"
     >
     <label
       :for="name"
-      class="absolute top-1 peer-placeholder-shown:top-2 peer-focus:top-1 left-2 text-sm peer-placeholder-shown:text-base peer-focus:text-sm font-medium text-myBrown peer-placeholder-shown:text-myBrown/50 peer-focus:text-myBrown transition-all"
+      class="absolute top-1 peer-placeholder-shown:top-2.5 peer-focus:top-1 left-2.5 text-xs peer-placeholder-shown:text-sm peer-focus:text-xs font-medium text-myBrown peer-placeholder-shown:text-myBrown/50 peer-focus:text-myBrown transition-all"
     >{{ placeholder }}</label>
 
     <p
@@ -72,7 +72,11 @@ export default {
     initValue: {
       type: Boolean,
       default: false,
-    }
+    },
+    inputBorder: {
+      type: String,
+      default: 'border-2 border-myBrown focus:border-myYellow',
+    },
   },
   emits: ['update:model-value'],
   setup(props) {

@@ -18,7 +18,6 @@ const store = createStore({
       // --- 儲存資訊 ---
       token: '',
       userInfo: {},
-      userSignIn: false,
       recordPath: 'HomePage',
       recordParams: '',
       userSubscribeList: [],

@@ -28,6 +28,26 @@ export const userSignIn = (data) => {
   return http.post('Login', data)
 }
 
+// 更改密碼
+export const userChangePassword = (data) => {
+  return http.put('api/Member/ChangPassword', data)
+}
+
+// 更改信箱
+export const userChangeEmail = (newEmail) => {
+  return http.put(`api/Member/ChangeEmail?email=${newEmail}`)
+}
+
+// 更改名字
+export const userChangeName = (newName) => {
+  return http.put(`api/Member/ChangeName?name=${newName}`)
+}
+
+// 更改敘述
+export const userChangeIntroduction = (data) => {
+  return http.put(`api/Member/ChangeInfo`, data)
+}
+
 // 取得會員資訊
 export const getUserInfo = () => {
   return http.get(`GetName`)
@@ -56,6 +76,11 @@ export const getCategoryName = (categoryId) => {
 // 圖片上傳
 export const uploadImage = (data) => {
   return httpForm.post(`upload`, data)
+}
+
+// 更改會員大頭貼
+export const userChangeAvatar = (newAvatar) => {
+  return http.put(`api/Member/changephoto?Userpic=${newAvatar}`)
 }
 
 // 取得作者資訊

@@ -10,7 +10,7 @@
         >
           <img
             class="object-cover w-8 h-8 rounded-full"
-            :src="userPic"
+            :src="`https://kirukiru.rocket-coding.com/Pic/${Userpic}`"
             alt="User avatar"
           >
         </MenuButton>
@@ -28,8 +28,8 @@
           class="absolute right-0 mt-2 w-60 bg-white rounded-md divide-y divide-gray-100 focus:outline-none ring-1 ring-black/5 shadow-lg origin-top-right"
         >
           <div class="py-2 px-4 text-left">
-            <span class="block py-1 text-sm font-medium text-myBrown break-words">哈囉! {{ $store.state.userInfo?.Name }}</span>
-            <span class="block text-xs tracking-wider text-gray-500 break-words">{{ $store.state.userInfo?.Email }}</span>
+            <span class="block py-1 text-sm font-medium text-myBrown break-words">哈囉! {{ Name }}</span>
+            <span class="block text-xs tracking-wider text-gray-500 break-words">{{ Email }}</span>
           </div>
           <div class="block p-1 md:hidden">
             <MenuItem v-slot="{ active }">
@@ -47,7 +47,14 @@
           </div>
           <div class="p-1">
             <MenuItem v-slot="{ active }">
-              <button
+              <router-link
+                :to="{
+                  name: 'UserDetail',
+                  params: {
+                    userId: Username,
+                    target: 'profile',
+                  },
+                }"
                 class="text-base font-medium"
                 :class="[
                   active ? 'bg-myBrown text-white' : 'text-myBrown',
@@ -55,10 +62,17 @@
                 ]"
               >
                 個人主頁
-              </button>
+              </router-link>
             </MenuItem>
             <MenuItem v-slot="{ active }">
-              <button
+              <router-link
+                :to="{
+                  name: 'UserDetail',
+                  params: {
+                    userId: Username,
+                    target: 'info',
+                  },
+                }"
                 class="text-base font-medium"
                 :class="[
                   active ? 'bg-myBrown text-white' : 'text-myBrown',
@@ -66,7 +80,7 @@
                 ]"
               >
                 設定
-              </button>
+              </router-link>
             </MenuItem>
           </div>
 
@@ -101,7 +115,7 @@ export default {
     MenuItem,
   },
   props: {
-    email: {
+    Email: {
       type: String,
       default: '',
     },
@@ -109,11 +123,11 @@ export default {
       type: String,
       default: '',
     },
-    nickname: {
+    Name: {
       type: String,
       default: '',
     },
-    userName: {
+    Username: {
       type: String,
       default: '',
     },
@@ -121,9 +135,9 @@ export default {
       type: String,
       default: '',
     },
-    userPic: {
+    Userpic: {
       type: String,
-      default: 'https://kirukiru.rocket-coding.com/Pic/origin.jpg',
+      default: 'origin.jpg',
     },
   },
   methods: {

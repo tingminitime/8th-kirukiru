@@ -51,6 +51,10 @@
     @apply bg-gray-300 cursor-default
   }
 
+  .userPageButton {
+    @apply min-w-[116px] py-2 bg-myYellow text-myBrown font-semibold rounded-lg hover:bg-myLightenYellow disabled:bg-black/10 disabled:hover:bg-black/10 disabled:text-black/20
+  }
+
   .editorBubble {
     @apply bg-[#333] px-2 py-1 rounded-md flex justify-evenly gap-1
   }

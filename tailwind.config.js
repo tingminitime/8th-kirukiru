@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         'myBrown': '#553529',
         'myYellow': '#FFB11B',
+        'myLightenYellow': '#ffc01a',
         'myOrange': '#FF7F24',
         'myGray': '#EDEDEB',
         'myLightBrown': '#DEDEDE',

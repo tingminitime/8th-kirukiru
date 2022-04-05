@@ -16,12 +16,12 @@
     </div>
     <!-- 上傳後顯示圖片 -->
     <div
-      v-show="!edit"
+      v-show="!edit && showPreview"
       class="w-full"
     >
       <div
         v-show="files.length !== 0 || (origImage !== '' && origImage !== '.' && editMode)"
-        class="group relative border-2 border-myBrown"
+        class="group relative"
         :class="`aspect-w-${aspectWidth} aspect-h-${aspectHeight}`"
       >
         <img
@@ -78,7 +78,7 @@
     </div>
     <!-- 尚未上傳圖片顯示 -->
     <div
-      v-show="!edit && files.length === 0 && (origImage === '' || origImage === '.')"
+      v-show="showUploadButton && !edit && files.length === 0 && (origImage === '' || origImage === '.')"
       :class="uploadContainer"
     >
       <div :class="uploadClass">
@@ -138,6 +138,14 @@ export default {
     editMode: {
       type: Boolean,
       default: false,
+    },
+    showPreview: {
+      type: Boolean,
+      default: true,
+    },
+    showUploadButton: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ['file-change', 'file-confirm', 'file-cancel'],

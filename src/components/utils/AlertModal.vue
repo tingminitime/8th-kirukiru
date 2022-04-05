@@ -49,7 +49,11 @@
               <!-- alert 內容 -->
               <div class="flex flex-col gap-3 items-center py-6 md:py-8">
                 <div class="py-4">
-                  <span class="text-2xl font-bold text-myBrown md:text-3xl">{{ message }}</span>
+                  <span
+                    :class="[messageClass]"
+                  >
+                    {{ message }}
+                  </span>
                 </div>
                 <div class="flex flex-col gap-3 justify-evenly items-center">
                   <!-- 確認按鈕 -->
@@ -125,6 +129,10 @@ export default {
     message: {
       type: String,
       default: '',
+    },
+    messageClass: {
+      type: String,
+      default: 'text-2xl font-bold text-myBrown md:text-3xl',
     },
     confirmText: {
       type: String,

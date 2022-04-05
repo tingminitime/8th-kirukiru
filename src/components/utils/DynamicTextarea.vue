@@ -2,6 +2,7 @@
   <div>
     <textarea
       v-focus="setFocus"
+      :name="name"
       :value="modelValue"
       :style="inputStyle"
       :class="customizeClass"
@@ -39,6 +40,10 @@ export default {
     placeholder: {
       type: String,
       default: '',
+    },
+    name: {
+      type: String,
+      default: 'dynamic-textarea'
     },
   },
   emits: ['update:modelValue', 'enter-exact'],

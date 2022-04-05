@@ -51,7 +51,7 @@
       <div class="flex justify-end items-center px-2">
         <span
           v-timeformat="{
-            time: ArtInitDate,
+            time: artInitDate,
             format: 'YYYY.MM.DD'
           }"
           class="text-xs text-black/60"
@@ -123,7 +123,7 @@ export default {
       type: Boolean,
       default: true,
     },
-    ArtInitDate: {
+    artInitDate: {
       type: String,
       default: '',
     }
