@@ -95,9 +95,8 @@ import { getUserInfo } from '@api'
               this.GET_KIRU_COLLECTIONS({ nowpage: 1, showcount: 9999 })
               this.GET_SUBSCRIBE_LIST({ nowpage: 1, showcount: 9999 })
               this.$notify({
-                group: "success",
-                title: "登入成功 !",
-                text: `歡迎回來，${res.data.data.Name}`
+                group: "normal",
+                title: "登入成功",
               }, 3000)
             } else {
               console.log('驗證過期，請重新登入 !')

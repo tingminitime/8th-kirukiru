@@ -10,7 +10,7 @@
       </div>
       <div class="flex flex-col text-center text-white md:grid md:grid-cols-4 md:grid-rows-1 md:gap-4 md:mr-4">
         <router-link
-          to=""
+          :to="{ name: 'About' }"
           class="block py-3 text-sm border-y border-white md:py-2 md:w-auto md:border-none"
         >
           關於切切
@@ -22,13 +22,14 @@
           隱私政策
         </router-link>
         <router-link
-          to=""
+          :to="{ name: 'Faq' }"
           class="block py-3 text-sm border-b border-white md:py-2 md:w-auto md:border-none"
         >
           幫助中心
         </router-link>
         <a
-          href="javascript:;"
+          href="https://www.facebook.com/%E7%81%AB%E7%AE%AD%E9%9A%8A%E5%9F%B9%E8%A8%93%E7%87%9F-113926539963626/"
+          target="_blank"
           class="block py-3 text-sm border-b border-white md:py-2 md:w-auto md:border-none"
         >關於火箭隊</a>
       </div>

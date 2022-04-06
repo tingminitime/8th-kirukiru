@@ -128,7 +128,7 @@ import CoverUpload from '@/components/editor/CoverUpload.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import AlertModal from '@/components/utils/AlertModal.vue'
 import { mapState } from 'vuex'
-import { useField } from 'vee-validate';
+import { useField } from 'vee-validate'
 import * as Yup from 'yup'
 import { setLocale } from 'yup'
 import {
@@ -162,7 +162,7 @@ export default {
       'user-new-name': Yup.string().required(),
     })
 
-    const { value:introValue, errorMessage:introError } = useField('user-introduction', Yup.string().max(300))
+    const { value:introValue, errorMessage:introError } = useField('user-introduction', Yup.string().nullable().max(300))
 
     return {
       nameSchema,

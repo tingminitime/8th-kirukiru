@@ -152,7 +152,11 @@ export default {
       localStorage.removeItem('kirukiruToken')
       this.$store.commit('SIGN_OUT')
       console.log(this.$route)
-      this.$router.replace({ path: this.$route.path })
+      if (this.$route.meta.signOutBackToHome) {
+        this.$router.replace({name: 'LandingPage'})
+      } else {
+        this.$router.replace(`${this.$route.fullPath}`)
+      }
       // location.reload()
       this.$notify({
         group: 'success',

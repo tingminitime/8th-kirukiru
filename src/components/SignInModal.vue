@@ -181,10 +181,9 @@ export default {
         this.signInProcess = false
         if (res.data.success) {
           this.$notify({
-            group: "success",
-            title: "登入成功 !",
-            text: `歡迎回來，${res.data.data.Name}`
-          }, 2500)
+            group: "normal",
+            title: "登入成功",
+          }, 3000)
           
           localStorage.setItem('kirukiruToken', res.data.token)
           this.SET_TOKEN(res.data.token)

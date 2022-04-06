@@ -30,7 +30,7 @@
           <router-link
             v-if="isShowAuthor"
             class="group flex gap-2 items-center"
-            :to="{ name: 'Author', params: { authorId: username } }"
+            :to="{ name: 'AuthorDetail', params: { authorId: username } }"
           >
             <div class="overflow-hidden shrink-0 w-8 h-8 rounded-full">
               <img

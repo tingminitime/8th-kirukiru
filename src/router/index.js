@@ -256,9 +256,11 @@ const routes = [
               plan: () => import('@/views/User/UserPlan.vue'),
               subscriptions: () => import('@/views/User/UserSubscriptions.vue'),
             },
-            meta: { requiresAuth: true, navbar: true, recordPath: true, requiresAuthOnce: true },
+            meta: { requiresAuth: true, navbar: true, recordPath: true, signOutBackToHome: true },
             beforeEnter(to, from, next) {
-              if (!to.params.target) {
+              if (to.params.userId !== store.state.userInfo.Username) {
+                next({ name: 'SignIn' })
+              } else if (!to.params.target) {
                 next({
                   name: 'UserDetail',
                   params: {
@@ -271,6 +273,33 @@ const routes = [
               }
             }
           }
+        ],
+      },
+      // 關於、FAQ
+      {
+        path: 'intro',
+        name: 'Intro',
+        components: {
+          default: () => import('@/views/Intro/IntroPage.vue')
+        },
+        meta: { requiresAuth: false, navbar: true, recordPath: true },
+        children: [
+          {
+            path: 'about',
+            name: 'About',
+            components: {
+              default: () => import('@/views/Intro/IntroAbout.vue')
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true },
+          },
+          {
+            path: 'faq',
+            name: 'Faq',
+            components: {
+              default: () => import('@/views/Intro/IntroFaq.vue')
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true },
+          },
         ],
       },
       // 404 Not Found

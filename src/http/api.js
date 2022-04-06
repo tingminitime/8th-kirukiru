@@ -88,6 +88,21 @@ export const getAuthorInfo = (username) => {
   return http.get(`api/Member/GetName?author=${username}`)
 }
 
+// 取得會員的訂閱方案
+export const getMyPlan = () =>{
+  return http.get(`api/Member/GetMySubscriptionplans`)
+}
+
+// 開通會員方案
+export const openMyPlan = () => {
+  return http.post('api/Member/AddNewSubscriptionplans')
+}
+
+// 更改會員方案敘述
+export const changeMyPlanInfo = (data) => {
+  return http.post('api/Member/EditSubInfo', data)
+}
+
 // -------- 首頁 --------
 // 取得最新切切文章
 export const getNewKiruArticle = (params) => {
@@ -300,4 +315,9 @@ export const getAuthorPublishCommon = (params) =>{
 // 取得作者收藏的一般文章
 export const getAuthorCollectCommon = (params) =>{
   return http.get(`api/Member/collectnormalarticle?${parseParams(params)}`)
+}
+
+// 取得作者訂閱方案
+export const getAuthorPlan = (username) =>{
+  return http.get(`api/Member/GetAuthorSubscriptionplans?author=${username}`)
 }

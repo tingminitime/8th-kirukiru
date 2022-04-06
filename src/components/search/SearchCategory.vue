@@ -7,7 +7,7 @@
       class="px-8 my-4"
     >
       <FormInputSelect
-        v-model="selectCategory"
+        v-model="filterCategoryId"
         :options="articleCategories"
         key-prop="Name"
         label-prop="Name"
@@ -62,10 +62,24 @@ export default {
     return {
       articleCategories: [],
       selectCategoryId: 1,
+      selectCategory: null,
       isMobile: false,
     }
   },
+  computed: {
+    filterCategoryId: {
+      get() {
+        return this.selectCategory
+      },
+      set(newVal) {
+        this.selectCategory = newVal
+        this.selectCategoryId = newVal.Id
+        this.selectHandler(newVal.Id)
+      },
+    },
+  },
   created() {
+    this.onResize()
     window.addEventListener('resize', this.onResize)
     this.getArticleCategories()
   },
@@ -79,7 +93,6 @@ export default {
   methods: {
     getArticleCategories() {
       getInterestList().then(res => {
-        console.log(res)
         this.articleCategories = res.data
       }).catch(error => console.error(error))
     },

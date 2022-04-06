@@ -27,7 +27,7 @@
           </h3>
           <span
             v-timeformat="{
-              time: ArtInitDate,
+              time: artInitDate,
               format: 'YYYY.MM.DD'
             }"
             class="text-sm tracking-wide text-myBrown"
@@ -47,7 +47,7 @@
           <router-link
             v-if="isShowAuthor"
             class="group flex gap-2 items-center"
-            :to="{ name: 'Author', params: { authorId: username } }"
+            :to="{ name: 'AuthorDetail', params: { authorId: username } }"
           >
             <div class="overflow-hidden w-6 h-6 rounded-full md:w-8 md:h-8">
               <img
@@ -118,7 +118,7 @@ export default {
       type: [String, Number],
       default: 0,
     },
-    ArtInitDate: {
+    artInitDate: {
       type: String,
       default: '',
     },

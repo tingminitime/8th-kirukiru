@@ -42,7 +42,7 @@
         <div class="col-span-2">
           <p
             v-if="authorInfo.Introduction"
-            class="text-sm text-myBrown md:text-base"
+            class="text-sm text-myBrown whitespace-pre-wrap md:text-base"
             v-html="authorInfo.Introduction"
           ></p>
           <p
@@ -91,7 +91,7 @@
         </p>
         <div class="flex flex-col justify-center items-center mb-6 font-semibold text-myBrown">
           <span>水電工皮卡的切切生活</span>
-          <span class="text-xl">$ 30 NTD / 月</span>
+          <span class="text-xl">$ {{ authorPlan.amount }} NTD / 月</span>
         </div>
         <button
           type="button"
@@ -131,6 +131,7 @@ import {
   getAuthorArticleCount,
   getAuthorSubscribeCount,
   getAuthorHasSubscribedCount,
+  getAuthorPlan,
 } from '@api'
 import { mapState } from 'vuex'
 
@@ -158,6 +159,7 @@ export default {
       hasSubscribedCount: 0,
       checkSubResult: null,
       checkAccountResult: null,
+      authorPlan: {},
     }
   },
   computed: {
@@ -177,6 +179,9 @@ export default {
   },
   mounted() {
     this.getAuthorInfo(this.authorId)
+    this.getAuthorPlan()
+    this.checkAccountResult = this.checkAccount(this.authorId)
+    this.checkSubResult = this.checkSub(this.authorId)
   },
   methods: {
     // 檢查是否本人
@@ -208,6 +213,20 @@ export default {
         this.publishArticleCount = filterRes[1].artcount
         this.subscribeCount = filterRes[2].orderNumber
         this.hasSubscribedCount = filterRes[3].beOrderNumber
+      }).catch(error => console.error(error))
+    },
+    // 取得作者方案
+    getAuthorPlan() {
+      getAuthorPlan(this.authorId).then(res => {
+        console.log('取得作者方案: ', res)
+        if (res.data.success) {
+          this.authorPlan = res.data.data
+        } else {
+          this.$notify({
+            group: 'error',
+            title: ''
+          })
+        }
       }).catch(error => console.error(error))
     },
     // 千分位逗點格式化

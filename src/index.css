@@ -55,6 +55,10 @@
     @apply min-w-[116px] py-2 bg-myYellow text-myBrown font-semibold rounded-lg hover:bg-myLightenYellow disabled:bg-black/10 disabled:hover:bg-black/10 disabled:text-black/20
   }
 
+  .userPageCancelButton {
+    @apply min-w-[116px] py-2 text-black/30 font-semibold rounded-lg hover:bg-black/10 disabled:bg-black/10 disabled:hover:bg-black/20 disabled:text-black/20
+  }
+
   .editorBubble {
     @apply bg-[#333] px-2 py-1 rounded-md flex justify-evenly gap-1
   }

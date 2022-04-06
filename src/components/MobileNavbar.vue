@@ -52,11 +52,13 @@
           >編輯精選</a>
         </li>
         <li>
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'About' }"
             class="block relative before:absolute before:bottom-0 before:left-1/2 py-6 px-10 before:w-10/12 before:h-[2px] text-xl font-bold text-myBrown before:bg-myYellow bg-transparent focus:bg-myYellow/20 transition-all before:-translate-x-1/2"
             aria-current="page"
-          >關於切切</a>
+          >
+            關於切切
+          </router-link>
         </li>
       </ul>
       <div class="flex flex-col py-6 px-10">

@@ -27,10 +27,12 @@
         >
           <ul class="flex flex-col mt-4 md:flex-row md:gap-4 md:mt-0 md:text-sm md:font-medium lg:gap-8">
             <li>
-              <a
-                href="#"
+              <router-link
+                :to="{ name: 'About' }"
                 class="block text-base font-bold text-myBrown rounded md:py-2 md:px-4 md:bg-transparent"
-              >關於切切</a>
+              >
+                關於切切
+              </router-link>
             </li>
             <li>
               <router-link
