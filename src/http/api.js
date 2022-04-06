@@ -98,9 +98,24 @@ export const openMyPlan = () => {
   return http.post('api/Member/AddNewSubscriptionplans')
 }
 
+// 修改訂閱金額
+export const changeMyPlanPrice = (newPrice) => {
+  return http.put(`api/Member/EditSubserciptionplans?Amount=${newPrice}`)
+}
+
 // 更改會員方案敘述
 export const changeMyPlanInfo = (data) => {
-  return http.post('api/Member/EditSubInfo', data)
+  return http.put('api/Member/EditSubInfo', data)
+}
+
+// 取得會員訂閱清單
+export const getMySubscribeList = (params) =>{
+  return http.get(`api/Member/GetMyOrder?${parseParams(params)}`)
+}
+
+// -------- 金流 --------
+export const paySubscribe = (params) => {
+  return http.post(`api/Bank/SpgatewayPayBill?${parseParams(params)}`)
 }
 
 // -------- 首頁 --------

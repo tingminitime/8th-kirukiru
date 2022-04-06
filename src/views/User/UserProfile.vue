@@ -130,24 +130,12 @@ import AlertModal from '@/components/utils/AlertModal.vue'
 import { mapState } from 'vuex'
 import { useField } from 'vee-validate'
 import * as Yup from 'yup'
-import { setLocale } from 'yup'
 import {
   uploadImage,
   userChangeAvatar,
   userChangeName,
   userChangeIntroduction,
 } from '@api'
-
-setLocale({
-  mixed: {
-    default: '無效的輸入',
-    required: '必填欄位'
-  },
-  string: {
-    min: '長度不可小於 ${min}',
-    max: '不可大於 ${max} 字元',
-  }
-})
 
 export default {
   name: 'UserProfile',

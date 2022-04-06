@@ -1,11 +1,12 @@
 <template>
   <div class="px-4 pt-8 pb-11 mx-auto max-w-[816px] min-h-[calc(100vh-56px-64px)] md:px-0 md:pt-16">
-    <div class="mb-8 rounded-2xl border-t-8 border-t-myYellow shadow-md md:mb-12 md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm">
+    <div class="relative mb-8 rounded-2xl border-t-8 border-t-myYellow shadow-md md:pb-12 md:mb-20 md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm">
       <!-- 桌面板 Title -->
-      <h1 class="hidden py-2 text-2xl font-bold text-center text-myBrown bg-myYellow border-b border-myBrown md:block">
+      <div class="hidden h-8 bg-myYellow md:block"></div>
+      <h1 class="hidden px-8 pt-4 pb-2 text-4xl font-bold text-myBrown md:block">
         <span class="line-clamp-1">{{ authorInfo.Name }}</span>
       </h1>
-      <div class="flex flex-col gap-8 py-10 px-8 border-b-myBrown md:grid md:grid-cols-3 md:grid-rows-1 md:border-b">
+      <div class="flex flex-col gap-8 px-8 pt-8 pb-10 md:grid md:grid-cols-3 md:grid-rows-1 md:pt-4">
         <div class="flex gap-8 w-full md:block">
           <div class="overflow-hidden shrink-0 w-24 h-24 rounded-full md:w-auto md:h-auto md:rounded-none md:aspect-w-16 md:aspect-h-9">
             <img
@@ -53,21 +54,22 @@
           </p>
         </div>
       </div>
-      <div class="hidden grid-cols-3 md:grid">
-        <div class="flex flex-col gap-3 py-4 px-6 border-r border-r-myBrown">
-          <span class="text-myBrown">發布文章</span>
+      <!-- 桌面板資訊 -->
+      <div class="hidden absolute bottom-0 left-24 grid-cols-3 w-11/12 bg-myGray rounded-b-2xl border-t-8 border-myYellow/40 translate-y-1/2 md:grid md:drop-shadow-md">
+        <div class="flex flex-col py-2 px-6">
+          <span class="mb-1 text-myBrown border-b border-myBrown">發布文章</span>
           <span class="text-3xl font-bold text-myBrown">
             {{ formatThousand(publishArticleCount) }}
           </span>
         </div>
-        <div class="flex flex-col gap-3 py-4 px-6 border-r border-r-myBrown">
-          <span class="text-myBrown">關注人數</span>
+        <div class="flex flex-col py-2 px-6">
+          <span class="mb-1 text-myBrown border-b border-myBrown">關注人數</span>
           <span class="text-3xl font-bold text-myBrown">
             {{ formatThousand(subscribeCount) }}
           </span>
         </div>
-        <div class="flex flex-col gap-3 py-4 px-6">
-          <span class="text-myBrown">已關注</span>
+        <div class="flex flex-col py-2 px-6">
+          <span class="mb-1 text-myBrown border-b border-myBrown">已關注</span>
           <span class="text-3xl font-bold text-myBrown">
             {{ formatThousand(hasSubscribedCount) }}
           </span>
@@ -77,7 +79,7 @@
     <!-- 未訂閱，訂閱方案顯示 -->
     <div
       v-if="!checkSubResult && !checkAccountResult && checkAccountResult !== null"
-      class="rounded-2xl border-t-8 border-t-myYellow shadow-md md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm"
+      class="mb-6 rounded-2xl border-t-8 border-t-myYellow shadow-md md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm"
     >
       <!-- 桌面板 Title -->
       <h1 class="hidden py-2 text-2xl font-bold text-center text-myBrown bg-myYellow border-b border-myBrown md:block">
@@ -90,15 +92,15 @@
           這是訂閱方案，訂閱後即可解鎖觀看付費文章
         </p>
         <div class="flex flex-col justify-center items-center mb-6 font-semibold text-myBrown">
-          <span>水電工皮卡的切切生活</span>
+          <span>{{ authorInfo.Name }}</span>
           <span class="text-xl">$ {{ authorPlan.amount }} NTD / 月</span>
         </div>
-        <button
-          type="button"
+        <router-link
+          :to="{ name: 'Subscribe', params: { authorId: authorId } }"
           class="block mb-10 font-bold text-myBrown hover:text-myOrange ring-2 ring-myYellow transition-all button-sm"
         >
           點我訂閱
-        </button>
+        </router-link>
       </div>
     </div>
     <!-- 已訂閱顯示 -->
@@ -193,7 +195,7 @@ export default {
     // 檢查訂閱狀態
     checkSub(authorAccount) {
       const checkSubList = this.userSubscribeList.some(author => {
-        return author.Author === authorAccount
+        return author.Author === authorAccount && author.IsSuceess
       })
       console.log('(作者頁面)檢查訂閱狀態: ', checkSubList)
       return checkSubList

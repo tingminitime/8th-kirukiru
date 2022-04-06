@@ -91,6 +91,20 @@ import {
   getUserInfo,
 } from '@api'
 
+import { setLocale } from 'yup'
+setLocale({
+  mixed: {
+    default: '無效的輸入',
+    required: '必填欄位',
+    notType: "無效的數值",
+  },
+  string: {
+    min: '長度不可小於 ${min}',
+    max: '不可大於 ${max} 字元',
+    email: '須符合 Email 格式 !'
+  },
+})
+
 export default {
   name: 'UserPage',
   props: {

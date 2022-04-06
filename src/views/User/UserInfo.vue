@@ -133,23 +133,11 @@
 import FormInputText from '@/components/utils/FormInputText.vue'
 import AlertModal from '@/components/utils/AlertModal.vue'
 import * as Yup from 'yup'
-import { setLocale } from 'yup'
 import {
   userChangePassword,
   userChangeEmail,
 } from '@api'
 import { mapState } from 'vuex'
-
-setLocale({
-  mixed: {
-    default: '無效的輸入',
-    required: '必填欄位'
-  },
-  string: {
-    min: '長度不可小於 ${min}',
-    email: '須符合 Email 格式 !'
-  }
-})
 
 export default {
   name: 'UserInfo',

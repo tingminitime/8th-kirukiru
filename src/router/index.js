@@ -229,6 +229,22 @@ const routes = [
           }
         ],
       },
+      // 訂閱頁面
+      {
+        path: 'subscribe/:authorId',
+        name: 'Subscribe',
+        components: {
+          default: () => import('@/views/Subscribe/SubscribePage.vue'),
+        },
+        meta: { requiresAuth: true, navbar: true, recordPath: true, signOutBackToHome: true },
+        props: {
+          default(route) {
+            return {
+              authorId: route.params.authorId
+            }
+          }
+        },
+      },
       // 使用者個人頁面
       {
         path: 'user',
