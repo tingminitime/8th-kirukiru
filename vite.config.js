@@ -40,6 +40,14 @@ export default ({ mode }) => {
       },
     },
     build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          // 移除 console
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
       rollupOptions: {
         output: {
           entryFileNames: `assets/[name]-[hash].js`,

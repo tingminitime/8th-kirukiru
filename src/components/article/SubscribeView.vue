@@ -40,7 +40,7 @@
     <div class="flex justify-center items-center">
       <router-link
         class="py-2 px-4 text-lg text-white bg-myYellow/60 hover:bg-myYellow/80 rounded-lg transition-all"
-        :to="{ name: 'Author', params: { authorId: Username } }"
+        :to="{ name: 'AuthorDetail', params: { authorId: Username } }"
       >
         訂閱作者，觀看此文章
       </router-link>
