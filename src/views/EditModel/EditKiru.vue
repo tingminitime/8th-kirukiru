@@ -249,10 +249,10 @@
       ></TipTap>
     </div>
     <!-- 操作 -->
-    <div class="flex justify-center text-2xl md:justify-end">
+    <div class="flex justify-center md:justify-start">
       <button
         type="button"
-        class="button-md myButtonValid myButtonValidHover"
+        class="userPageCancelButton"
         @click="cancelKiru"
       >
         取消編輯
@@ -381,10 +381,10 @@ export default {
 
     await getInterestList().then(res => {
       console.log('取得文章分類: ', res)
-      this.category = res.data
+      this.category = [ ...res.data ]
       if (this.editMode) {
         const categoryId = this.articleVm.articlecategoryId
-        const targetCategory = this.category.find(item => item.Id = categoryId)
+        const targetCategory = this.category.find(item => item.Id === categoryId)
         this.categoryHandler = targetCategory
       }
     })

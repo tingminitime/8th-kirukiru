@@ -120,10 +120,10 @@
       ></TipTap>
     </div>
     <!-- 操作 -->
-    <div class="flex justify-center text-2xl md:justify-end">
+    <div class="flex justify-center md:justify-start">
       <button
         type="button"
-        class="button-md myButtonValid myButtonValidHover"
+        class="userPageCancelButton"
         @click="cancelEdit"
       >
         取消編輯
@@ -222,10 +222,10 @@ export default {
 
     await getInterestList().then(res => {
       console.log('取得文章分類: ', res)
-      this.category = res.data
+      this.category = [ ...res.data ]
       if (this.editMode) {
         const categoryId = this.articleVm.articlecategoryId
-        const targetCategory = this.category.find(item => item.Id = categoryId)
+        const targetCategory = this.category.find(item => item.Id === categoryId)
         this.categoryHandler = targetCategory
       }
     })
@@ -269,7 +269,7 @@ export default {
     // 編輯文章發送 API
     editArticle() {
       this.$store.commit('SHOW_OVERLAY_LOADING')
-      editNormalArticle(this.articleVm).then(res => {
+      editNormalArticle(this.articleId, this.articleVm).then(res => {
         console.log('編輯成功: ', res)
         if (res.data.success) {
           const alertInfo = {
