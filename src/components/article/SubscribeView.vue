@@ -2,10 +2,10 @@
   <div
     class="p-4 w-full text-center bg-myBrown rounded-lg shadow-md sm:p-8"
   >
-    <h3 class="hidden mb-2 text-3xl font-bold text-gray-900 dark:text-white md:block">
+    <h3 class="hidden mb-2 text-3xl font-bold text-white md:block">
       以下內容僅限訂閱者閱覽
     </h3>
-    <h3 class="block mb-2 text-3xl font-bold text-gray-900 dark:text-white md:hidden">
+    <h3 class="block mb-2 text-3xl font-bold text-white md:hidden">
       限訂閱者閱覽
     </h3>
     <div class="flex gap-3 justify-center items-start py-4 mb-4">
