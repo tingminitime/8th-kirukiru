@@ -19,11 +19,6 @@ export default {
 </script>
 
 <style scoped>
-/*!
-* Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)
-* Copyright 2015 Daniel Cardoso <@DanielCardoso>
-* Licensed under MIT
-*/
 .la-square-jelly-box,
 .la-square-jelly-box > div {
   position: relative;
