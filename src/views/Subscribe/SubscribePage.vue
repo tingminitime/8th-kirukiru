@@ -2,7 +2,10 @@
   <div class="px-4 pt-8 pb-11 mx-auto max-w-[816px] min-h-[calc(100vh-56px-64px)] md:px-0 md:pt-16">
     <div class="mx-auto max-w-[600px] rounded-2xl border-t-8 border-t-myYellow shadow-md md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown">
       <div class="hidden h-4 bg-myYellow md:block"></div>
-      <div class="p-8 md:py-10 md:px-16">
+      <div
+        v-if="!isLoading"
+        class="p-8 md:py-10 md:px-16"
+      >
         <!-- 作者資訊 -->
         <div class="flex gap-4 items-center py-4 border-b border-myBrown">
           <div class="overflow-hidden shrink-0 w-16 h-16 rounded-full">
@@ -98,18 +101,25 @@ export default {
       tradeInfoValue: '',
       tradeShaValue: '',
       isPaying: false,
+      isLoading: true,
     }
   },
   computed: {
     ...mapState([
       'userSubscribeList',
     ]),
+    returnUrl() {
+      return import.meta.env.MODE === 'production'
+        ? `${import.meta.env.VITE_REPO}/`
+        : ''
+    },
   },
   created() {
     this.getAuthorPlanHandler()
   },
   methods: {
     getAuthorPlanHandler() {
+      this.isLoading = true
       getAuthorPlan(this.authorId).then(res => {
         console.log('(訂閱頁面)取得作者方案: ', res)
         if (res.data.success) {
@@ -120,6 +130,7 @@ export default {
             title: '取得方案內容失敗'
           })
         }
+        this.isLoading = false
       }).catch(error => console.error(error))
     },
     paySubscribeHandler() {
@@ -129,7 +140,7 @@ export default {
       const data = {
         main: this.authorId,
         payType: this.payType,
-        returnUrl: `${location.origin}/#/author/${this.authorId}`
+        returnUrl: `${location.origin}/${this.returnUrl}#/author/${this.authorId}`
       }
       console.log('paySubscribeHandler: ', data)
       paySubscribe(data).then(res => {

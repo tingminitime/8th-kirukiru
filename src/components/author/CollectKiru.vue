@@ -106,11 +106,11 @@ export default {
       let sortList = []
       if (this.defaultSort) {
         sortList = [...this.collectKiru].sort((a, b) => {
-          return dayjs(b.ArtInitDate).format('x') - dayjs(a.ArtInitDate).format('x')
+          return dayjs(b.artInitDate).format('x') - dayjs(a.artInitDate).format('x')
         })
       } else {
         sortList = [...this.collectKiru].sort((a, b) => {
-          return dayjs(a.ArtInitDate).format('x') - dayjs(b.ArtInitDate).format('x')
+          return dayjs(a.artInitDate).format('x') - dayjs(b.artInitDate).format('x')
         })
       }
 

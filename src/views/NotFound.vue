@@ -6,6 +6,7 @@
       </p>
       <div>
         <img
+          class="w-full"
           src="@img/404NotFound.svg"
           alt="404 not fount"
         >

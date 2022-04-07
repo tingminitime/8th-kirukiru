@@ -3,7 +3,6 @@
     :to="{ name: 'ArticleKiru', params: { articleId: artId } }"
     class="group block overflow-hidden relative p-2 w-[396px] h-[212px] bg-myGray rounded-b-2xl border border-myBrown drop-shadow"
   >
-    <!-- <div class="absolute top-0 left-0 z-10 group-hover:z-0 w-full h-full bg-black/[0.08] opacity-100 group-hover:opacity-0 transition-all"></div> -->
     <div class="flex flex-col">
       <div class="max-w-[248px] border border-myBrown">
         <div class="transition-all aspect-w-16 aspect-h-9 md:brightness-95 md:group-hover:brightness-100">
@@ -48,7 +47,12 @@
         </div>
       </div>
       <!-- 切切發布時間 -->
-      <div class="flex justify-end items-center px-2">
+      <div class="flex gap-2 justify-end items-center px-2">
+        <!-- 付費文章 Tag -->
+        <PayArticleTag
+          v-if="!isFree"
+          class="text-black/40 bg-black/0"
+        ></PayArticleTag>
         <span
           v-timeformat="{
             time: artInitDate,
@@ -79,9 +83,13 @@
 
 <script>
 import { convert } from 'html-to-text'
+import PayArticleTag from '@/components/article/PayArticleTag.vue'
 
 export default {
   name: 'KiruCard',
+  components: {
+    PayArticleTag,
+  },
   props: {
     artId: {
       type: [String, Number],

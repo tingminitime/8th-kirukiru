@@ -23,7 +23,12 @@
         <!-- title -->
         <div class="flex justify-between items-center mb-3">
           <h3 class="font-bold text-myBrown line-clamp-1">
-            {{ title }}
+            <!-- 付費文章 Tag -->
+            <PayArticleTag
+              v-if="!isFree"
+              class=""
+            ></PayArticleTag>
+            <span class="ml-1">{{ title }}</span>
           </h3>
           <span
             v-timeformat="{
@@ -51,7 +56,7 @@
           >
             <div class="overflow-hidden w-6 h-6 rounded-full md:w-8 md:h-8">
               <img
-                v-src="`https://kirukiru.rocket-coding.com/Pic/origin.jpg`"
+                v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
                 class="object-cover w-full h-full bg-center scale-[103%] load"
                 alt=""
               >
@@ -78,9 +83,13 @@
 
 <script>
 import { convert } from 'html-to-text'
+import PayArticleTag from '@/components/article/PayArticleTag.vue'
 
 export default {
   name: 'KiruSearchItem',
+  components: {
+    PayArticleTag,
+  },
   props: {
     artId: {
       type: [String, Number],

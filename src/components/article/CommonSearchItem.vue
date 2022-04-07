@@ -13,7 +13,12 @@
       >
         <div class="px-4 min-h-[76px] border-r border-r-black/20">
           <h3 class="mb-3 font-bold text-myBrown line-clamp-1">
-            {{ title }}
+            <!-- 付費文章 Tag -->
+            <PayArticleTag
+              v-if="!isFree"
+              class=""
+            ></PayArticleTag>
+            <span class="ml-1">{{ title }}</span>
           </h3>
           <p
             class="text-sm text-myBrown line-clamp-2"
@@ -34,7 +39,7 @@
           >
             <div class="overflow-hidden shrink-0 w-8 h-8 rounded-full">
               <img
-                v-src="`https://kirukiru.rocket-coding.com/Pic/origin.jpg`"
+                v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
                 class="object-cover w-full h-full bg-center scale-[103%] load"
                 alt=""
               >
@@ -64,11 +69,12 @@
 
 <script>
 import { convert } from 'html-to-text'
+import PayArticleTag from '@/components/article/PayArticleTag.vue'
 
 export default {
   name: 'CommonSearchItem',
   components: {
-
+    PayArticleTag,
   },
   props: {
     artId: {

@@ -17,6 +17,13 @@
     :show-kiru-count="true"
     :kiru-count="articleVm.mArrayList?.length"
   ></KiruInfo>
+  <!-- 未訂閱顯示 -->
+  <div
+    v-if="(!articleVm.isFree && !checkSubResult) && isArticleVmLoading"
+    class="mx-auto max-w-[80%]"
+  >
+    <SubscribeView v-bind="authorInfo"></SubscribeView>
+  </div>
   <!-- 預備工具 -->
   <KiruTools
     v-if="articleVm.fArrayList?.length !== 0 && (articleVm.isFree || checkSubResult)"
@@ -161,13 +168,6 @@
         查看更多留言 ({{ articleMessage.length - loadMessage.length }})
       </button>
     </div>
-  </div>
-  <!-- 未訂閱顯示 -->
-  <div
-    v-if="(!articleVm.isFree && !checkSubResult) && isArticleVmLoading"
-    class="mx-auto max-w-[80%]"
-  >
-    <SubscribeView v-bind="authorInfo"></SubscribeView>
   </div>
 </template>
 

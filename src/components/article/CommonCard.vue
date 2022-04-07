@@ -20,7 +20,12 @@
       </div>
       <div class="py-3">
         <h3 class="px-2 min-h-[3.5rem] text-lg font-semibold text-myBrown line-clamp-2">
-          {{ title }}
+          <!-- 付費文章 Tag -->
+          <PayArticleTag
+            v-if="!isFree"
+            class=""
+          ></PayArticleTag>
+          <span class="ml-1">{{ title }}</span>
         </h3>
       </div>
       <div class="p-2 min-h-[56px] bg-myYellow">
@@ -31,16 +36,16 @@
       <div class="flex justify-between items-center py-1 px-2">
         <div class="flex gap-4 justify-between p-2">
           <!-- 喜歡 -->
-          <div class="flex items-center text-myBrown hover:text-myOrange">
+          <div class="flex items-center text-myBrown">
             <span class="inline-block px-0.5 text-sm align-middle material-icons">favorite_border</span>
             <span class="inline-block px-0.5 text-sm align-middle">{{ lovecount }}</span>
           </div>
         </div>
         <router-link
-          class="flex gap-2 items-center"
+          class="group flex gap-2 items-center"
           :to="{ name: 'Author', params: { authorId: username } }"
         >
-          <p class="text-sm text-myBrown">
+          <p class="text-sm text-myBrown group-hover:text-myOrange">
             {{ author }}
           </p>
           <div class="overflow-hidden w-8 h-8 rounded-full md:w-8 md:h-8">
@@ -58,9 +63,13 @@
 
 <script>
 import { convert } from 'html-to-text'
+import PayArticleTag from '@/components/article/PayArticleTag.vue'
 
 export default {
   name: 'CommonCard',
+  components: {
+    PayArticleTag,
+  },
   props: {
     artId: {
       type: [String, Number],
