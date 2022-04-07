@@ -1,0 +1,1 @@
+import{_ as r}from"./index-4165e28f.js";import{o as a,c as e}from"./vendor-358810ac.js";var n=r({name:"IntroFaq"},[["render",function(r,n,o,t,s,d){return a(),e("div",null,"QA")}]]);export{n as default};
