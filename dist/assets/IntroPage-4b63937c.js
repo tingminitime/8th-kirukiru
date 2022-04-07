@@ -1,0 +1,1 @@
+import{_ as r}from"./index-f2480ff4.js";import{o as a,c as e}from"./vendor-358810ac.js";var n=r({name:"IntroPage"},[["render",function(r,n,o,t,f,s){return a(),e("div",null,"Intro Page")}]]);export{n as default};
