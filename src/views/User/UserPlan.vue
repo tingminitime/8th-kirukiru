@@ -60,6 +60,7 @@
                 type="text"
                 name="plan-price"
                 @input="planPriceInputHandler($event)"
+                @keyup.enter="changePlanPriceHandler"
               >
               <span class="absolute -bottom-6 left-0 text-sm text-red-500">{{ planPriceError }}</span>
             </div>
@@ -128,14 +129,14 @@
             <span class="font-semibold text-myBrown">訂閱我的人數</span>
             <span class="text-4xl font-semibold text-myBrown">{{ formatThousand(subscribeCount) }}</span>
           </div>
-          <div class="flex flex-col gap-4 items-center">
+          <!-- <div class="flex flex-col gap-4 items-center">
             <span class="font-semibold text-myBrown">每月收益</span>
             <span class="text-4xl font-semibold text-myBrown">{{ formatThousand(480) }}</span>
-          </div>
-          <div class="flex flex-col gap-4 items-center">
+          </div> -->
+          <!-- <div class="flex flex-col gap-4 items-center">
             <span class="font-semibold text-myBrown">與上月比較</span>
             <span class="text-4xl font-semibold text-green-500">20%</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -191,6 +192,9 @@ export default {
     ...mapState([
       'userInfo'
     ]),
+    monthRevenue() {
+      return Math.floor(this.subscribeCount * this.planPrice)
+    },
   },
   watch: {
     // userInfo: {

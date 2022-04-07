@@ -78,7 +78,7 @@
     </div>
     <!-- 未訂閱，訂閱方案顯示 -->
     <div
-      v-if="!checkSubResult && !checkAccountResult && checkAccountResult !== null"
+      v-if="!checkSubResult && checkAccountResult === false && isAuthorOpenPlan"
       class="mb-6 rounded-2xl border-t-8 border-t-myYellow shadow-md md:rounded-t-none md:rounded-b-2xl md:border md:border-myBrown md:shadow-sm"
     >
       <!-- 桌面板 Title -->
@@ -88,12 +88,12 @@
       <div
         class="flex flex-col items-center"
       >
-        <p class="py-8 px-4 text-center text-myBrown md:py-12">
+        <p class="py-6 px-4 text-center text-myBrown md:py-8">
           這是訂閱方案，訂閱後即可解鎖觀看付費文章
         </p>
         <div class="flex flex-col justify-center items-center mb-6 font-semibold text-myBrown">
           <span>{{ authorInfo.Name }}</span>
-          <span class="text-xl">$ {{ authorPlan.amount }} NTD / 月</span>
+          <span class="text-xl">$ {{ formatThousand(authorPlan.amount) }} NTD / 月</span>
         </div>
         <router-link
           :to="{ name: 'Subscribe', params: { authorId: authorId } }"
@@ -104,7 +104,7 @@
       </div>
     </div>
     <!-- 已訂閱顯示 -->
-    <div v-if="checkSubResult && !checkAccountResult && checkAccountResult !== null">
+    <div v-if="checkSubResult && checkAccountResult === false && isAuthorOpenPlan">
       <div
         class="flex flex-col items-center"
       >
@@ -118,6 +118,15 @@
           取消訂閱
         </button>
       </div>
+    </div>
+    <!-- 作者未開通訂閱方案顯示 -->
+    <div
+      v-if="!isAuthorOpenPlan"
+      class="mb-8"
+    >
+      <p class="text-center text-black/20">
+        此作者未開放訂閱方案
+      </p>
     </div>
     <!-- 發布、收藏文章列表 -->
     <router-view
@@ -162,6 +171,7 @@ export default {
       checkSubResult: null,
       checkAccountResult: null,
       authorPlan: {},
+      isAuthorOpenPlan: false,
     }
   },
   computed: {
@@ -177,13 +187,14 @@ export default {
         this.checkSubResult = this.checkSub(this.authorId)
       },
       deep: true,
+      immediate: true,
     },
   },
   mounted() {
     this.getAuthorInfo(this.authorId)
     this.getAuthorPlan()
-    this.checkAccountResult = this.checkAccount(this.authorId)
-    this.checkSubResult = this.checkSub(this.authorId)
+    // this.checkAccountResult = this.checkAccount(this.authorId)
+    // this.checkSubResult = this.checkSub(this.authorId)
   },
   methods: {
     // 檢查是否本人
@@ -195,7 +206,7 @@ export default {
     // 檢查訂閱狀態
     checkSub(authorAccount) {
       const checkSubList = this.userSubscribeList.some(author => {
-        return author.Author === authorAccount && author.IsSuceess
+        return author.Author === authorAccount
       })
       console.log('(作者頁面)檢查訂閱狀態: ', checkSubList)
       return checkSubList
@@ -222,12 +233,11 @@ export default {
       getAuthorPlan(this.authorId).then(res => {
         console.log('取得作者方案: ', res)
         if (res.data.success) {
+          this.isAuthorOpenPlan = true
           this.authorPlan = res.data.data
         } else {
-          this.$notify({
-            group: 'error',
-            title: ''
-          })
+          // 作者未開通方案
+          this.isAuthorOpenPlan = false
         }
       }).catch(error => console.error(error))
     },

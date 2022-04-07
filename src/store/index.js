@@ -160,7 +160,8 @@ const store = createStore({
         getUserSubscribeList(payload).then(res => {
           console.log('取得使用者訂閱清單: ', res)
           if (res.data.success) {
-            commit('UPDATE_SUBSCRIBE_LIST', res.data.data)
+            const filterSubscribeList = res.data.data.filter(sub => sub.IsSuccess)
+            commit('UPDATE_SUBSCRIBE_LIST', filterSubscribeList)
             commit('CHECK_SUBSCRIBE_LIST', true)
             resolve({ success: true, data: res.data })
           } else {

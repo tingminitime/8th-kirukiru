@@ -27,7 +27,7 @@
           <div class="flex relative flex-col items-center text-myBrown md:items-start">
             <span class="absolute -top-0.5 py-1 px-2 text-xs font-bold text-white bg-red-500 rounded-lg -translate-y-full md:left-0">50% OFF</span>
             <p class="text-3xl font-bold">
-              {{ authorPlan?.amount }}元 / 月
+              {{ formatThousand(authorPlan?.amount) }}元 / 月
             </p>
             <p class="text-xs">
               每月自動扣款，僅限信用卡支付
@@ -60,11 +60,9 @@
       ><input
         ref="tradeInfo"
         name="TradeInfo"
-        :value="tradeInfoValue"
       ><input
         ref="tradeSha"
         name="TradeSha"
-        :value="tradeShaValue"
       ><input
         name="Version"
         value="1.5"
@@ -105,7 +103,7 @@ export default {
   computed: {
     ...mapState([
       'userSubscribeList',
-    ])
+    ]),
   },
   created() {
     this.getAuthorPlanHandler()
@@ -141,7 +139,6 @@ export default {
           this.tradeShaValue = res.data.PayData.find(data => data.Key === 'TradeSha').Value
           this.$refs.tradeInfo.value = this.tradeInfoValue
           this.$refs.tradeSha.value = this.tradeShaValue
-          console.log('tradeInfoValue: ', this.$refs.tradeInfo.value, 'tradeShaValue', this.$refs.tradeSha.value)
           this.$refs.subscribeSubmit.submit()
         } else {
           this.$notify({
@@ -156,10 +153,14 @@ export default {
     // 檢查訂閱狀態
     checkSub(authorAccount) {
       const checkSubList = this.userSubscribeList.some(author => {
-        return author.Author === authorAccount && author.IsSuceess
+        return author.Author === authorAccount
       })
       console.log('(作者頁面)檢查訂閱狀態: ', checkSubList)
       return checkSubList
+    },
+    // 千分位逗點格式化
+    formatThousand(str) {
+      return String(str).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
     },
   },
 }

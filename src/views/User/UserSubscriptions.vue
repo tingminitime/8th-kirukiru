@@ -31,7 +31,7 @@
       </div>
       <ul class="flex flex-col gap-6">
         <li
-          v-for="sub in filterSubscribeList"
+          v-for="sub in mySubscribeList"
           :key="sub.ID"
           class="flex"
         >
@@ -95,9 +95,9 @@ export default {
     }
   },
   computed: {
-    filterSubscribeList() {
-      return this.mySubscribeList.filter(sub => sub.IsSuceess)
-    },
+    // filterSubscribeList() {
+    //   return this.mySubscribeList.filter(sub => sub.IsSuceess)
+    // },
   },
   watch: {
     'paginationVm.currentPage': {

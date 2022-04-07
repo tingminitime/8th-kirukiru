@@ -11,7 +11,7 @@ export const focus = {
     if (binding.value) {
       el.focus()
     }
-  }
+  },
 }
 
 export const invalidAni = {
