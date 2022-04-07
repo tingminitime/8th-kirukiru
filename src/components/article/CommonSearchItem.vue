@@ -16,7 +16,7 @@
             <!-- 付費文章 Tag -->
             <PayArticleTag
               v-if="!isFree"
-              class=""
+              class="text-white bg-black/40"
             ></PayArticleTag>
             <span class="ml-1">{{ title }}</span>
           </h3>

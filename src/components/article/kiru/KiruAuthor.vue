@@ -5,7 +5,7 @@
       <div class="flex gap-2 items-center md:gap-8">
         <router-link
           class="block overflow-hidden w-12 h-12 rounded-full md:w-14 md:h-14"
-          :to="{ name: 'Author', params: { authorId: username } }"
+          :to="{ name: 'AuthorDetail', params: { authorId: username } }"
         >
           <img
             v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
@@ -19,7 +19,7 @@
           {{ author }}
         </h2>
         <router-link
-          :to="{ name: 'Author', params: { authorId: username } }"
+          :to="{ name: 'AuthorDetail', params: { authorId: username } }"
           class="hidden font-bold text-myBrown hover:text-myOrange bg-myGray transition-all md:block button-sm"
         >
           關注

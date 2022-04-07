@@ -111,6 +111,8 @@ export default {
     returnUrl() {
       return import.meta.env.MODE === 'production'
         ? `${import.meta.env.VITE_REPO}/`
+        : import.meta.env.MODE === 'staging'
+        ? `index.html`
         : ''
     },
   },
@@ -150,6 +152,7 @@ export default {
           this.tradeShaValue = res.data.PayData.find(data => data.Key === 'TradeSha').Value
           this.$refs.tradeInfo.value = this.tradeInfoValue
           this.$refs.tradeSha.value = this.tradeShaValue
+          debugger
           this.$refs.subscribeSubmit.submit()
         } else {
           this.$notify({
