@@ -11,7 +11,7 @@ export default ({ mode }) => {
     ...loadEnv(mode, process.cwd())
   }
   return defineConfig({
-    base: './',
+    base: process.env.NODE_ENV === 'production' ? '/8th-kirukiru/' : './',
     plugins: [
       vue(),
       AutoImport({
