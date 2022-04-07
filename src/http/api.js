@@ -233,7 +233,7 @@ export const getEditNormalArticle = (id) => {
 
 // 編輯一般文章
 export const editNormalArticle = (articleId, data) => {
-  return http.put(`EditArticleNormal?artId=${articleId}`, data)
+  return http.put(`api/ArticleNormal/EditArticleNormal?artId=${articleId}`, data)
 }
 
 // 取得一般文章資料
