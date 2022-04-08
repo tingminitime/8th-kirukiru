@@ -11,7 +11,7 @@
     <div class="flex gap-3 justify-center items-start py-4 mb-4">
       <router-link
         class="block overflow-hidden shrink-0 mt-2 w-12 h-12 rounded-full"
-        :to="{ name: 'Author', params: { authorId: 1 } }"
+        :to="{ name: 'AuthorDetail', params: { authorId: Username } }"
       >
         <img
           v-src="`https://kirukiru.rocket-coding.com/Pic/${Userpic}`"

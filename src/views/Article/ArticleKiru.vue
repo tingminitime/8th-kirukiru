@@ -409,7 +409,7 @@ export default {
         ...this.messagePagination,
       }
       await getKiruMessage(params).then(res => {
-        // console.log('取得留言資料: ', res)
+        console.log('取得切切文章留言資料: ', res)
         if (res.data.success) {
           this.articleMessage = res.data.data
           this.messageTotal = res.data.total || this.articleMessage.length
@@ -505,7 +505,7 @@ export default {
     // 發送回覆
     async replyHandler(params) {
       try {
-        addKiruReMessage(params).then(res => {
+        await addKiruReMessage(params).then(res => {
           console.log('addKiruReMessage: ', res)
           // this.$emit('update-reply', messageId)
         }).catch(error => {

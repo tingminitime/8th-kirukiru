@@ -33,34 +33,30 @@ export const src = {
     if (binding.value) {
       el.classList.add('load')
       const img = new Image()
-      setTimeout(() => {
-        img.src = binding.value
-        img.onload = () => {
-          el.classList.remove('load')
-          el.src = binding.value
-        }
-        img.onerror = () => {
-          el.classList.remove('load')
-          el.src = emptyImage
-        }
-      }, 1000)
+      img.src = binding.value
+      img.onload = () => {
+        el.classList.remove('load')
+        el.src = binding.value
+      }
+      img.onerror = () => {
+        el.classList.remove('load')
+        el.src = emptyImage
+      }
     }
   },
   updated(el, binding) {
     if (binding.value) {
       el.classList.add('load')
       const img = new Image()
-      setTimeout(() => {
-        img.src = binding.value
-        img.onload = () => {
-          el.classList.remove('load')
-          el.src = binding.value
-        }
-        img.onerror = () => {
-          el.classList.remove('load')
-          el.src = emptyImage
-        }
-      }, 1000)
+      img.src = binding.value
+      img.onload = () => {
+        el.classList.remove('load')
+        el.src = binding.value
+      }
+      img.onerror = () => {
+        el.classList.remove('load')
+        el.src = emptyImage
+      }
     }
   },
 }

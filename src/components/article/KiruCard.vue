@@ -17,7 +17,7 @@
         <!-- 作者資訊 -->
         <router-link
           class="flex gap-2 items-center"
-          :to="{ name: 'Author', params: { authorId: username } }"
+          :to="{ name: 'AuthorDetail', params: { authorId: username } }"
         >
           <div class="overflow-hidden w-8 h-8 rounded-full md:w-8 md:h-8">
             <img
@@ -51,7 +51,7 @@
         <!-- 付費文章 Tag -->
         <PayArticleTag
           v-if="!isFree"
-          class="text-black/40 bg-black/0"
+          class="text-black/60 bg-black/0"
         ></PayArticleTag>
         <span
           v-timeformat="{

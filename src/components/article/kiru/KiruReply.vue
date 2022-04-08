@@ -70,7 +70,7 @@
             </div>
           </div>
         </div>
-        <!-- 回覆留言功能 -->
+        <!-- 作者回覆留言功能 -->
         <transition
           appear
           mode="out-in"

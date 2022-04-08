@@ -223,9 +223,9 @@ export default {
         console.log('取得作者頁面數量資訊: ', res)
         const filterRes = res.map(data => data.data)
         this.authorInfo = filterRes[0].data
-        this.publishArticleCount = filterRes[1].artcount
-        this.subscribeCount = filterRes[2].orderNumber
-        this.hasSubscribedCount = filterRes[3].beOrderNumber
+        this.publishArticleCount = filterRes[1].artcount ?? '-'
+        this.subscribeCount = filterRes[2].orderNumber ?? '-'
+        this.hasSubscribedCount = filterRes[3].beOrderNumber ?? '-'
       }).catch(error => console.error(error))
     },
     // 取得作者方案

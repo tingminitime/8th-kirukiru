@@ -111,6 +111,8 @@ export default {
     returnUrl() {
       return import.meta.env.MODE === 'production'
         ? `${import.meta.env.VITE_REPO}/`
+        : import.meta.env.MODE === 'staging'
+        ? `index.html`
         : ''
     },
   },
@@ -140,7 +142,7 @@ export default {
       const data = {
         main: this.authorId,
         payType: this.payType,
-        returnUrl: `${location.origin}/${this.returnUrl}#/author/${this.authorId}`
+        // returnUrl: `${location.origin}/${this.returnUrl}#/author/${this.authorId}`
       }
       console.log('paySubscribeHandler: ', data)
       paySubscribe(data).then(res => {
@@ -150,6 +152,8 @@ export default {
           this.tradeShaValue = res.data.PayData.find(data => data.Key === 'TradeSha').Value
           this.$refs.tradeInfo.value = this.tradeInfoValue
           this.$refs.tradeSha.value = this.tradeShaValue
+          console.log(data)
+          debugger
           this.$refs.subscribeSubmit.submit()
         } else {
           this.$notify({

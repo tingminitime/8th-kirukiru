@@ -142,7 +142,7 @@
         :to="{
           name: 'CategoryContent',
           params: { searchType: 'kiru' },
-          query: { type: 1 },
+          query: { categoryId: 1 },
         }"
         class="px-4 text-black/40 hover:text-black/80"
       >
@@ -182,7 +182,7 @@
         :to="{
           name: 'CategoryContent',
           params: { searchType: 'common' },
-          query: { type: 1 },
+          query: { categoryId: 1 },
         }"
         class="text-black/40 hover:text-black/80"
       >

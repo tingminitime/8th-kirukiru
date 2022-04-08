@@ -21,7 +21,7 @@
   <!-- 未訂閱顯示 -->
   <div
     v-if="(!articleVm.isFree && !checkSubResult) && isArticleVmLoading"
-    class="mx-auto max-w-[80%]"
+    class="mx-auto mb-8 max-w-[80%]"
   >
     <SubscribeView v-bind="authorInfo"></SubscribeView>
   </div>
@@ -478,10 +478,10 @@ export default {
     updateMessage(newData) {
       this.articleMessage = newData
     },
-    // 發送回覆
+    // 作者發送回覆
     async replyHandler(params) {
       try {
-        addCommonReMessage(params).then(res => {
+        await addCommonReMessage(params).then(res => {
           console.log('addCommonReMessage: ', res)
           // this.$emit('update-reply', messageId)
         }).catch(error => {

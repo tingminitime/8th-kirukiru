@@ -23,7 +23,7 @@
           <!-- 付費文章 Tag -->
           <PayArticleTag
             v-if="!isFree"
-            class=""
+            class="text-white bg-black/40"
           ></PayArticleTag>
           <span class="ml-1">{{ title }}</span>
         </h3>
@@ -43,7 +43,7 @@
         </div>
         <router-link
           class="group flex gap-2 items-center"
-          :to="{ name: 'Author', params: { authorId: username } }"
+          :to="{ name: 'AuthorDetail', params: { authorId: username } }"
         >
           <p class="text-sm text-myBrown group-hover:text-myOrange">
             {{ author }}

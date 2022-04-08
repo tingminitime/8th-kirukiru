@@ -21,7 +21,7 @@
         <div class="flex flex-col gap-3 justify-center items-center">
           <router-link
             class="block overflow-hidden w-24 h-24 rounded-full"
-            :to="{ name: 'Author', params: { authorId: authorInfo.Username } }"
+            :to="{ name: 'AuthorDetail', params: { authorId: authorInfo.Username } }"
           >
             <img
               v-src="`https://kirukiru.rocket-coding.com/Pic/${authorInfo.Userpic}`"
@@ -38,7 +38,7 @@
             <div class="border-2 border-myYellow">
               <router-link
                 class="block py-2 text-center text-myBrown hover:text-myOrange"
-                :to="{ name: 'Author', params: { authorId: authorInfo.Username } }"
+                :to="{ name: 'AuthorDetail', params: { authorId: authorInfo.Username } }"
               >
                 關注
               </router-link>
