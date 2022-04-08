@@ -142,7 +142,7 @@ export default {
       const data = {
         main: this.authorId,
         payType: this.payType,
-        returnUrl: `${location.origin}/${this.returnUrl}#/author/${this.authorId}`
+        // returnUrl: `${location.origin}/${this.returnUrl}#/author/${this.authorId}`
       }
       console.log('paySubscribeHandler: ', data)
       paySubscribe(data).then(res => {
