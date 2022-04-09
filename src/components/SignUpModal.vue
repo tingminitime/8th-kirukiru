@@ -148,8 +148,8 @@
             <button
               type="submit"
               class="relative button-lg"
-              :class="[ agreeTerms ? 'myButtonValid myButtonValidHover' : 'myButtonInvalid' ]"
-              :disabled="!agreeTerms"
+              :class="[ agreeTerms && !signUpProcess ? 'myButtonValid myButtonValidHover' : 'myButtonInvalid' ]"
+              :disabled="!agreeTerms && !signUpProcess"
             >
               <LoadingSpin
                 class="absolute top-3 left-5 w-5 h-5 text-white align-middle"
@@ -249,8 +249,10 @@ export default {
   },
   methods: {
     onSubmit(values) {
+      if (this.signUpProcess) return
+
       this.isFormValid = true
-      console.log(JSON.stringify(values, null, 2))
+      this.signUpProcess = true
 
       const obj = {}
       for(const key in values) {
@@ -274,7 +276,7 @@ export default {
             title: "註冊成功 !",
             text: `${res.data.message}`
           }, 2500)
-          this.$router.push({ name: 'SignIn' })
+          this.$router.push({ name: 'SignUpComplete' })
         } else {
           this.signUpErrorMsg = res.data.message
           this.$notify({
@@ -283,9 +285,11 @@ export default {
             text: `${res.data.message}`
           }, 2500)
         }
+        this.signUpProcess = false
       })
       .catch(error => {
         console.log(error)
+        this.signUpProcess = false
       })
     },
     onInvalidSubmit(val) {

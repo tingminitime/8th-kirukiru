@@ -28,6 +28,11 @@ export const userSignIn = (data) => {
   return http.post('Login', data)
 }
 
+// 忘記密碼
+export const userForgotPassword = (params) => {
+  return http.put(`api/Member/NewPassWord?${parseParams(params)}`)
+}
+
 // 更改密碼
 export const userChangePassword = (data) => {
   return http.put('api/Member/ChangPassword', data)
