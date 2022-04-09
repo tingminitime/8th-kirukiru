@@ -7,7 +7,10 @@
       <div class="max-w-[248px] border border-myBrown">
         <div class="transition-all aspect-w-16 aspect-h-9 md:brightness-95 md:group-hover:brightness-100">
           <img
-            v-src="`https://kirukiru.rocket-coding.com/Pic/${firstPhoto}`"
+            v-my-src="{
+              name: firstPhoto,
+              folder: 'Pic',
+            }"
             class="object-cover object-center w-full h-full load"
             alt=""
           >
@@ -21,7 +24,10 @@
         >
           <div class="overflow-hidden w-8 h-8 rounded-full md:w-8 md:h-8">
             <img
-              v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
+              v-my-src="{
+                name: authorPic,
+                folder: 'Pic',
+              }"
               class="object-cover w-full h-full bg-center scale-[103%] load"
               alt=""
             >

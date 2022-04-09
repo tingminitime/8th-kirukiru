@@ -10,7 +10,10 @@
         <div class="flex gap-4 items-center py-4 border-b border-myBrown">
           <div class="overflow-hidden shrink-0 w-16 h-16 rounded-full">
             <img
-              v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPlan?.authorPic}`"
+              v-my-src="{
+                name: authorPlan?.authorPic,
+                folder: 'Pic',
+              }"
               class="object-cover object-center w-full h-full rounded-lg load"
               alt=""
             >

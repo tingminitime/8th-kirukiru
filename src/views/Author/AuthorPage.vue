@@ -10,7 +10,10 @@
         <div class="flex gap-8 w-full md:block">
           <div class="overflow-hidden shrink-0 w-24 h-24 rounded-full md:w-auto md:h-auto md:rounded-none md:aspect-w-16 md:aspect-h-9">
             <img
-              v-src="`https://kirukiru.rocket-coding.com/Pic/${authorInfo?.Userpic}`"
+              v-my-src="{
+                name: authorInfo?.Userpic,
+                folder: 'Pic',
+              }"
               class="object-cover object-center w-full h-full rounded-lg load"
               alt=""
             >

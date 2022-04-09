@@ -26,7 +26,10 @@
           class="w-64 h-64 border-l border-myBrown/20"
         >
           <img
-            v-src="`https://kirukiru.rocket-coding.com/Pic/${item.thirdPhoto}`"
+            v-my-src="{
+              name: item.thirdPhoto,
+              folder: 'Pic',
+            }"
             class="object-cover w-full h-full load"
             alt=""
           >

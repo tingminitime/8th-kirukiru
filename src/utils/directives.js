@@ -28,6 +28,43 @@ export const invalidAni = {
   }
 }
 
+export const mySrc = {
+  mounted(el, binding) {
+    el.classList.add('load')
+    if (binding.value.name) {
+      const img = new Image()
+      // img.src = binding.value
+      img.src = `https://kirukiru.rocket-coding.com/${binding.value.folder}/${binding.value.name}`
+      img.onload = () => {
+        el.classList.remove('load')
+        // el.src = binding.value
+        el.src = `https://kirukiru.rocket-coding.com/${binding.value.folder}/${binding.value.name}`
+      }
+      img.onerror = () => {
+        el.classList.remove('load')
+        el.src = emptyImage
+      }
+    }
+  },
+  updated(el, binding) {
+    el.classList.add('load')
+    if (binding.value.name) {
+      const img = new Image()
+      // img.src = binding.value
+      img.src = `https://kirukiru.rocket-coding.com/${binding.value.folder}/${binding.value.name}`
+      img.onload = () => {
+        el.classList.remove('load')
+        // el.src = binding.value
+        el.src = `https://kirukiru.rocket-coding.com/${binding.value.folder}/${binding.value.name}`
+      }
+      img.onerror = () => {
+        el.classList.remove('load')
+        el.src = emptyImage
+      }
+    }
+  },
+}
+
 export const src = {
   mounted(el, binding) {
     if (binding.value) {
