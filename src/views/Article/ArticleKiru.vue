@@ -20,7 +20,7 @@
   <!-- 未訂閱顯示 -->
   <div
     v-if="(!articleVm.isFree && !checkSubResult) && isArticleVmLoading"
-    class="mx-auto max-w-[80%]"
+    class="mx-auto mb-12 max-w-[80%]"
   >
     <SubscribeView v-bind="authorInfo"></SubscribeView>
   </div>

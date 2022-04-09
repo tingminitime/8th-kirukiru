@@ -78,6 +78,7 @@ export const uploadImage = (data) => {
   return httpForm.post(`upload`, data)
 }
 
+// -------- 使用者前台 --------
 // 更改會員大頭貼
 export const userChangeAvatar = (newAvatar) => {
   return http.put(`api/Member/changephoto?Userpic=${newAvatar}`)
@@ -111,6 +112,26 @@ export const changeMyPlanInfo = (data) => {
 // 取得會員訂閱清單
 export const getMySubscribeList = (params) =>{
   return http.get(`api/Member/GetMyOrder?${parseParams(params)}`)
+}
+
+// 取得會員切切文章 (發布、未發布)
+export const getMyKiruArticle = (isPush, params) =>{
+  return http.get(`api/Article/GetUserArticle?isPush=${isPush}&${parseParams(params)}`)
+}
+
+// 取得會員一般文章 (發布、未發布)
+export const getMyCommonArticle = (isPush, params) =>{
+  return http.get(`api/ArticleNormal/GetUserAllArticleNormal?isPush=${isPush}&${parseParams(params)}`)
+}
+
+// 刪除會員切切文章
+export const deleteMyKiruArticle = (articleId) =>{
+  return http.delete(`api/Article/DeleteArticle?artId=${articleId}`)
+}
+
+// 刪除會員一般文章
+export const deleteMyCommonArticle = (articleId) =>{
+  return http.delete(`api/ArticleNormal/DeleteArticleNormal?artId=${articleId}`)
 }
 
 // -------- 金流 --------
@@ -220,6 +241,11 @@ export const getKiruCollections = (params) =>{
   return http.get(`api/Article/GetAllcollectart?${parseParams(params)}`)
 }
 
+// 刪除收藏的切切文章
+export const deleteKiruCollection = (articleId) =>{
+  return http.delete(`api/Article/Deletecollect?artId=${articleId}`)
+}
+
 // -------- 一般文章 --------
 // 添加一般文章
 export const addNormalArticle = (data) => {
@@ -294,6 +320,11 @@ export const removeCommonCollection = (articleId) =>{
 // 取得收藏的一般文章
 export const getCommonCollections = (params) =>{
   return http.get(`api/ArticleNormal/GetAllcollectart?${parseParams(params)}`)
+}
+
+// 刪除收藏的一般文章
+export const deleteCommonCollection = (articleId) =>{
+  return http.delete(`api/ArticleNormal/Deletecollect?artId=${articleId}`)
 }
 
 // ----- 作者頁面 -----

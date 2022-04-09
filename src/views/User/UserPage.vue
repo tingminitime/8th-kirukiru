@@ -1,8 +1,8 @@
 <template>
-  <div class="py-11 px-4 mx-auto max-w-[816px] md:px-8">
+  <div class="py-11 px-4 mx-auto max-w-[1024px] md:px-8">
     <div class="flex gap-7 items-start">
       <!-- 左側設定欄 -->
-      <div class="flex flex-col gap-12 py-8 px-12 min-w-[256px] min-h-[726px] bg-myBrown">
+      <div class="flex flex-col gap-12 py-8 px-12 min-w-[192px] min-h-[726px] bg-myBrown md:min-w-[256px]">
         <!-- 個人設定 -->
         <div class="flex flex-col gap-3 items-center w-full">
           <div class="py-2 w-full border-b border-white/60">

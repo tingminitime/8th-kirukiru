@@ -49,10 +49,9 @@
             <MenuItem v-slot="{ active }">
               <router-link
                 :to="{
-                  name: 'UserDetail',
+                  name: 'AuthorDetail',
                   params: {
-                    userId: Username,
-                    target: 'profile',
+                    authorId: Username,
                   },
                 }"
                 class="text-base font-medium"

@@ -130,10 +130,8 @@ export default {
     })
     tippy(this.$refs.copylink, {
       async onTrigger(instance, event) {
-        console.log(instance, event)
         const clipboardObj = navigator.clipboard
         await navigator.clipboard.writeText(location.href)
-        console.log(clipboardObj)
         setTimeout(() => {
           instance.hide()
         }, 2000)
