@@ -10,6 +10,7 @@
         :show-edit="true"
         :show-delete="true"
         edit-link="EditNormal"
+        title-link="ArticleCommon"
       ></MyArticleItem>
     </ul>
     <!-- Pagination -->

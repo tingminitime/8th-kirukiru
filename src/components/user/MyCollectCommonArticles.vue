@@ -9,6 +9,7 @@
         :show-edit="false"
         :show-delete="true"
         :show-author="true"
+        title-link="ArticleCommon"
         @delete-article="deleteMyCollectionHandler"
       ></MyArticleItem>
     </ul>

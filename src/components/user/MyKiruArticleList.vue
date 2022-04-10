@@ -10,6 +10,7 @@
         :show-edit="true"
         :show-delete="true"
         edit-link="EditKiru"
+        title-link="ArticleKiru"
       ></MyArticleItem>
     </ul>
     <!-- Pagination -->
