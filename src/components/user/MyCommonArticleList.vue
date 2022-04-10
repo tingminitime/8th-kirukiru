@@ -100,6 +100,7 @@ export default {
             group: 'error',
             title: '一般文章取得失敗'
           })
+          this.commonArticleList = []
         }
         this.isLoading = false
         this.$emit('is-loading', false)

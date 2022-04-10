@@ -100,6 +100,7 @@ export default {
             group: 'error',
             title: '切切文章取得失敗'
           })
+          this.kiruArticleList = []
         }
         this.isLoading = false
         this.$emit('is-loading', false)
