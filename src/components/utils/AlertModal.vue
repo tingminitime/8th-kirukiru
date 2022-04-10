@@ -31,17 +31,17 @@
             >
               <DialogTitle
                 as="h2"
-                class="relative py-4 text-center bg-myYellow border-b-2 border-myBrown"
+                class="relative py-3 text-center bg-myYellow border-b-2 border-myBrown"
               >
                 <span
                   v-show="showTitle"
-                  class="text-2xl font-bold leading-6 text-myBrown md:text-3xl"
+                  class="text-xl font-bold leading-6 text-myBrown md:text-2xl"
                 >{{ titleText }}</span>
                 <button
                   v-if="showClose"
                   type="button"
-                  class="group absolute top-1/2 right-4 p-4 -translate-y-1/2"
-                  @click="closeModal"
+                  class="group absolute top-1/2 right-2 p-4 -translate-y-1/2"
+                  @click="cancelHandler"
                 >
                   <span class="transition-all md:group-hover:scale-125 material-icons">close</span>
                 </button>
@@ -132,7 +132,7 @@ export default {
     },
     messageClass: {
       type: String,
-      default: 'text-2xl font-bold text-myBrown md:text-3xl',
+      default: 'text-2xl font-bold text-myBrown md:text-3xl line-clamp-2',
     },
     confirmText: {
       type: String,

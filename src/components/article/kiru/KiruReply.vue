@@ -24,7 +24,10 @@
               class="block overflow-hidden shrink-0 w-16 h-16 rounded-full select-none"
             >
               <img
-                v-src="`https://kirukiru.rocket-coding.com/Pic/${messageMemberPic}`"
+                v-my-src="{
+                  name: messageMemberPic,
+                  folder: 'Pic',
+                }"
                 class="object-cover w-full h-full scale-[102%] load"
                 alt=""
               >

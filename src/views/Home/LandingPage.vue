@@ -65,7 +65,10 @@
       <div class="overflow-hidden col-span-2 rounded-b-2xl border border-myBrown drop-shadow md:col-span-1">
         <div class="aspect-w-16 aspect-h-9 md:aspect-w-4 md:aspect-h-3">
           <img
-            v-src="`https://kirukiru.rocket-coding.com/images/${mainFeature?.firstPhoto}`"
+            v-my-src="{
+              name: mainFeature?.firstPhoto,
+              folder: 'images',
+            }"
             class="object-cover object-center w-full h-full load"
             alt=""
           >

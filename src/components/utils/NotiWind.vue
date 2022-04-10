@@ -86,7 +86,7 @@
   <!-- 一般通知 -->
   <NotificationGroup group="normal">
     <div
-      class="flex fixed inset-0 z-50 justify-center items-end py-16 px-4 pointer-events-none"
+      class="flex fixed inset-x-0 top-0 bottom-4 z-50 justify-center items-end py-16 px-4 pointer-events-none"
     >
       <div class="">
         <Notification

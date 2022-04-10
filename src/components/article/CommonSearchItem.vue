@@ -39,7 +39,10 @@
           >
             <div class="overflow-hidden shrink-0 w-8 h-8 rounded-full">
               <img
-                v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
+                v-my-src="{
+                  name: authorPic,
+                  folder: 'Pic',
+                }"
                 class="object-cover w-full h-full bg-center scale-[103%] load"
                 alt=""
               >

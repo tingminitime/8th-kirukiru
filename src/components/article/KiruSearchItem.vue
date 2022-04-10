@@ -9,7 +9,10 @@
       <div class="shrink-0 w-32 md:w-48">
         <div class="aspect-w-4 aspect-h-3 md:aspect-w-16 md:aspect-h-9">
           <img
-            v-src="`https://kirukiru.rocket-coding.com/Pic/${firstPhoto}`"
+            v-my-src="{
+              name: firstPhoto,
+              folder: 'Pic',
+            }"
             class="object-cover object-center w-full h-full rounded-lg load"
             alt=""
           >
@@ -56,7 +59,10 @@
           >
             <div class="overflow-hidden w-6 h-6 rounded-full md:w-8 md:h-8">
               <img
-                v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
+                v-my-src="{
+                  name: authorPic,
+                  folder: 'Pic',
+                }"
                 class="object-cover w-full h-full bg-center scale-[103%] load"
                 alt=""
               >

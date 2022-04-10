@@ -8,7 +8,10 @@
           :to="{ name: 'AuthorDetail', params: { authorId: username } }"
         >
           <img
-            v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
+            v-my-src="{
+              name: authorPic,
+              folder: 'Pic',
+            }"
             class="object-cover w-full h-full bg-center scale-[103%] load"
             alt=""
           >
@@ -127,10 +130,8 @@ export default {
     })
     tippy(this.$refs.copylink, {
       async onTrigger(instance, event) {
-        console.log(instance, event)
         const clipboardObj = navigator.clipboard
         await navigator.clipboard.writeText(location.href)
-        console.log(clipboardObj)
         setTimeout(() => {
           instance.hide()
         }, 2000)

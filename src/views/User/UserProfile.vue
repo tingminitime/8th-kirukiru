@@ -201,6 +201,7 @@ export default {
             group: 'error',
             title: '上傳圖片失敗 !',
           })
+          this.newAvatarName = 'origin.jpg'
           this.articleVm.firstPhoto = name
         }
       }).catch(error => console.log(error))

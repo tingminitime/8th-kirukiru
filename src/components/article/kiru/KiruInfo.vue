@@ -8,7 +8,10 @@
     >
       <div class="aspect-w-16 aspect-h-9">
         <img
-          v-src="coverUrl"
+          v-my-src="{
+            name: firstPhoto,
+            folder: 'Pic',
+          }"
           class="object-cover object-center w-full h-full bg-center transition-opacity duration-300 cover load"
           alt=""
         >
@@ -111,16 +114,6 @@ export default {
       default: 0,
     }
   },
-  data() {
-    return {
-      coverUrl: '',
-    }
-  },
-  watch: {
-    firstPhoto(newVal) {
-      this.coverUrl = `https://kirukiru.rocket-coding.com/Pic/${newVal}`
-    },
-  }
 }
 </script>
 

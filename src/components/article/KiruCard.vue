@@ -7,7 +7,10 @@
       <div class="max-w-[248px] border border-myBrown">
         <div class="transition-all aspect-w-16 aspect-h-9 md:brightness-95 md:group-hover:brightness-100">
           <img
-            v-src="`https://kirukiru.rocket-coding.com/Pic/${firstPhoto}`"
+            v-my-src="{
+              name: firstPhoto,
+              folder: 'Pic',
+            }"
             class="object-cover object-center w-full h-full load"
             alt=""
           >
@@ -16,30 +19,33 @@
       <div class="flex justify-between items-center mt-2">
         <!-- 作者資訊 -->
         <router-link
-          class="flex gap-2 items-center"
+          class="flex gap-2 items-center text-myBrown hover:text-myOrange"
           :to="{ name: 'AuthorDetail', params: { authorId: username } }"
         >
           <div class="overflow-hidden w-8 h-8 rounded-full md:w-8 md:h-8">
             <img
-              v-src="`https://kirukiru.rocket-coding.com/Pic/${authorPic}`"
+              v-my-src="{
+                name: authorPic,
+                folder: 'Pic',
+              }"
               class="object-cover w-full h-full bg-center scale-[103%] load"
               alt=""
             >
           </div>
-          <p class="text-sm text-myBrown line-clamp-1">
+          <p class="text-sm line-clamp-1">
             {{ author }}
           </p>
         </router-link>
         <div class="flex gap-4 justify-between px-2">
           <!-- 喜歡 -->
-          <div class="flex items-center text-myBrown hover:text-myOrange">
+          <div class="flex items-center text-myBrown">
             <span class="inline-block px-0.5 text-sm align-middle material-icons">favorite_border</span>
             <span class="inline-block px-0.5 text-sm align-middle">{{ lovecount }}</span>
           </div>
           <!-- 收藏 -->
           <div
             v-if="collectionCount !== 0"
-            class="flex items-center text-myBrown hover:text-myOrange"
+            class="flex items-center text-myBrown"
           >
             <span class="inline-block px-0.5 text-sm align-middle scale-110 material-icons-outlined">bookmark_border</span>
             <span class="inline-block px-0.5 text-sm align-middle">{{ collectionCount }}</span>

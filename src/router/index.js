@@ -54,6 +54,24 @@ const routes = [
         },
         meta: { requiresAuth: false, navbar: true, recordPath: false },
       },
+      // 註冊完成頁面
+      {
+        path: 'signup/complete',
+        name: 'SignUpComplete',
+        components: {
+          default: () => import('@/views/SignUpComplete.vue')
+        },
+        meta: { requiresAuth: false, navbar: true, recordPath: false },
+      },
+      // 忘記密碼頁面
+      {
+        path: 'forgot',
+        name: 'ForgotPassword',
+        components: {
+          default: () => import('@/views/Sign/ForgotPassword.vue')
+        },
+        meta: { requiresAuth: false, navbar: true, recordPath: false },
+      },
       // 文章新增 / 編輯
       {
         path: 'editor',

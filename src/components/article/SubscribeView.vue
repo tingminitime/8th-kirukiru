@@ -14,7 +14,10 @@
         :to="{ name: 'AuthorDetail', params: { authorId: Username } }"
       >
         <img
-          v-src="`https://kirukiru.rocket-coding.com/Pic/${Userpic}`"
+          v-my-src="{
+            name: Userpic,
+            folder: 'Pic',
+          }"
           class="object-cover w-full h-full bg-center scale-[103%] load"
           alt=""
         >

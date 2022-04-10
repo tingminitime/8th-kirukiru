@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full">
+  <div class="relative w-full min-h-[726px]">
     <h2 class="mb-4 text-2xl font-bold text-myBrown">
       我的方案
     </h2>
     <!-- 開通方案 -->
     <div
-      v-if="!openPlan"
+      v-if="!openPlan && !isLoading"
       class="py-4 text-myBrown"
     >
       <p class="py-2 px-4 mb-4 font-medium text-myOrange bg-myOrange/20 rounded-lg">
@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <div v-if="getDataComplete">
+    <div v-if="getDataComplete && !isLoading">
       <!-- 已開通方案 -->
       <div>
         <p class="py-2 px-4 mb-8 font-medium text-myOrange bg-myOrange/20 rounded-lg">
@@ -144,11 +144,23 @@
       v-bind="alertInfo"
       @alert-confirm="changePlanInfoHandler"
     ></AlertModal>
+    <!-- 局部 Loading -->
+    <Loading
+      v-model:active="isLoading"
+      :is-full-page="false"
+      background-color="#EDEDEB"
+    >
+      <GlobalLoading
+        class="la-2x"
+        :show="isLoading"
+      ></GlobalLoading>
+    </Loading>
   </div>
 </template>
 
 <script>
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
+import Loading from 'vue-loading-overlay'
 import AlertModal from '@/components/utils/AlertModal.vue'
 import { mapState } from 'vuex'
 import { useField } from 'vee-validate'
@@ -165,6 +177,7 @@ export default {
   name: 'UserPlan',
   components: {
     DynamicTextarea,
+    Loading,
     AlertModal,
   },
   data() {
@@ -186,6 +199,7 @@ export default {
       planInfoError,
       alertInfo: null,
       subscribeCount: 0,
+      isLoading: false,
     }
   },
   computed: {
@@ -196,26 +210,6 @@ export default {
       return Math.floor(this.subscribeCount * this.planPrice)
     },
   },
-  watch: {
-    // userInfo: {
-    //   handler(newInfo) {
-    //     if (Object.keys(newInfo).length !== 0) {
-    //       getMyPlan().then(res => {
-    //         console.log('取得我的方案: ', res)
-    //         if (res.data.success) {
-    //           this.myPlan = res.data.data
-    //         } else {
-    //           this.$notify({
-    //             group: 'error',
-    //             title: '我的方案取得失敗'
-    //           })
-    //         }
-    //       })
-    //     }
-    //   },
-    //   immediate: true,
-    // },
-  },
   created() {
     this.getMyPlanHandler()
     this.getSubscribeCount()
@@ -223,6 +217,7 @@ export default {
   methods: {
     // 取得方案內容
     getMyPlanHandler() {
+      this.isLoading = true
       getMyPlan().then(res => {
         console.log('取得我的方案: ', res)
         if (res.data.success) {
@@ -233,10 +228,12 @@ export default {
         } else {
           this.openPlan = false
         }
+        this.isLoading = false
       }).catch(error => console.error(error))
     },
     // 開通方案
     openPlanHandler() {
+      this.isLoading = true
       openMyPlan().then(res => {
         if (res.data.success) {
           this.$notify({
@@ -253,6 +250,7 @@ export default {
           })
           this.openPlan = false
         }
+        this.isLoading = false
       }).catch(error => console.error(error))
     },
     togglePriceChange() {

@@ -26,7 +26,10 @@
           class="shrink-0 w-full border-b border-myBrown/60 aspect-w-16 aspect-h-9 md:w-1/2 md:border-r md:border-b-0 md:aspect-w-12 md:aspect-h-4"
         >
           <img
-            v-src="`https://kirukiru.rocket-coding.com/Pic/${tool.secPhoto}`"
+            v-my-src="{
+              name: tool.secPhoto,
+              folder: 'Pic',
+            }"
             class="object-cover absolute tools load"
             alt=""
           >
