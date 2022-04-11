@@ -58,7 +58,7 @@
 <script>
 import dayjs from 'dayjs'
 import { ElPagination } from 'element-plus'
-import CommonSearchItem from '@/components/article/CommonSearchItem.vue'
+import CommonSearchItem from '@/components/article/utils/CommonSearchItem.vue'
 import {
   getAuthorPublishCommon,
 } from '@api'
@@ -137,6 +137,7 @@ export default {
             group: 'error',
             title: '作者發布的一般文章取得失敗',
           })
+          this.publishCommon = []
         }
         this.isLoading = false
       }).catch(error => console.error(error))

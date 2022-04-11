@@ -37,7 +37,7 @@
 
 <script>
 import { ElPagination } from 'element-plus'
-import KiruSearchItem from '@/components/article/KiruSearchItem.vue'
+import KiruSearchItem from '@/components/article/utils/KiruSearchItem.vue'
 import {
   searchKiru,
 } from '@api'

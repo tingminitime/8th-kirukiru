@@ -99,7 +99,7 @@
             class="font-bold text-myBrown"
             :to="{ name: 'SignIn' }"
           >
-            點我登入
+            登入
           </router-link>
         </div>
       </div>
@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import MobileNavbar from '@/components/MobileNavbar.vue'
-import UserAvatar from '@/components/UserAvatar.vue'
+import MobileNavbar from '@/components/nav/MobileNavbar.vue'
+import UserAvatar from '@/components/nav/UserAvatar.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {

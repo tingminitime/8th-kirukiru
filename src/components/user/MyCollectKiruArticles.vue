@@ -22,7 +22,7 @@
         :page-size="paginationVm.pageSize"
         :pager-count="7"
         :total="paginationVm.total"
-        :hide-on-single-page="false"
+        :hide-on-single-page="true"
       ></ElPagination>
     </div>
     <!-- 若沒有文章 -->

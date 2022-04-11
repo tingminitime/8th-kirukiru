@@ -65,7 +65,7 @@
 <script>
 import dayjs from 'dayjs'
 import { ElPagination } from 'element-plus'
-import KiruSearchItem from '@/components/article/KiruSearchItem.vue'
+import KiruSearchItem from '@/components/article/utils/KiruSearchItem.vue'
 import {
   getAuthorCollectKiru,
 } from '@api'
@@ -143,6 +143,7 @@ export default {
           this.collectKiru = res.data.data
         } else {
           this.isOpen = false
+          this.collectKiru = []
           console.warn(res)
         }
         this.isLoading = false

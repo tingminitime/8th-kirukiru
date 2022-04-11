@@ -1,7 +1,7 @@
 <template>
   <div class="px-2 mx-auto">
     <Swiper
-      v-if="kiruInfo.length !== 0"
+      v-if="commonInfo.length !== 0"
       class="mySwiper"
       :modules="modules"
       :slides-per-view="'auto'"
@@ -12,15 +12,15 @@
       }"
     >
       <SwiperSlide
-        v-for="article in kiruInfo"
+        v-for="article in commonInfo"
         :key="article.artId"
-        class="kiruCard-slide"
+        class="normalCard-slide"
       >
-        <KiruCard
+        <CommonCard
           v-bind="article"
           :key="article.artId"
           class="w-80 scale-95"
-        ></KiruCard>
+        ></CommonCard>
       </SwiperSlide>
     </Swiper>
   </div>
@@ -29,19 +29,19 @@
 <script>
 import { Pagination, Navigation, A11y } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import KiruCard from '@/components/article/KiruCard.vue'
+import CommonCard from '@/components/article/utils/CommonCard.vue'
 import 'swiper/css/bundle'
 import 'swiper/css/pagination'
 
 export default {
-  name: 'KiruCardSwiper',
+  name: 'CommonCardSwiper',
   components: {
     Swiper,
     SwiperSlide,
-    KiruCard,
+    CommonCard,
   },
   props: {
-    kiruInfo: {
+    commonInfo: {
       type: Array,
       default: () => []
     },
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="sass" scope>
-  .kiruCard-slide
+  .normalCard-slide
     width: auto
     padding: 8px 0 24px 0
 </style>

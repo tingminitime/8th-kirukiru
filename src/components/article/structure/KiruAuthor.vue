@@ -73,8 +73,8 @@
 import tippy from 'tippy.js'
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/animations/scale-subtle.css'
-import AddLove from '@/components/article/AddLove.vue'
-import AddCollection from '@/components/article/AddCollection.vue'
+import AddLove from '@/components/article/utils/AddLove.vue'
+import AddCollection from '@/components/article/utils/AddCollection.vue'
 
 export default {
   name: 'KiruAuthor',

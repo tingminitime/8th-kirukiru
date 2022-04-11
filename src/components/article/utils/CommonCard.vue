@@ -66,7 +66,7 @@
 
 <script>
 import { convert } from 'html-to-text'
-import PayArticleTag from '@/components/article/PayArticleTag.vue'
+import PayArticleTag from '@/components/article/utils/PayArticleTag.vue'
 
 export default {
   name: 'CommonCard',

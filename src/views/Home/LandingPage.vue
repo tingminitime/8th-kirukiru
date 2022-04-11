@@ -253,10 +253,10 @@
 <script>
 import { convert } from 'html-to-text'
 import MainBanner from '@/components/home/MainBanner.vue'
-import KiruCard from '@/components/article/KiruCard.vue'
-import CommonCard from '@/components/article/CommonCard.vue'
-import KiruCardSwiper from '@/components/article/KiruCardSwiper.vue'
-import CommonCardSwiper from '@/components/article/CommonCardSwiper.vue'
+import KiruCard from '@/components/article/utils/KiruCard.vue'
+import CommonCard from '@/components/article/utils/CommonCard.vue'
+import KiruCardSwiper from '@/components/article/utils/KiruCardSwiper.vue'
+import CommonCardSwiper from '@/components/article/utils/CommonCardSwiper.vue'
 import {
   getNewKiruArticle,
   getNewCommonArticle,
