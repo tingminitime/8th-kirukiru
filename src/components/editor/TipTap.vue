@@ -142,13 +142,6 @@
       </Menu>
     </div>
     <div>
-      <!-- Image -->
-      <!-- <button
-        class="editorBubbleBtn"
-        @click="addImage"
-      >
-        <span class="text-xl text-white align-middle material-icons">image</span>
-      </button> -->
     </div>
     <EditorContent
       class="p-2 rounded-md border-2 border-myBrown"
@@ -247,13 +240,20 @@ export default {
   data() {
     return {
       editor: null,
+      isFirstLoadCotent: false,
     }
   },
   watch: {
-    modelValue(newVal) {
-      const isSame = this.editor.getHTML() === newVal
-      if (isSame) return
-      this.editor.commands.setContent(newVal, false)
+    modelValue: {
+      handler(newVal, oldValue) {
+        if (!this.isFirstLoadCotent) {
+          this.editor.commands.setContent(newVal, false)
+          this.isFirstLoadCotent = true
+        }
+        let wordCount = this.editor.storage.characterCount.characters()
+        this.$emit('word-count', wordCount)
+        this.$emit('check-empty', this.editor.isEmpty)
+      },
     }
   },
   mounted() {
@@ -268,10 +268,7 @@ export default {
       },
       // 雙向綁定
       onUpdate() {
-        let wordCount = vm.editor.storage.characterCount.characters()
         vm.$emit('update:modelValue', vm.editor.getHTML())
-        vm.$emit('word-count', wordCount)
-        vm.$emit('check-empty', vm.editor.isEmpty)
       },
       // 擴充功能
       extensions: [

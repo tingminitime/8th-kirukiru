@@ -8,8 +8,8 @@
     >
       <div class="flex border border-myBrown/20">
         <!-- 序號 -->
-        <div class="flex justify-center items-center w-16">
-          <span class="text-4xl font-bold text-myBrown -translate-y-1.5 md:text-5xl">
+        <div class="flex shrink-0 justify-center items-center w-20">
+          <span class="text-4xl font-bold text-myBrown md:text-5xl">
             {{ i + 1 < 10 ? `0${i + 1}` : i + 1 }}
           </span>
         </div>
@@ -23,7 +23,7 @@
         <!-- 圖片 -->
         <div
           v-if="item.thirdPhoto !== '.'"
-          class="w-64 h-64 border-l border-myBrown/20"
+          class="shrink-0 w-64 h-64 border-l border-myBrown/20"
         >
           <img
             v-my-src="{

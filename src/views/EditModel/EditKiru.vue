@@ -405,7 +405,10 @@ export default {
               name: this.articleVm.isPush ? 'ArticleKiru' : 'UserDetail',
               params: this.articleVm.isPush
                 ? { articleId: res.data.artId }
-                : { userId: this.$store.state.userInfo.Username },
+                : {
+                  userId: this.$store.state.userInfo.Username,
+                  target: 'articles',
+                },
             }
           }
           this.alertInfo = alertInfo
@@ -431,13 +434,29 @@ export default {
       editKiruArticle(this.articleVm).then(res => {
         console.log('編輯成功: ', res)
         if (res.data.success) {
-          const alertInfo = {
-            message: '切切已儲存 !',
-            confirmText: '回到個人主頁',
-            confirmMode: 'replace',
-            confirmTodo: {
-              name: 'User',
-              params: { userId: this.$store.state.userInfo.Username },
+          let alertInfo = {}
+          if (this.articleVm.isPush) {
+            alertInfo = {
+              message: '文章已發布 !',
+              confirmText: '去看內文',
+              confirmMode: 'replace',
+              confirmTodo: {
+                name: 'ArticleKiru',
+                params: { articleId: this.articleId },
+              }
+            }
+          } else {
+            alertInfo = {
+              message: '文章已儲存 !',
+              confirmText: '回到個人主頁',
+              confirmMode: 'replace',
+              confirmTodo: {
+                name: 'UserDetail',
+                params: {
+                  userId: this.$store.state.userInfo.Username,
+                  target: 'articles',
+                },
+              }
             }
           }
           this.alertInfo = alertInfo

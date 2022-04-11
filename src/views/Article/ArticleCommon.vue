@@ -12,12 +12,15 @@
   ></KiruAuthor>
   <!-- 文章頂部資訊 -->
   <KiruInfo
-    class="p-4 mb-8 w-full"
+    class="p-4 w-full"
     v-bind="articleInfo"
     :art-artlog="artArtlog"
     :kiru-count="articleVm.mArrayList?.length"
     :show-cover="false"
   ></KiruInfo>
+  <div class="px-4 mb-8">
+    <div class="border-b border-black/10"></div>
+  </div>
   <!-- 未訂閱顯示 -->
   <div
     v-if="(!articleVm.isFree && !checkSubResult) && isArticleVmLoading"

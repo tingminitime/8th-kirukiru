@@ -91,14 +91,17 @@ export default {
         this.$emit('kiru-content', newVal)
       }
     },
-    'origMain': {
-      handler(newVal) {
-        if (newVal) {
-          this.content = newVal
-        }
-      },
-      immediate: true,
-    }
+    // 'origMain': {
+    //   handler(newVal) {
+    //     if (newVal) {
+    //       this.content = newVal
+    //     }
+    //   },
+    //   immediate: true,
+    // }
+  },
+  mounted() {
+    this.content = this.origMain
   },
   methods: {
     removeItem() {
