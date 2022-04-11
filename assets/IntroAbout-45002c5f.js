@@ -1,0 +1,1 @@
+import{_ as r}from"./index-7ca2f26b.js";import{o,c as a}from"./vendor-358810ac.js";var n=r({name:"IntroAbout"},[["render",function(r,n,t,e,s,u){return o(),a("div",null,"About")}]]);export{n as default};
