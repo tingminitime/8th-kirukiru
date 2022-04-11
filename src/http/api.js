@@ -139,6 +139,11 @@ export const deleteMyCommonArticle = (articleId) =>{
   return http.delete(`api/ArticleNormal/DeleteArticleNormal?artId=${articleId}`)
 }
 
+// 修改會員公開收藏設定
+export const changeMyCollectionsOpen = (isOpen) => {
+  return http.put(`api/Member/ChangeOpenCollect?opencollect=${isOpen}`)
+}
+
 // -------- 金流 --------
 export const paySubscribe = (params) => {
   return http.post(`api/Bank/SpgatewayPayBill?${parseParams(params)}`)

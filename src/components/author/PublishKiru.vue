@@ -58,7 +58,7 @@
 <script>
 import dayjs from 'dayjs'
 import { ElPagination } from 'element-plus'
-import KiruSearchItem from '@/components/article/KiruSearchItem.vue'
+import KiruSearchItem from '@/components/article/utils/KiruSearchItem.vue'
 import {
   getAuthorPublishKiru,
 } from '@api'
@@ -138,6 +138,7 @@ export default {
             group: 'error',
             title: '作者發布的切切取得失敗',
           })
+          this.this.publishKiru = []
         }
         this.isLoading = false
       }).catch(error => console.error(error))

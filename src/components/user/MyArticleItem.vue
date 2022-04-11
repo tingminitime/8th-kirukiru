@@ -8,7 +8,7 @@
           target="_blank"
           :title="title"
           :to="{
-            name: 'ArticleKiru',
+            name: titleLink,
             params: {
               articleId: artId,
             },
@@ -145,6 +145,10 @@ export default {
       default: false,
     },
     editLink: {
+      type: String,
+      default: '',
+    },
+    titleLink: {
       type: String,
       default: '',
     },

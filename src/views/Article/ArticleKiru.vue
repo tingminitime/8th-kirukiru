@@ -173,14 +173,14 @@
 
 <script>
 import dayjs from 'dayjs'
-import KiruAuthor from '@/components/article/kiru/KiruAuthor.vue'
-import KiruInfo from '@/components/article/kiru/KiruInfo.vue'
-import KiruTools from '@/components/article/kiru/KiruTools.vue'
-import KiruContent from '@/components/article/kiru/KiruContent.vue'
-import KiruMission from '@/components/article/kiru/KiruMission.vue'
-import KiruCard from '@/components/article/KiruCard.vue'
-import KiruReply from '@/components/article/kiru/KiruReply.vue'
-import SubscribeView from '@/components/article/SubscribeView.vue'
+import KiruAuthor from '@/components/article/structure/KiruAuthor.vue'
+import KiruInfo from '@/components/article/structure/KiruInfo.vue'
+import KiruTools from '@/components/article/structure/KiruTools.vue'
+import KiruContent from '@/components/article/structure/KiruContent.vue'
+import KiruMission from '@/components/article/structure/KiruMission.vue'
+import KiruCard from '@/components/article/utils/KiruCard.vue'
+import KiruReply from '@/components/article/structure/KiruReply.vue'
+import SubscribeView from '@/components/article/utils/SubscribeView.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
   getKiruArticle,

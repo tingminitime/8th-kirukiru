@@ -65,7 +65,7 @@
 <script>
 import dayjs from 'dayjs'
 import { ElPagination } from 'element-plus'
-import CommonSearchItem from '@/components/article/CommonSearchItem.vue'
+import CommonSearchItem from '@/components/article/utils/CommonSearchItem.vue'
 import {
   getAuthorCollectCommon,
 } from '@api'
@@ -143,6 +143,7 @@ export default {
           this.collectCommon = res.data.data
         } else {
           this.isOpen = false
+          this.collectCommon = []
           console.warn(res)
         }
         this.isLoading = false

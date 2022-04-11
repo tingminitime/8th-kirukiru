@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import TopNavbar from '@/components/TopNavbar.vue'
-import FooterInfo from '@/components/FooterInfo.vue'
+import TopNavbar from '@/components/nav/TopNavbar.vue'
+import FooterInfo from '@/components/footer/FooterInfo.vue'
 import SearchModal from '@/components/utils/SearchModal.vue'
 import MaskBlack from '@/components/utils/MaskBlack.vue'
 import Loading from 'vue-loading-overlay'

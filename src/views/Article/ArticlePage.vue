@@ -90,8 +90,8 @@
 
 <script>
 import ScrollToTop from '@/components/utils/ScrollToTop.vue'
-import AddLove from '@/components/article/AddLove.vue'
-import AddCollection from '@/components/article/AddCollection.vue'
+import AddLove from '@/components/article/utils/AddLove.vue'
+import AddCollection from '@/components/article/utils/AddCollection.vue'
 import { mapState } from 'vuex'
 
 export default {

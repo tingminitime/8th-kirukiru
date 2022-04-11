@@ -41,7 +41,7 @@ const routes = [
         path: 'signin',
         name: 'SignIn',
         components: {
-          default: () => import('@/views/SignIn.vue'),
+          default: () => import('@/views/Sign/SignIn.vue'),
         },
         meta: { requiresAuth: false, navbar: true, recordPath: true },
       },
@@ -50,7 +50,7 @@ const routes = [
         path: 'signup',
         name: 'SignUp',
         components: {
-          default: () => import('@/views/SignUp.vue')
+          default: () => import('@/views/Sign/SignUp.vue')
         },
         meta: { requiresAuth: false, navbar: true, recordPath: false },
       },
@@ -59,7 +59,7 @@ const routes = [
         path: 'signup/complete',
         name: 'SignUpComplete',
         components: {
-          default: () => import('@/views/SignUpComplete.vue')
+          default: () => import('@/views/Sign/SignUpComplete.vue')
         },
         meta: { requiresAuth: false, navbar: true, recordPath: false },
       },

@@ -10,6 +10,7 @@
         :show-edit="true"
         :show-delete="true"
         edit-link="EditNormal"
+        title-link="ArticleCommon"
       ></MyArticleItem>
     </ul>
     <!-- Pagination -->
@@ -100,6 +101,7 @@ export default {
             group: 'error',
             title: '一般文章取得失敗'
           })
+          this.commonArticleList = []
         }
         this.isLoading = false
         this.$emit('is-loading', false)

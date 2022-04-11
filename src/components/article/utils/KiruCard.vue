@@ -68,6 +68,10 @@
         ></span>
       </div>
     </div>
+    <!-- 文章分類 -->
+    <div class="absolute top-0 right-2">
+      <span class="text-xs font-semibold text-myBrown/60">{{ artArtlog }}</span>
+    </div>
     <!-- 標題及文章部分內容 -->
     <div class="flex absolute top-1/2 right-0 z-20 flex-col gap-2 justify-start items-end w-full h-full max-h-[136px] translate-y-[-60%]">
       <div class="py-1 px-2 w-4/6 min-h-[58px] bg-white border-y border-l border-myBrown drop-shadow-md">
@@ -89,7 +93,7 @@
 
 <script>
 import { convert } from 'html-to-text'
-import PayArticleTag from '@/components/article/PayArticleTag.vue'
+import PayArticleTag from '@/components/article/utils/PayArticleTag.vue'
 
 export default {
   name: 'KiruCard',
@@ -110,6 +114,10 @@ export default {
       default: '',
     },
     introduction: {
+      type: String,
+      default: '',
+    },
+    artArtlog: {
       type: String,
       default: '',
     },

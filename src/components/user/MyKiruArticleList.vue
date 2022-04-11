@@ -10,6 +10,7 @@
         :show-edit="true"
         :show-delete="true"
         edit-link="EditKiru"
+        title-link="ArticleKiru"
       ></MyArticleItem>
     </ul>
     <!-- Pagination -->
@@ -100,6 +101,7 @@ export default {
             group: 'error',
             title: '切切文章取得失敗'
           })
+          this.kiruArticleList = []
         }
         this.isLoading = false
         this.$emit('is-loading', false)

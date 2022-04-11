@@ -9,6 +9,7 @@
         :show-edit="false"
         :show-delete="true"
         :show-author="true"
+        title-link="ArticleCommon"
         @delete-article="deleteMyCollectionHandler"
       ></MyArticleItem>
     </ul>
@@ -21,7 +22,7 @@
         :page-size="paginationVm.pageSize"
         :pager-count="7"
         :total="paginationVm.total"
-        :hide-on-single-page="false"
+        :hide-on-single-page="true"
       ></ElPagination>
     </div>
     <!-- 若沒有文章 -->

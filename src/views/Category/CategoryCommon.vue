@@ -37,7 +37,7 @@
 
 <script>
 import { ElPagination } from 'element-plus'
-import CommonSearchItem from '@/components/article/CommonSearchItem.vue'
+import CommonSearchItem from '@/components/article/utils/CommonSearchItem.vue'
 import {
   getRelatedCommon,
 } from '@api'

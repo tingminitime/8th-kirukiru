@@ -1,7 +1,7 @@
 <template>
   <div
     v-invalid="isInvalidAniProcess"
-    class="overflow-hidden h-screen ring-myBrown md:w-96 md:h-auto md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl"
+    class="overflow-hidden h-full ring-myBrown md:w-96 md:h-auto md:rounded-xl md:ring-2 md:shadow-xl md:drop-shadow-2xl"
     @animationend.stop="animationEndHandler"
   >
     <div class="py-6 border-b-myBrown md:py-4 md:bg-myYellow md:border-b-2">
@@ -9,7 +9,7 @@
         切切會員註冊
       </h1>
     </div>
-    <div class="overflow-x-hidden h-[80vh] bg-myGray md:h-[60vh] ">
+    <div class="overflow-x-hidden h-auto bg-myGray md:h-[60vh] ">
       <div class="px-10 pb-6 md:pt-10 md:pb-8">
         <v-form
           :validation-schema="schema"

@@ -49,6 +49,9 @@ export default ({ mode }) => {
           drop_console: true,
           drop_debugger: true,
         },
+        parse: {
+          html5_comments: false,
+        },
       },
       rollupOptions: {
         output: {
