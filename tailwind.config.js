@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'myBlack': '#434343',
         'myBrown': '#553529',
         'myYellow': '#FFB11B',
         'myLightenYellow': '#ffc01a',

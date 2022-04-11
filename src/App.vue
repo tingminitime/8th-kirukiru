@@ -35,7 +35,7 @@
 <script>
 import TopNavbar from '@/components/nav/TopNavbar.vue'
 import FooterInfo from '@/components/footer/FooterInfo.vue'
-import SearchModal from '@/components/utils/SearchModal.vue'
+import SearchModal from '@/components/search/SearchModal.vue'
 import MaskBlack from '@/components/utils/MaskBlack.vue'
 import Loading from 'vue-loading-overlay'
 import NotiWind from '@/components/utils/NotiWind.vue'

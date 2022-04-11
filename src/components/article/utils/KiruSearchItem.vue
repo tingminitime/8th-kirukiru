@@ -38,7 +38,7 @@
               time: artInitDate,
               format: 'YYYY.MM.DD'
             }"
-            class="text-sm tracking-wide text-myBrown"
+            class="text-xs tracking-wide text-myBrown md:text-sm"
           ></span>
         </div>
         <!-- 部分文章文字 -->

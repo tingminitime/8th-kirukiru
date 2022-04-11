@@ -20,30 +20,13 @@
         <div
           class="fixed top-16 left-1/2 z-40 w-[75vw] max-w-3xl text-left bg-white rounded-xl shadow-xl transition-all -translate-x-1/2 sm:w-[60vw] md:w-[50vw]"
         >
-          <!-- <DialogTitle
-            as="h2"
-            class="relative py-4 text-center bg-myYellow border-b border-myBrown"
-          >
-            <span
-              v-show="showTitle"
-              class="text-2xl font-bold leading-6 text-myBrown md:text-3xl"
-            >{{ titleText }}</span>
-            <button
-              v-if="showClose"
-              type="button"
-              class="group absolute top-1/2 right-4 p-4 -translate-y-1/2"
-              @click="closeModal"
-            >
-              <span class="transition-all md:group-hover:scale-125 material-icons">close</span>
-            </button>
-          </DialogTitle> -->
           <!-- search 內容 -->
           <div class="flex flex-col gap-3 items-center py-4 transition-all md:py-6">
             <div class="flex gap-16 justify-between mb-2">
               <label
                 for="searchKeyword"
                 class="py-1.5 px-2 font-semibold text-myBrown rounded-xl transition-all cursor-pointer"
-                :class="{ 'ring-1 ring-myBrown': searchType === 'kiru' }"
+                :class="{ 'ring-1 ring-myBrown drop-shadow-lg bg-white': searchType === 'kiru' }"
                 @click="searchType = 'kiru'"
               >
                 切切文章
@@ -51,21 +34,13 @@
               <label
                 for="searchKeyword"
                 class="py-1.5 px-2 font-semibold text-myBrown rounded-xl transition-all cursor-pointer"
-                :class="{ 'ring-1 ring-myBrown': searchType === 'common' }"
+                :class="{ 'ring-1 ring-myBrown drop-shadow-lg bg-white': searchType === 'common' }"
                 @click="searchType = 'common'"
               >
                 一般文章
               </label>
             </div>
             <div class="flex flex-col gap-3 justify-center items-center md:grid md:grid-cols-4 md:px-8 md:w-full">
-              <!-- <input
-                id="searchKeyword"
-                v-model.trim="searchVm.keywords"
-                name="search"
-                type="search"
-                placeholder="搜尋"
-                class="w-full bg-myGray rounded-lg focus:border-myBrown focus:outline-none focus:ring-2 focus:ring-myYellow form-input"
-              > -->
               <!-- 搜尋功能 -->
               <div class="md:col-span-3">
                 <Combobox v-model="selected">

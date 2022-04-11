@@ -7,7 +7,7 @@
       class="px-8 my-4"
     >
       <FormInputSelect
-        v-model="filterCategoryId"
+        v-model="filterCategory"
         :options="articleCategories"
         key-prop="Name"
         label-prop="Name"
@@ -52,7 +52,7 @@ export default {
     FormInputSelect,
   },
   props: {
-    defaultSelect: {
+    defaultSelectId: {
       type: Number,
       default: 1,
     },
@@ -67,7 +67,7 @@ export default {
     }
   },
   computed: {
-    filterCategoryId: {
+    filterCategory: {
       get() {
         return this.selectCategory
       },
@@ -84,7 +84,7 @@ export default {
     this.getArticleCategories()
   },
   mounted() {
-    this.selectCategoryId = this.defaultSelect
+    this.selectCategoryId = this.defaultSelectId
     this.$emit('select', this.selectCategoryId)
   },
   beforeUnmount() {
@@ -94,6 +94,9 @@ export default {
     getArticleCategories() {
       getInterestList().then(res => {
         this.articleCategories = res.data
+        this.selectCategory = this.articleCategories.find(category => {
+          return category.Id === this.defaultSelectId
+        })
       }).catch(error => console.error(error))
     },
     selectHandler(categoryId) {

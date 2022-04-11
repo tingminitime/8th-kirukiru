@@ -317,6 +317,14 @@ const routes = [
           default: () => import('@/views/Intro/IntroPage.vue')
         },
         meta: { requiresAuth: false, navbar: true, recordPath: true },
+        props: {
+          default(route) {
+            return {
+              viewName: route.meta.view,
+              viewType: route.meta.viewType,
+            }
+          }
+        },
         children: [
           {
             path: 'about',
@@ -324,7 +332,7 @@ const routes = [
             components: {
               default: () => import('@/views/Intro/IntroAbout.vue')
             },
-            meta: { requiresAuth: false, navbar: true, recordPath: true },
+            meta: { requiresAuth: false, navbar: true, recordPath: true, noProgress: true, view: 'introAbout', viewType: 0 },
           },
           {
             path: 'faq',
@@ -332,7 +340,15 @@ const routes = [
             components: {
               default: () => import('@/views/Intro/IntroFaq.vue')
             },
-            meta: { requiresAuth: false, navbar: true, recordPath: true },
+            meta: { requiresAuth: false, navbar: true, recordPath: true, noProgress: true, view: 'introFaq', viewType: 1 },
+          },
+          {
+            path: 'team',
+            name: 'Team',
+            components: {
+              default: () => import('@/views/Intro/IntroTeam.vue')
+            },
+            meta: { requiresAuth: false, navbar: true, recordPath: true, noProgress: true, view: 'introTeam', viewType: 2 },
           },
         ],
       },
@@ -382,7 +398,7 @@ const Router = createRouter({
 Router.beforeEach((to, from, next) => {
   console.log('trigger beforeEach!', to, from)
   // 進度條開始
-  if (to.path !== from.path) {
+  if (to.path !== from.path && !to.meta.noProgress) {
     NProgress.start()
   }
 
