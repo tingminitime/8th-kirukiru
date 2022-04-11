@@ -209,7 +209,7 @@ export default {
     // 檢查訂閱狀態
     checkSub(authorAccount) {
       const checkSubList = this.userSubscribeList.some(author => {
-        return author.Author === authorAccount
+        return author.username === authorAccount
       })
       console.log('(作者頁面)檢查訂閱狀態: ', checkSubList)
       return checkSubList
