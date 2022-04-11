@@ -244,7 +244,7 @@
         v-model="articleVm.final"
         placeholder="補充事項、提醒、小撇步等等 _"
         custom-class="min-h-[6rem]"
-        word-limit="100"
+        word-limit="300"
         @word-count="artInfoCountHandler"
       ></TipTap>
     </div>
