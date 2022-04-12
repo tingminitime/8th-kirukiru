@@ -67,7 +67,7 @@
                 alt=""
               >
             </div>
-            <p class="text-xs font-semibold text-black/80 group-hover:text-myOrange md:text-sm">
+            <p class="text-xs font-semibold text-black/80 group-hover:text-myOrange line-clamp-1 md:text-sm">
               {{ author }}
             </p>
           </router-link>

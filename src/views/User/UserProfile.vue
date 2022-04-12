@@ -147,7 +147,7 @@ export default {
   emits: ['get-info'],
   data() {
     const nameSchema = Yup.object().shape({
-      'user-new-name': Yup.string().required(),
+      'user-new-name': Yup.string().required().max(15),
     })
 
     const { value:introValue, errorMessage:introError } = useField('user-introduction', Yup.string().nullable().max(300))
