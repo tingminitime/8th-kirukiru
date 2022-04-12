@@ -99,7 +99,7 @@ export default {
   data() {
     return {
       authorPlan: null,
-      payType: 'WEBATM',
+      payType: 'CREDIT',
       payData: [],
       tradeInfoValue: '',
       tradeShaValue: '',
