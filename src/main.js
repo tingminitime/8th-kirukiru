@@ -47,5 +47,6 @@ app.directive('my-src', mySrc)
 app.directive('src', src)
 app.directive('timeformat', timeformat)
 app.config.globalProperties.$scrollToTop = () => window.scrollTo(0,0)
+app.config.devtools = process.env.NODE_ENV === 'development'
 
 app.mount('#app')
