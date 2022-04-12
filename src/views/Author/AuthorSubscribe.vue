@@ -55,6 +55,7 @@
           <component
             :is="component"
             :type="type"
+            :check-account="checkAccount"
             @is-loading="isLoading = $event"
           ></component>
         </KeepAlive>
@@ -95,6 +96,10 @@ export default {
       type: [String, Number],
       default: '',
     },
+    checkAccount: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -102,6 +107,7 @@ export default {
       type: 'publish-kiru',
       component: 'PublishKiru',
       isLoading: false,
+      
     }
   },
   mounted() {

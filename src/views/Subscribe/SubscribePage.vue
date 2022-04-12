@@ -156,7 +156,6 @@ export default {
           this.$refs.tradeInfo.value = this.tradeInfoValue
           this.$refs.tradeSha.value = this.tradeShaValue
           console.log(data)
-          debugger
           this.$refs.subscribeSubmit.submit()
         } else {
           this.$notify({

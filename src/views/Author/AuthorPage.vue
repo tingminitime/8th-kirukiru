@@ -135,6 +135,7 @@
     <router-view
       :key="authorId"
       :author-id="authorId"
+      :check-account="checkAccountResult"
     ></router-view>
   </div>
 </template>
@@ -190,7 +191,7 @@ export default {
         this.checkSubResult = this.checkSub(this.authorId)
       },
       deep: true,
-      immediate: true,
+      // immediate: true,
     },
   },
   mounted() {

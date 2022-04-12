@@ -353,7 +353,7 @@ export default {
   methods: {
     checkSub(authorAccount) {
       const checkSubList = this.userSubscribeList.some(author => {
-        return author.Author === authorAccount
+        return author.username === authorAccount
       })
       console.log('(切切文章)檢查訂閱狀態: ', checkSubList)
       const checkAccount = this.$store.state.userInfo.Username === authorAccount

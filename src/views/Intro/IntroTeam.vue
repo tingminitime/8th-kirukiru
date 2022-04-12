@@ -16,7 +16,8 @@
           <span class="absolute -right-4 bottom-4 py-1 px-3 font-semibold text-myBrown bg-gray-100 border border-myBrown">彥儒</span>
         </div>
         <p class="px-2 pb-12 font-semibold text-black/80">
-          敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述 
+          我希望首頁有那個的感覺。<br>
+          幫我弄個噗拉噗拉的感覺。
         </p>
       </div>
       <!-- Tim -->
@@ -55,7 +56,10 @@
           <span class="absolute -right-4 bottom-4 py-1 px-3 font-semibold text-myBrown bg-gray-100 border border-myBrown">彥融</span>
         </div>
         <p class="px-2 pb-12 font-semibold text-black/80">
-          敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述敘述 
+          好code爛code，<br>
+          先跑再說。<br>
+          不管你要幾隻 API，<br>
+          我都開給你。
         </p>
       </div>
     </div>

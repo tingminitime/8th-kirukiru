@@ -81,6 +81,10 @@ export default {
       type: String,
       default: 'collect-common',
     },
+    checkAccount: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['is-loading'],
   data() {

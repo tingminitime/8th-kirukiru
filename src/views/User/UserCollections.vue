@@ -69,8 +69,9 @@ import MyCollectKiruArticles from '@/components/user/MyCollectKiruArticles.vue'
 import MyCollectCommonArticles from '@/components/user/MyCollectCommonArticles.vue'
 import {
   changeMyCollectionsOpen,
+  getUserInfo,
 } from '@api'
-import { mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'UserCollections',
@@ -97,6 +98,9 @@ export default {
     this.openMyCollections = this.userInfo.isCollect
   },
   methods: {
+    ...mapMutations([
+      'UPDATE_OPEN_COLLECTIONS',
+    ]),
     onChangeOpenMyCollections() {
       this.openMyCollections = !this.openMyCollections
       this.changeMyCollectionsOpenHandler(this.openMyCollections)
@@ -109,6 +113,7 @@ export default {
             group: 'normal',
             title: '修改成功',
           })
+          this.UPDATE_OPEN_COLLECTIONS(isOpen)
         } else {
           this.$notify({
             group: 'error',

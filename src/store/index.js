@@ -152,6 +152,10 @@ const store = createStore({
     UPDATE_COMMON_COLLECTIONS(state, payload) {
       state.userCommonCollections = payload
     },
+    // 更新收藏設定
+    UPDATE_OPEN_COLLECTIONS(state, payload) {
+      state.userInfo.isCollect = payload
+    },
   },
   actions: {
     // 取得使用者訂閱清單
