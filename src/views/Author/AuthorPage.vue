@@ -191,7 +191,7 @@ export default {
         this.checkSubResult = this.checkSub(this.authorId)
       },
       deep: true,
-      // immediate: true,
+      immediate: true,
     },
   },
   mounted() {
