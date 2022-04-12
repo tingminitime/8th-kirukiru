@@ -1,5 +1,6 @@
 # 切切 KiruKiru | 你的步驟生活寫作平台
 8th火箭隊專題發表作品，專題時程 2022/02 - 2022/04，隊員為小弟我、阿努、彥融。
+環境建置時有整理一篇流程筆記，[這邊查看 (Notion) ](https://hungry-wedge-881.notion.site/Vite-Vue3-Tailwind-CSS-e7a428bec0e740f587dc803db7106e46)。
 
 ### Framework
 - **Vitawind :** v2.0.0
