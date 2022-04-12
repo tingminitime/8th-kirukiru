@@ -1,1 +1,0 @@
-import{_ as r}from"./index-57869634.js";import{r as a,o as e,c as o,e as s}from"./vendor-358810ac.js";const t={class:"pb-24"};var n=r({name:"EditorPage"},[["render",function(r,n,i,c,d,m){const f=a("router-view");return e(),o("div",t,[s(f)])}]]);export{n as default};
