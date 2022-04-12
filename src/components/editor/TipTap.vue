@@ -166,6 +166,7 @@ import CharacterCount from '@tiptap/extension-character-count'
 import ListItem from '@tiptap/extension-list-item'
 import Image from '@tiptap/extension-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import HardBreak from '@tiptap/extension-hard-break'
 import lowlight from 'lowlight'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
@@ -307,6 +308,7 @@ export default {
           defaultLanguage: 'javascript',
           lowlight,
         }),
+        HardBreak,
         Image.configure({
           HTMLAttributes: {
             class: ''
