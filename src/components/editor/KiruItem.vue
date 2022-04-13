@@ -24,7 +24,7 @@
         word-limit="100"
         @word-count="kiruCountHandler"
       ></TipTap>
-      <span class="inline-block absolute right-0 bottom-0 py-0.5 px-1 text-xs text-myBrown rounded translate-y-full">字數 : {{ kiruCount }}</span>
+      <span class="inline-block absolute right-0 bottom-0 py-0.5 px-1 text-xs text-myBrown rounded translate-y-full">字數 : {{ kiruCount }} ( 上限 100 字元 )</span>
     </div>
     <!-- 移除欄位 -->
     <div class="flex justify-center self-stretch py-4 w-full sm:w-auto md:self-center md:bg-transparent">
@@ -80,25 +80,11 @@ export default {
     }
   },
   watch: {
-    // image(newVal) {
-    //   if (newVal) {
-    //     // this.$emit('kiru-img-upload', newVal.name)
-    //     this.sendImage(newVal.name)
-    //   }
-    // },
     content(newVal) {
       if (newVal) {
         this.$emit('kiru-content', newVal)
       }
     },
-    // 'origMain': {
-    //   handler(newVal) {
-    //     if (newVal) {
-    //       this.content = newVal
-    //     }
-    //   },
-    //   immediate: true,
-    // }
   },
   mounted() {
     this.content = this.origMain

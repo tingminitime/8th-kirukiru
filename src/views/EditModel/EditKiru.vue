@@ -102,11 +102,12 @@
         id="editor-kiru-introduction"
         class="py-4 mb-6"
       >
-        <div class="flex gap-2 items-center mb-2">
+        <div class="flex items-end mb-2">
           <h3 class="font-bold text-myBrown">
             切切敘述
           </h3>
-          <span class="py-0.5 px-2 text-sm text-white bg-myBrown rounded">字數 : {{ artInfoCount }}</span>
+          <span class="py-0.5 px-2 text-sm text-myBrown">( 上限 100 字元 )</span>
+          <span class="py-0.5 px-2 text-xs text-myBrown rounded">字數 : {{ artInfoCount }}</span>
         </div>
         <TipTap
           v-model="articleVm.introduction"

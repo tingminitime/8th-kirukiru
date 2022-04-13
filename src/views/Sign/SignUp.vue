@@ -25,7 +25,10 @@
         </div>
       </div>
     </div>
-    <p class="hidden absolute right-0 bottom-0 z-10 p-2 px-12 w-full font-bold text-right text-myBrown bg-myYellow md:block">
+    <p
+      v-if="!userSignInStatus"
+      class="hidden absolute right-0 bottom-0 z-10 p-2 px-12 w-full font-bold text-right text-myBrown bg-myYellow md:block"
+    >
       已經有帳號了 ? 
       <router-link
         class="text-xl hover:text-black"
@@ -39,11 +42,17 @@
 
 <script>
 import SignUpModal from '@/components/sign/SignUpModal.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SignUp',
   components: {
     SignUpModal,
+  },
+  computed: {
+    ...mapGetters([
+      'userSignInStatus',
+    ]),
   },
 }
 </script>

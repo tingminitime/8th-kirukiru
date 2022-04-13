@@ -42,6 +42,7 @@
           先去看看 👇
         </router-link>
         <router-link
+          v-if="!userSignInStatus"
           :to="{ name: 'SignUp' }"
           class="py-2 min-w-[224px] font-semibold text-center text-myBrown bg-myGray rounded-lg"
         >
@@ -264,6 +265,7 @@ import {
   getHotCommonArticle,
   getFeatureArticle,
 } from '@api'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'LandingPage',
@@ -300,6 +302,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'userSignInStatus',
+    ]),
     mainFeature() {
       return this.featureArticles[0]
     },

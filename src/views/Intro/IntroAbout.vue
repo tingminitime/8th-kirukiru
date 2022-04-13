@@ -85,17 +85,34 @@
         >
       </div>
       <router-link
+        v-if="!userSignInStatus"
         :to="{ name: 'SignUp' }"
         class="block py-2 min-w-[192px] font-bold text-center text-myBrown bg-myYellow rounded-lg transition-all md:hover:-translate-x-0.5 md:hover:-translate-y-0.5"
       >
         加入切切
+      </router-link>
+      <router-link
+        v-else
+        :to="{ name: 'UserDetail', params: { userId: userInfo.Username } }"
+        class="block py-2 min-w-[192px] font-bold text-center text-myBrown bg-myYellow rounded-lg transition-all md:hover:-translate-x-0.5 md:hover:-translate-y-0.5"
+      >
+        我的主頁
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'IntroAbout',
+  computed: {
+    ...mapState([
+      'userInfo',
+    ]),
+    ...mapGetters([
+      'userSignInStatus',
+    ]),
+  },
 }
 </script>
