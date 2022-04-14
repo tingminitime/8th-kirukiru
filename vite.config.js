@@ -11,9 +11,7 @@ export default ({ mode }) => {
     ...loadEnv(mode, process.cwd())
   }
   return defineConfig({
-    base: process.env.NODE_ENV === 'production'
-      ? process.env.VITE_REPO
-      : './',
+    base: './',
     plugins: [
       vue(),
       AutoImport({
