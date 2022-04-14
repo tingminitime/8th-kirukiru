@@ -106,14 +106,14 @@
           <h3 class="font-bold text-myBrown">
             切切敘述
           </h3>
-          <span class="py-0.5 px-2 text-sm text-myBrown">( 上限 100 字元 )</span>
-          <span class="py-0.5 px-2 text-xs text-myBrown rounded">字數 : {{ artInfoCount }}</span>
+          <span class="py-0.5 px-2 text-sm text-myBrown">( 上限 150 字元 )</span>
+          <span class="py-0.5 text-xs text-myBrown rounded">字數 : {{ artInfoCount }}</span>
         </div>
         <TipTap
           v-model="articleVm.introduction"
           placeholder="簡述一下這篇切切的內容吧 _"
           custom-class="min-h-[6rem]"
-          word-limit="100"
+          word-limit="150"
           @word-count="artInfoCountHandler"
         ></TipTap>
       </div>
