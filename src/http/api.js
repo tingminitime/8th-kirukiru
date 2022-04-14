@@ -70,12 +70,12 @@ export const getUserSubscribeList = (params) => {
 
 // 取得文章類別清單
 export const getInterestList = () => {
-  return http.get(`api/Test/GetArticlecategory`)
+  return http.get(`api/Back/GetArticlecategory`)
 }
 
 // 取得特定文章類別
 export const getCategoryName = (categoryId) => {
-  return http.get(`api/Test/GetArtlog?Artid=${categoryId}`)
+  return http.get(`api/Back/GetArtlog?Artid=${categoryId}`)
 }
 
 // 圖片上傳
