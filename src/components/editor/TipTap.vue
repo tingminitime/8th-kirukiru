@@ -87,19 +87,36 @@
         <span class="text-xl text-white align-middle material-icons">code</span>
       </button>
     </BubbleMenu>
-    <!-- 電腦版顯示 -->
-    <div
+    <!-- 電腦版顯示 Image -->
+    <div>
+      <FloatingMenu
+        v-if="editor"
+        class="editorBubble"
+        :editor="editor"
+        :tippy-options="{ duration: 100, offset: [40, 10] }"
+      >
+        <!-- Image -->
+        <button
+          v-if="allowImage"
+          class="editorBubbleBtn"
+          @click="addImage"
+        >
+          <span class="text-white align-middle material-icons">image</span>
+        </button>
+      </FloatingMenu>
+    </div>
+    <!-- 電腦版顯示 Image -->
+    <!-- <div
       v-if="allowImage"
       class="hidden absolute left-0 p-2 mt-2 bg-[#333] rounded-lg opacity-50 hover:opacity-100 transition-all translate-x-[-150%] md:block"
     >
-      <!-- Image -->
       <button
         class="p-1 bg-[#333] editorBubbleBtn"
         @click="addImage"
       >
         <span class="text-white align-middle material-icons">image</span>
       </button>
-    </div>
+    </div> -->
     <!-- 手機板顯示 -->
     <div
       v-if="allowImage"
@@ -153,7 +170,7 @@
 </template>
 
 <script>
-import { BubbleMenu, Editor, EditorContent } from '@tiptap/vue-3'
+import { BubbleMenu, FloatingMenu, Editor, EditorContent,  } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -174,6 +191,7 @@ export default {
   components: {
     EditorContent,
     BubbleMenu,
+    FloatingMenu,
     Menu,
     MenuButton,
     MenuItems,
