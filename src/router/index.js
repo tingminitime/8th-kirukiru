@@ -54,9 +54,7 @@ const routes = [
         },
         meta: { requiresAuth: false, navbar: true, recordPath: false },
         beforeEnter(to, from, next) {
-          console.log(store.getters.userSignInStatus)
           if (store.getters.userSignInStatus) {
-            console.log(store.state.userInfo.Username)
             next({ name: 'UserDetail', params: { userId: store.state.userInfo.Username } })
           } else {
             next()
