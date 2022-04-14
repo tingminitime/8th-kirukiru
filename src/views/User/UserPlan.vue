@@ -170,7 +170,7 @@ import {
   openMyPlan,
   changeMyPlanPrice,
   changeMyPlanInfo,
-  getAuthorSubscribeCount,
+  getAuthorHasSubscribedCount,
 } from '@api'
 
 export default {
@@ -312,10 +312,10 @@ export default {
     },
     // 取得訂閱人數
     getSubscribeCount() {
-      getAuthorSubscribeCount(this.userInfo.Username).then(res => {
+      getAuthorHasSubscribedCount(this.userInfo.Username).then(res => {
         console.log('取得我的訂閱人數: ', res)
         if (res.data.success) {
-          this.subscribeCount = res.data.orderNumber
+          this.subscribeCount = res.data.beOrderNumber
         } else {
           this.$notify({
             group: 'error',
