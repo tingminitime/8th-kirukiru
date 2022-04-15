@@ -44,7 +44,7 @@
         <div class="hidden before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown md:block"></div>
       </div>
     </div>
-    <div class="px-16 mb-16 text-myBrown">
+    <div class="px-4 mb-16 text-myBrown md:px-16">
       <p v-html="articleVm.final"></p>
     </div>
   </div>
@@ -54,7 +54,7 @@
     :missions="articleVm.fMissionList"
   ></KiruMission>
   <!-- 相關切切 -->
-  <div class="flex gap-12 justify-between mb-4">
+  <div class="flex gap-12 justify-center mb-4 md:justify-between">
     <div class="py-2">
       <h2 class="text-2xl font-bold text-myBrown">
         相關切切
@@ -64,7 +64,7 @@
   <div class="px-4 mb-32 md:px-0">
     <div
       v-if="relatedArticle.length !== 0"
-      class="grid grid-cols-1 grid-flow-row gap-6 md:grid-cols-2"
+      class="hidden grid-cols-1 grid-flow-row gap-6 md:grid md:grid-cols-2"
     >
       <KiruCard
         v-for="article in relatedArticle"
@@ -79,6 +79,14 @@
       <p class="text-center text-myBrown/60">
         沒有相關的切切
       </p>
+    </div>
+    <!-- 手機板 -->
+    <div v-if="relatedArticle.length !== 0">
+      <KiruCardSwiper
+        key="relative-kiru"
+        class="block md:hidden"
+        :kiru-info="relatedArticle"
+      ></KiruCardSwiper>
     </div>
   </div>
   <!-- 留言功能 -->
@@ -179,6 +187,7 @@ import KiruTools from '@/components/article/structure/KiruTools.vue'
 import KiruContent from '@/components/article/structure/KiruContent.vue'
 import KiruMission from '@/components/article/structure/KiruMission.vue'
 import KiruCard from '@/components/article/utils/KiruCard.vue'
+import KiruCardSwiper from '@/components/article/utils/KiruCardSwiper.vue'
 import KiruReply from '@/components/article/structure/KiruReply.vue'
 import SubscribeView from '@/components/article/utils/SubscribeView.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
@@ -203,6 +212,7 @@ export default {
     KiruContent,
     KiruMission,
     KiruCard,
+    KiruCardSwiper,
     KiruReply,
     SubscribeView,
     DynamicTextarea,

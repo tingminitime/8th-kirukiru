@@ -36,17 +36,17 @@
     <p v-html="articleVm.main"></p>
   </div>
   <!-- 相關文章 -->
-  <div class="flex gap-12 justify-between mb-4">
+  <div class="flex justify-center mb-4 md:justify-between">
     <div class="py-2">
       <h2 class="text-2xl font-bold text-myBrown">
         相關文章
       </h2>
     </div>
   </div>
-  <div class="px-4 mb-32 md:px-0">
+  <div class="mb-16 md:mb-32">
     <div
       v-if="relatedArticle.length !== 0"
-      class="grid grid-cols-2 grid-flow-row gap-6 md:grid-cols-3"
+      class="hidden grid-cols-2 grid-flow-row gap-6 md:grid md:grid-cols-3"
     >
       <CommonCard
         v-for="article in relatedArticle"
@@ -61,6 +61,14 @@
       <p class="text-center text-myBrown/60">
         沒有相關的文章
       </p>
+    </div>
+    <!-- 手機板 -->
+    <div v-if="relatedArticle.length !== 0">
+      <CommonCardSwiper
+        key="relative-common"
+        class="block md:hidden"
+        :common-info="relatedArticle"
+      ></CommonCardSwiper>
     </div>
   </div>
   <!-- 留言功能 -->
@@ -157,6 +165,7 @@ import KiruAuthor from '@/components/article/structure/KiruAuthor.vue'
 import KiruInfo from '@/components/article/structure/KiruInfo.vue'
 import KiruReply from '@/components/article/structure/KiruReply.vue'
 import CommonCard from '@/components/article/utils/CommonCard.vue'
+import CommonCardSwiper from '@/components/article/utils/CommonCardSwiper.vue'
 import SubscribeView from '@/components/article/utils/SubscribeView.vue'
 import DynamicTextarea from '@/components/utils/DynamicTextarea.vue'
 import {
@@ -178,6 +187,7 @@ export default {
     KiruAuthor,
     KiruInfo,
     CommonCard,
+    CommonCardSwiper,
     KiruReply,
     SubscribeView,
     DynamicTextarea,

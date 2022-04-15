@@ -19,7 +19,7 @@
         <KiruCard
           v-bind="article"
           :key="article.artId"
-          class="w-80 scale-95"
+          class="scale-95"
         ></KiruCard>
       </SwiperSlide>
     </Swiper>

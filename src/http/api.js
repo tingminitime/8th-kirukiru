@@ -353,6 +353,11 @@ export const getAuthorHasSubscribedCount = (username) =>{
   return http.get(`api/Member/GetBeOrder?memberUserName=${username}`)
 }
 
+// 取得作者收藏的文章數量
+export const getAuthorCollectionsCount = (username) =>{
+  return http.get(`api/Member/GetArticlenumber?memberUserName=${username}`)
+}
+
 // 取得作者發布的切切
 export const getAuthorPublishKiru = (params) =>{
   return http.get(`api/Member/GetMyArticles?${parseParams(params)}`)

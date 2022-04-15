@@ -8,7 +8,7 @@
       <div class="hidden before:absolute relative before:top-1/2 grow w-1/5 before:w-full before:h-px before:bg-myBrown md:block"></div>
     </div>
     <div class="py-8 px-12">
-      <ul class="grid grid-cols-2 grid-flow-row gap-4">
+      <ul class="grid grid-cols-1 grid-flow-row gap-4 md:grid-cols-2">
         <li
           v-for="mission in missions"
           :key="mission.fId"

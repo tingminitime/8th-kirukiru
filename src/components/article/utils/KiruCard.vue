@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="{ name: 'ArticleKiru', params: { articleId: artId } }"
-    class="group block overflow-hidden relative p-2 w-[396px] h-[212px] bg-myGray rounded-b-2xl border border-myBrown drop-shadow"
+    class="group block overflow-hidden relative p-2 w-[320px] h-[212px] bg-myGray rounded-b-2xl border border-myBrown drop-shadow md:w-[396px]"
   >
     <div class="flex flex-col">
       <div class="max-w-[248px] border border-myBrown">

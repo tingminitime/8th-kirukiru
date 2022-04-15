@@ -88,23 +88,21 @@
       </button>
     </BubbleMenu>
     <!-- 電腦版顯示 Image -->
-    <div>
-      <FloatingMenu
-        v-if="editor"
-        class="editorBubble"
-        :editor="editor"
-        :tippy-options="{ duration: 100, offset: [40, 10] }"
+    <FloatingMenu
+      v-if="editor && allowImage"
+      class="editorBubble"
+      :editor="editor"
+      :tippy-options="{ duration: 100, offset: [40, 10] }"
+    >
+      <!-- Image -->
+      <button
+        v-if="allowImage"
+        class="editorBubbleBtn"
+        @click="addImage"
       >
-        <!-- Image -->
-        <button
-          v-if="allowImage"
-          class="editorBubbleBtn"
-          @click="addImage"
-        >
-          <span class="text-white align-middle material-icons">image</span>
-        </button>
-      </FloatingMenu>
-    </div>
+        <span class="text-white align-middle material-icons">image</span>
+      </button>
+    </FloatingMenu>
     <!-- 電腦版顯示 Image -->
     <!-- <div
       v-if="allowImage"

@@ -30,13 +30,13 @@
               </span>
             </div>
             <div class="text-myBrown">
-              <span class="inline-block mr-2 w-20 text-sm align-super">關注人數</span>
+              <span class="inline-block mr-2 w-20 text-sm align-super">訂閱人數</span>
               <span class="text-2xl font-bold align-bottom">
                 {{ formatThousand(subscribeCount) }}
               </span>
             </div>
             <div class="text-myBrown">
-              <span class="inline-block mr-2 w-20 text-sm align-super">已關注</span>
+              <span class="inline-block mr-2 w-20 text-sm align-super">訂閱他人</span>
               <span class="text-2xl font-bold align-bottom">
                 {{ formatThousand(hasSubscribedCount) }}
               </span>
@@ -66,13 +66,13 @@
           </span>
         </div>
         <div class="flex flex-col py-2 px-6">
-          <span class="mb-1 text-myBrown border-b border-myBrown">關注人數</span>
+          <span class="mb-1 text-myBrown border-b border-myBrown">訂閱人數</span>
           <span class="text-3xl font-bold text-myBrown">
             {{ formatThousand(subscribeCount) }}
           </span>
         </div>
         <div class="flex flex-col py-2 px-6">
-          <span class="mb-1 text-myBrown border-b border-myBrown">已關注</span>
+          <span class="mb-1 text-myBrown border-b border-myBrown">訂閱他人</span>
           <span class="text-3xl font-bold text-myBrown">
             {{ formatThousand(hasSubscribedCount) }}
           </span>

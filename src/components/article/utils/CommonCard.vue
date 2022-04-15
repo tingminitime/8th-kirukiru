@@ -46,7 +46,7 @@
           :to="{ name: 'AuthorDetail', params: { authorId: username } }"
         >
           <p class="text-sm text-myBrown group-hover:text-myOrange line-clamp-1">
-            {{ author }}
+            {{ authorName }}
           </p>
           <div class="overflow-hidden w-8 h-8 rounded-full md:w-8 md:h-8">
             <img
@@ -94,7 +94,7 @@ export default {
       type: String,
       default: '',
     },
-    author: {
+    authorName: {
       type: String,
       default: '',
     },
