@@ -30,13 +30,13 @@
               </span>
             </div>
             <div class="text-myBrown">
-              <span class="inline-block mr-2 w-20 text-sm align-super">訂閱人數</span>
+              <span class="inline-block mr-2 w-20 text-sm align-super">收藏文章</span>
               <span class="text-2xl font-bold align-bottom">
-                {{ formatThousand(subscribeCount) }}
+                {{ formatThousand(collectionsCount) }}
               </span>
             </div>
             <div class="text-myBrown">
-              <span class="inline-block mr-2 w-20 text-sm align-super">訂閱他人</span>
+              <span class="inline-block mr-2 w-20 text-sm align-super">訂閱者人數</span>
               <span class="text-2xl font-bold align-bottom">
                 {{ formatThousand(hasSubscribedCount) }}
               </span>
@@ -66,13 +66,13 @@
           </span>
         </div>
         <div class="flex flex-col py-2 px-6">
-          <span class="mb-1 text-myBrown border-b border-myBrown">訂閱人數</span>
+          <span class="mb-1 text-myBrown border-b border-myBrown">收藏文章</span>
           <span class="text-3xl font-bold text-myBrown">
-            {{ formatThousand(subscribeCount) }}
+            {{ formatThousand(collectionsCount) }}
           </span>
         </div>
         <div class="flex flex-col py-2 px-6">
-          <span class="mb-1 text-myBrown border-b border-myBrown">訂閱他人</span>
+          <span class="mb-1 text-myBrown border-b border-myBrown">訂閱者人數</span>
           <span class="text-3xl font-bold text-myBrown">
             {{ formatThousand(hasSubscribedCount) }}
           </span>
@@ -144,7 +144,7 @@
 import {
   getAuthorInfo,
   getAuthorArticleCount,
-  getAuthorSubscribeCount,
+  getAuthorCollectionsCount,
   getAuthorHasSubscribedCount,
   getAuthorPlan,
 } from '@api'
@@ -170,7 +170,7 @@ export default {
     return {
       authorInfo: {},
       publishArticleCount: 0,
-      subscribeCount: 0,
+      collectionsCount: 0,
       hasSubscribedCount: 0,
       checkSubResult: null,
       checkAccountResult: null,
@@ -220,7 +220,7 @@ export default {
       Promise.all([
         getAuthorInfo(authorId),
         getAuthorArticleCount(authorId),
-        getAuthorSubscribeCount(authorId),
+        getAuthorCollectionsCount(authorId),
         getAuthorHasSubscribedCount(authorId),
       ]).then(res => {
         this.$store.commit('HIDE_OVERLAY_LOADING')
@@ -228,7 +228,7 @@ export default {
         const filterRes = res.map(data => data.data)
         this.authorInfo = filterRes[0].data
         this.publishArticleCount = filterRes[1].artcount ?? '-'
-        this.subscribeCount = filterRes[2].orderNumber ?? '-'
+        this.collectionsCount = filterRes[2].articlecount ?? '-'
         this.hasSubscribedCount = filterRes[3].beOrderNumber ?? '-'
       }).catch(error => console.error(error))
     },

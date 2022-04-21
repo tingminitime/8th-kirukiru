@@ -348,7 +348,7 @@ export const getAuthorSubscribeCount = (username) =>{
   return http.get(`api/Member/GetOrderNumber?memberUserName=${username}`)
 }
 
-// 取得作者發布的文章數量
+// 取得作者被訂閱數量
 export const getAuthorHasSubscribedCount = (username) =>{
   return http.get(`api/Member/GetBeOrder?memberUserName=${username}`)
 }
